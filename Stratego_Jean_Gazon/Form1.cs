@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Stratego_Jean_Gazon
 {
-    public partial class Form1 : Form
+    public partial class FMenu : Form
     {
-        public Form1()
+        public FMenu()
         {
             InitializeComponent();
         }
