@@ -35,42 +35,55 @@
             // 
             // bjouer
             // 
-            this.bjouer.Location = new System.Drawing.Point(333, 370);
+            this.bjouer.BackColor = System.Drawing.Color.LightSalmon;
+            this.bjouer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bjouer.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bjouer.Location = new System.Drawing.Point(257, 555);
             this.bjouer.Name = "bjouer";
-            this.bjouer.Size = new System.Drawing.Size(136, 37);
+            this.bjouer.Size = new System.Drawing.Size(140, 47);
             this.bjouer.TabIndex = 0;
             this.bjouer.Text = "Jouer";
-            this.bjouer.UseVisualStyleBackColor = true;
+            this.bjouer.UseVisualStyleBackColor = false;
             // 
             // bquitter
             // 
-            this.bquitter.Location = new System.Drawing.Point(611, 370);
+            this.bquitter.BackColor = System.Drawing.Color.LightSalmon;
+            this.bquitter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bquitter.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bquitter.ForeColor = System.Drawing.Color.Black;
+            this.bquitter.Location = new System.Drawing.Point(470, 555);
             this.bquitter.Name = "bquitter";
-            this.bquitter.Size = new System.Drawing.Size(136, 37);
+            this.bquitter.Size = new System.Drawing.Size(140, 47);
             this.bquitter.TabIndex = 1;
             this.bquitter.Text = "quitter";
-            this.bquitter.UseVisualStyleBackColor = true;
+            this.bquitter.UseVisualStyleBackColor = false;
             this.bquitter.Click += new System.EventHandler(this.bquitter_Click);
             // 
             // bregle
             // 
-            this.bregle.Location = new System.Drawing.Point(30, 370);
+            this.bregle.BackColor = System.Drawing.Color.LightSalmon;
+            this.bregle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bregle.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bregle.Location = new System.Drawing.Point(52, 555);
             this.bregle.Name = "bregle";
-            this.bregle.Size = new System.Drawing.Size(136, 37);
+            this.bregle.Size = new System.Drawing.Size(140, 47);
             this.bregle.TabIndex = 2;
             this.bregle.Text = "Règle du jeu  ";
-            this.bregle.UseVisualStyleBackColor = true;
+            this.bregle.UseVisualStyleBackColor = false;
             this.bregle.Click += new System.EventHandler(this.bregle_Click);
             // 
             // FMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackgroundImage = global::Stratego_Jean_Gazon.Properties.Resources.image__1_;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ClientSize = new System.Drawing.Size(668, 667);
             this.Controls.Add(this.bregle);
             this.Controls.Add(this.bquitter);
             this.Controls.Add(this.bjouer);
-            this.MaximumSize = new System.Drawing.Size(818, 497);
+            this.MaximumSize = new System.Drawing.Size(686, 714);
+            this.MinimumSize = new System.Drawing.Size(686, 714);
             this.Name = "FMenu";
             this.Text = "Menu";
             this.ResumeLayout(false);
