@@ -35,7 +35,7 @@
             // 
             // bjouer
             // 
-            this.bjouer.Location = new System.Drawing.Point(322, 241);
+            this.bjouer.Location = new System.Drawing.Point(333, 370);
             this.bjouer.Name = "bjouer";
             this.bjouer.Size = new System.Drawing.Size(136, 37);
             this.bjouer.TabIndex = 0;
@@ -44,21 +44,23 @@
             // 
             // bquitter
             // 
-            this.bquitter.Location = new System.Drawing.Point(322, 296);
+            this.bquitter.Location = new System.Drawing.Point(611, 370);
             this.bquitter.Name = "bquitter";
             this.bquitter.Size = new System.Drawing.Size(136, 37);
             this.bquitter.TabIndex = 1;
             this.bquitter.Text = "quitter";
             this.bquitter.UseVisualStyleBackColor = true;
+            this.bquitter.Click += new System.EventHandler(this.bquitter_Click);
             // 
             // bregle
             // 
-            this.bregle.Location = new System.Drawing.Point(322, 198);
+            this.bregle.Location = new System.Drawing.Point(30, 370);
             this.bregle.Name = "bregle";
             this.bregle.Size = new System.Drawing.Size(136, 37);
             this.bregle.TabIndex = 2;
             this.bregle.Text = "Règle du jeu  ";
             this.bregle.UseVisualStyleBackColor = true;
+            this.bregle.Click += new System.EventHandler(this.bregle_Click);
             // 
             // FMenu
             // 
@@ -68,6 +70,7 @@
             this.Controls.Add(this.bregle);
             this.Controls.Add(this.bquitter);
             this.Controls.Add(this.bjouer);
+            this.MaximumSize = new System.Drawing.Size(818, 497);
             this.Name = "FMenu";
             this.Text = "Menu";
             this.ResumeLayout(false);

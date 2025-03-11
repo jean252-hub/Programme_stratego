@@ -1,0 +1,11 @@
+C:\Users\jeang\Documents\bac2\q2\Programmation_Ev\Stratego\Programme_stratego\Stratego_Jean_Gazon\bin\Debug\Stratego_Jean_Gazon.exe.config
+C:\Users\jeang\Documents\bac2\q2\Programmation_Ev\Stratego\Programme_stratego\Stratego_Jean_Gazon\bin\Debug\Stratego_Jean_Gazon.exe
+C:\Users\jeang\Documents\bac2\q2\Programmation_Ev\Stratego\Programme_stratego\Stratego_Jean_Gazon\bin\Debug\Stratego_Jean_Gazon.pdb
+C:\Users\jeang\Documents\bac2\q2\Programmation_Ev\Stratego\Programme_stratego\Stratego_Jean_Gazon\obj\Debug\Stratego_Jean_Gazon.csproj.AssemblyReference.cache
+C:\Users\jeang\Documents\bac2\q2\Programmation_Ev\Stratego\Programme_stratego\Stratego_Jean_Gazon\obj\Debug\Stratego_Jean_Gazon.FMenu.resources
+C:\Users\jeang\Documents\bac2\q2\Programmation_Ev\Stratego\Programme_stratego\Stratego_Jean_Gazon\obj\Debug\Stratego_Jean_Gazon.FicRegles.resources
+C:\Users\jeang\Documents\bac2\q2\Programmation_Ev\Stratego\Programme_stratego\Stratego_Jean_Gazon\obj\Debug\Stratego_Jean_Gazon.Properties.Resources.resources
+C:\Users\jeang\Documents\bac2\q2\Programmation_Ev\Stratego\Programme_stratego\Stratego_Jean_Gazon\obj\Debug\Stratego_Jean_Gazon.csproj.GenerateResource.cache
+C:\Users\jeang\Documents\bac2\q2\Programmation_Ev\Stratego\Programme_stratego\Stratego_Jean_Gazon\obj\Debug\Stratego_Jean_Gazon.csproj.CoreCompileInputs.cache
+C:\Users\jeang\Documents\bac2\q2\Programmation_Ev\Stratego\Programme_stratego\Stratego_Jean_Gazon\obj\Debug\Stratego_Jean_Gazon.exe
+C:\Users\jeang\Documents\bac2\q2\Programmation_Ev\Stratego\Programme_stratego\Stratego_Jean_Gazon\obj\Debug\Stratego_Jean_Gazon.pdb
