@@ -63,9 +63,40 @@ namespace Stratego_Jean_Gazon.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _17674983_etang_dans_la_nature_dans_un_style_plat_de_dessin_anime_petit_lac_de_foret_dans_le_paysage_de_montagne_vectoriel {
+            get {
+                object obj = ResourceManager.GetObject("17674983-etang-dans-la-nature-dans-un-style-plat-de-dessin-anime-petit-lac-de-for" +
+                        "et-dans-le-paysage-de-montagne-vectoriel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Grille_statego {
+            get {
+                object obj = ResourceManager.GetObject("Grille_statego", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap image__1_ {
             get {
                 object obj = ResourceManager.GetObject("image (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap images__2_ {
+            get {
+                object obj = ResourceManager.GetObject("images (2)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

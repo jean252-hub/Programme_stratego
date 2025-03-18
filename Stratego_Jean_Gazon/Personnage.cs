@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Stratego_Jean_Gazon
 {
-    internal class Personnage
-    {
+    
         public abstract class personnage_base
         {
             public String Grade { get; set; }
@@ -85,5 +84,5 @@ namespace Stratego_Jean_Gazon
         {
             public Marechal(bool couleur) : base("Maréchal", 10, couleur, true) { }
         }
-    }
+    
 }

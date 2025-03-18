@@ -14,6 +14,7 @@ namespace Stratego_Jean_Gazon
     {
         private Timer timerClignotement;
         private bool couleurAlternee = true;
+        
         public FMenu()
         {
             InitializeComponent();
@@ -49,6 +50,14 @@ namespace Stratego_Jean_Gazon
             }
             couleurAlternee = !couleurAlternee; // Alterner la couleur à chaque tick
         }
+
+        private void bjouer_Click(object sender, EventArgs e)
+        {
+            FicJeu MainPage = new FicJeu();
+            MainPage.Show();
+            
+        }
+       
     }
 
 }

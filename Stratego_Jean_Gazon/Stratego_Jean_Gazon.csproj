@@ -46,11 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FicDemarage.cs">
+    <Compile Include="FicDemarrage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FicDemarage.Designer.cs">
-      <DependentUpon>FicDemarage.cs</DependentUpon>
+    <Compile Include="FicDemarrage.Designer.cs">
+      <DependentUpon>FicDemarrage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FicJeu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FicJeu.Designer.cs">
+      <DependentUpon>FicJeu.cs</DependentUpon>
     </Compile>
     <Compile Include="FicRegles.cs">
       <SubType>Form</SubType>
@@ -58,11 +64,15 @@
     <Compile Include="FicRegles.Designer.cs">
       <DependentUpon>FicRegles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Grille_GameEngine.cs" />
     <Compile Include="Personnage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FicDemarage.resx">
-      <DependentUpon>FicDemarage.cs</DependentUpon>
+    <EmbeddedResource Include="FicDemarrage.resx">
+      <DependentUpon>FicDemarrage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FicJeu.resx">
+      <DependentUpon>FicJeu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FicRegles.resx">
       <DependentUpon>FicRegles.cs</DependentUpon>
@@ -92,6 +102,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\image %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grille_statego.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\17674983-etang-dans-la-nature-dans-un-style-plat-de-dessin-anime-petit-lac-de-foret-dans-le-paysage-de-montagne-vectoriel.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images %282%29.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -44,6 +44,7 @@
             this.bjouer.TabIndex = 0;
             this.bjouer.Text = "Jouer";
             this.bjouer.UseVisualStyleBackColor = false;
+            this.bjouer.Click += new System.EventHandler(this.bjouer_Click);
             // 
             // bquitter
             // 
@@ -51,7 +52,7 @@
             this.bquitter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bquitter.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bquitter.ForeColor = System.Drawing.Color.Black;
-            this.bquitter.Location = new System.Drawing.Point(470, 555);
+            this.bquitter.Location = new System.Drawing.Point(475, 555);
             this.bquitter.Name = "bquitter";
             this.bquitter.Size = new System.Drawing.Size(140, 47);
             this.bquitter.TabIndex = 1;
