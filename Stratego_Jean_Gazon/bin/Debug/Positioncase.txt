@@ -1,22 +1,8 @@
-ligne1 colonne 1030 282
-ligne2 colonne 1070 281
-ligne3 colonne 10142 283
-ligne4 colonne 10180 283
-ligne1 colonne 9 
-33 249
-ligne2 colonne 9 
-95 246
-ligne3 colonne 9 
-138 252
-ligne4 colonne 9 
-181 255
-ligne5 colonne 9 
-230 259
-ligne5 colonne 10 
-242 289
-ligne3 colonne 10 
-140 284
-ligne2 colonne 10 
-81 286
-ligne1 colonne 10 
-26 282
+Nouveau log démarré...
+Timestamp: 19-03-25 11:52:29
+position centre case haut 17 7
+position centre case  17 214
+ largeur 53
+hauteur30
+ largeur 53
+hauteur30
