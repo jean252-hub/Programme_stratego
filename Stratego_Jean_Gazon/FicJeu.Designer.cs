@@ -46,7 +46,7 @@
             this.PnlGrilleGame.Controls.Add(this.ptLac1);
             this.PnlGrilleGame.Location = new System.Drawing.Point(116, 62);
             this.PnlGrilleGame.Name = "PnlGrilleGame";
-            this.PnlGrilleGame.Size = new System.Drawing.Size(717, 371);
+            this.PnlGrilleGame.Size = new System.Drawing.Size(711, 371);
             this.PnlGrilleGame.TabIndex = 0;
             this.PnlGrilleGame.SizeChanged += new System.EventHandler(this.PnlGrilleGame_SizeChanged);
             this.PnlGrilleGame.Paint += new System.Windows.Forms.PaintEventHandler(this.PnlGrilleGame_Paint);
@@ -61,7 +61,7 @@
             this.ptLac2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ptLac2.Location = new System.Drawing.Point(466, 164);
             this.ptLac2.Name = "ptLac2";
-            this.ptLac2.Size = new System.Drawing.Size(116, 72);
+            this.ptLac2.Size = new System.Drawing.Size(110, 72);
             this.ptLac2.TabIndex = 1;
             this.ptLac2.TabStop = false;
             // 

@@ -9,13 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using static System.Windows.Forms.AxHost;
 
 namespace Stratego_Jean_Gazon
 {
     public partial class FicJeu : Form
     {
-        int[] PositionPnlClicG = new int [2] ;
-        int[] positioncase = new int [2] ;
+        int[] PositionPnlClicG = new int[2];
+        int[] positioncase = new int[2];
         private void Debug_config()
         {
             string logFilePath = "Positioncase.txt";
@@ -33,13 +34,13 @@ namespace Stratego_Jean_Gazon
             Debug.WriteLine($"Timestamp: {DateTime.Now}");
 
         }
-        
+
         private const string WINFORM_EVENTS = "WinForm Events";
         public FicJeu()
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
-            
+
         }
 
         private void PnlGrilleGame_Paint(object sender, PaintEventArgs e)
@@ -47,9 +48,6 @@ namespace Stratego_Jean_Gazon
             // Calculer la taille des cases
             int largeurCase = PnlGrilleGame.Width / 10;  // 10 cases en largeur
             int hauteurCase = PnlGrilleGame.Height / 10; // 10 cases en hauteur
-            Debug.WriteLine(" largeur " + largeurCase);
-            Debug.WriteLine("hauteur" + hauteurCase);
-
             // Dessiner les lignes horizontales
             for (int i = 1; i < 10; i++) // Nous commençons à 1 car la première ligne est au-dessus de 0
             {
@@ -61,15 +59,15 @@ namespace Stratego_Jean_Gazon
             {
                 e.Graphics.DrawLine(Pens.Black, j * largeurCase, 0, j * largeurCase, PnlGrilleGame.Height);
             }
-            Place_ptlac(2,4,largeurCase, hauteurCase,ptLac1);
+            Place_ptlac(2, 4, largeurCase, hauteurCase, ptLac1);
             Place_ptlac(6, 4, largeurCase, hauteurCase, ptLac2);
-            
+
         }
-        
 
-       
 
-        private void Place_ptlac(int positionx, int positiony,int largeurcase,int hauteurcase,PictureBox picturebox)
+
+
+        private void Place_ptlac(int positionx, int positiony, int largeurcase, int hauteurcase, PictureBox picturebox)
         {
             int x = positionx * largeurcase; // Position X pour les colonnes 5 et 6
             int y = positiony * hauteurcase; // Position Y pour les lignes 3 et 4
@@ -82,112 +80,159 @@ namespace Stratego_Jean_Gazon
         private void PnlGrilleGame_SizeChanged(object sender, EventArgs e)
         {
             this.UpdateStyles();
+            Variable_Resize();
+
             
-           
+
         }
 
         private void PnlGrilleGame_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) 
+            if (e.Button == MouseButtons.Left)
             {
                 PositionPnlClicG[0] = e.X / (PnlGrilleGame.Width / 10) + 1;
                 PositionPnlClicG[1] = e.Y / (PnlGrilleGame.Height / 10) + 1;
-
-                
-                Debug.Write("ligne" + PositionPnlClicG[0] + " colonne " + PositionPnlClicG[1]+" \n");
-
-                Debug.WriteLine(e.X.ToString() + " " + e.Y.ToString());
-
-
-
+                     
             }
         }
 
         private void CreateStrategoPictureBoxes(int startX, int startY, bool isBlue)
         {
-            string equipe = "rouge";
-            if (isBlue) { equipe = "bleu"; }
-
-            // Liste des personnages avec leur nombre d'occurrences
+            string equipe = isBlue ? "bleu" : "rouge";
             var personnages = new (string nom, int count)[]
             {
-        ("Maréchal", 1),
-        ("Général", 1),
-        ("Colonel", 1),
-        ("Commandant", 1),
-        ("Capitaine", 1),
-        ("Lieutenant", 2),
-        ("Sergent", 3),
-        ("Démineur", 6),
-        ("Adjudant", 2),
-        ("Éclaireur", 4),
-        ("Espion", 1),
-        ("Bombe", 6),
+        ("Maréchal", 1), ("Général", 1), ("Colonel", 1),
+        ("Commandant", 1), ("Capitaine", 1), ("Lieutenant", 2),
+        ("Sergent", 3), ("Démineur", 6), ("Adjudant", 2),
+        ("Éclaireur", 4), ("Espion", 1), ("Bombe", 6),
         ("Drapeau", 1)
             };
 
-            // Position initiale pour les PictureBox
+            int largeurCase = PnlGrilleGame.Width / 10;
+            int hauteurCase = PnlGrilleGame.Height / 10;
+            int taillePictureBoxX = (int)(largeurCase * 0.8);
+            int taillePictureBoxY = (int)(hauteurCase * 0.8);
+            Color equipeColor = isBlue ? Color.LightBlue : Color.LightCoral;
+
             int xPosition = startX;
             int yPosition = startY;
 
-            // Définition de la couleur en fonction de l'équipe
-            Color equipeColor = (equipe == "bleu") ? Color.LightBlue : Color.LightCoral;
-
-            // Boucle pour créer les PictureBox pour chaque personnage
             foreach (var (nom, count) in personnages)
             {
                 for (int i = 0; i < count; i++)
                 {
-                    // Création d'une nouvelle PictureBox
-                    PictureBox pictureBox = new PictureBox();
+                    PictureBox pictureBox = new PictureBox
+                    {
+                        Name = $"{nom}_{equipe}{i + 1}",
+                        Size = new Size(taillePictureBoxX, taillePictureBoxY),
+                        BackColor = equipeColor
+                    };
 
-                    // Nom unique pour chaque PictureBox
-                    pictureBox.Name = $"{nom}_{equipe}{i + 1}";
+                    // Centrer la PictureBox dans la case
+                    pictureBox.Location = new Point(
+                        xPosition - (taillePictureBoxX / 2),
+                        yPosition - (taillePictureBoxY / 2)
+                    );
+                    pictureBox.Tag = isBlue;
 
-                    
-                    pictureBox.Size = new Size(40, 40); // Taille réduite pour mieux s'afficher
-                    pictureBox.BackColor = equipeColor; // Couleur selon l'équipe
-                    pictureBox.BringToFront(); // Mettre en avant-plan
-
-                    // Calculer la position (en fonction de la grille)
-                    pictureBox.Location = new Point(xPosition, yPosition);
-
-                    // Ajout de la PictureBox au Panel
                     PnlGrilleGame.Controls.Add(pictureBox);
 
-                    // Mise à jour de la position (on déplace chaque PictureBox sur l'axe X)
-                    xPosition += PnlGrilleGame.Width / 10;
-
-                    // Si la position dépasse la largeur du Panel, passer à la ligne suivante
-                    if (xPosition > PnlGrilleGame.Width )
+                    xPosition += largeurCase;
+                    if (xPosition >= PnlGrilleGame.Width)
                     {
-                        xPosition = startX; // Réinitialise la position X
-                        yPosition += PnlGrilleGame.Height/10;    // Descend à la ligne suivante
+                        xPosition = startX;
+                        yPosition += hauteurCase;
                     }
                 }
             }
         }
 
 
+
         private void FicJeu_Load(object sender, EventArgs e)
         {
             Debug_config();
             Piece_Init();
-            
-            
+
+
         }
-        private void Piece_Init() 
+        private void Piece_Init()
         {
-            int[] Case1BasG = new int[2];
-            int[] Case1hautG = new int[2];
-            Case1hautG[0] =  PnlGrilleGame.Width / 30;// avoir le millieu de  la case
-            Case1hautG[1] = PnlGrilleGame.Height / 40;
-            Case1BasG[0] = PnlGrilleGame.Width/30;// pour placer le coin de la picture box dans la case
-            Case1BasG[1]=(57 *PnlGrilleGame.Height/80); //commencment au vers le coin supérieur gauche  de la case 7 
-            Debug.WriteLine("position centre case haut " + Case1hautG[0] + " " + Case1hautG[1]);
-            Debug.WriteLine("position centre case  " +Case1BasG[0] + " " + Case1BasG[1]);
-            CreateStrategoPictureBoxes(Case1BasG[0], Case1BasG[1], true);
-            CreateStrategoPictureBoxes(Case1hautG[0], Case1hautG[1], false);
+            int largeurCase = PnlGrilleGame.Width / 10;
+            int hauteurCase = PnlGrilleGame.Height / 10;
+
+            // Calcul du point de départ pour la première pièce (équipe bleue)
+            int Case1BasG_X = (largeurCase * 0) + (largeurCase / 2);
+            int Case1BasG_Y = (hauteurCase * 7) + (hauteurCase / 2);
+
+            // Calcul du point de départ pour la deuxième pièce (équipe rouge)
+            int Case1hautG_X = (largeurCase * 0) + (largeurCase / 2);
+            int Case1hautG_Y = (hauteurCase * 0) + (hauteurCase / 2);
+            CreateStrategoPictureBoxes(Case1BasG_X, Case1BasG_Y, true);
+            CreateStrategoPictureBoxes(Case1hautG_X, Case1hautG_Y, false);
         }
+
+        private void Variable_Resize()
+        {
+            int largeurCase = PnlGrilleGame.Width / 10;
+            int hauteurCase = PnlGrilleGame.Height / 10;
+
+            int taillePictureBoxX = (int)(largeurCase * 0.8);
+            int taillePictureBoxY = (int)(hauteurCase * 0.8);
+
+            int Case1BasG_X = (largeurCase * 0) + (largeurCase / 2);
+            int Case1BasG_Y = (hauteurCase * 7) + (hauteurCase / 2);
+
+            int Case1hautG_X = (largeurCase * 0) + (largeurCase / 2);
+            int Case1hautG_Y = (hauteurCase * 0) + (hauteurCase / 2);
+            Resizepiece(Case1BasG_X, Case1BasG_Y, largeurCase, hauteurCase, taillePictureBoxX, taillePictureBoxY,true);
+
+            Resizepiece(Case1hautG_X, Case1hautG_Y, largeurCase, hauteurCase, taillePictureBoxX, taillePictureBoxY,false);
+           
+        }
+
+        private void Resizepiece(int LocationX, int LocationY, int largeurCase, int hauteurCase, int taillePictureBoxX, int taillePictureBoxY, bool isBlueTeam)
+        {
+            int PositionX = LocationX;
+            int PositionY = LocationY;
+
+            int compteur = 0;
+
+            foreach (Control PictureBox_piece in PnlGrilleGame.Controls)
+            {
+                Debug.WriteLine("foreach");
+                if (PictureBox_piece is PictureBox pb && pb.Tag is bool pieceBlue && pieceBlue == isBlueTeam) // Filtrer selon la couleur
+                {
+                    compteur++;
+                    Debug.WriteLine("boll" + isBlueTeam);
+                    Debug.WriteLine($"Piece {compteur} - Position ({PositionX}, {PositionY})");
+
+
+                    // Définir la taille correcte
+                    pb.Size = new Size(taillePictureBoxX, taillePictureBoxY);
+
+                    // Centrer la PictureBox dans la case
+                    pb.Location = new Point(
+                        PositionX - (taillePictureBoxX / 2),
+                        PositionY - (taillePictureBoxY / 2)
+                    );
+
+                    // Déplacer vers la case suivante
+                    PositionX += largeurCase;
+
+                    // Si on dépasse la largeur du panel, passer à la ligne suivante
+                    if (PositionX >= PnlGrilleGame.Width)
+                    {
+                        PositionX = LocationX;
+                        PositionY += hauteurCase;
+                    }
+                }
+            }
+        }
+
+
+
+
+
     }
 }

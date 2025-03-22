@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 360,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -80,19 +80,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FicJeu.cs",
-              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\bac2\\q2\\Programmation_Ev\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.cs",
-              "RelativeDocumentMoniker": "FicJeu.cs",
-              "ToolTip": "C:\\Users\\jeang\\Documents\\bac2\\q2\\Programmation_Ev\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.cs",
-              "RelativeToolTip": "FicJeu.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAswJIAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-17T10:33:26.599Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "FicJeu.cs [Design]",
               "DocumentMoniker": "C:\\Users\\jeang\\Documents\\bac2\\q2\\Programmation_Ev\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.cs",
@@ -100,7 +87,21 @@
               "ToolTip": "C:\\Users\\jeang\\Documents\\bac2\\q2\\Programmation_Ev\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.cs [Design]",
               "RelativeToolTip": "FicJeu.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-17T10:06:36.114Z"
+              "WhenOpened": "2025-03-17T10:06:36.114Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FicJeu.cs",
+              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\bac2\\q2\\Programmation_Ev\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.cs",
+              "RelativeDocumentMoniker": "FicJeu.cs",
+              "ToolTip": "C:\\Users\\jeang\\Documents\\bac2\\q2\\Programmation_Ev\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.cs",
+              "RelativeToolTip": "FicJeu.cs",
+              "ViewState": "AgIAALUAAAAAAAAAAAAkwOcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-17T10:33:26.599Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -161,14 +162,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             },
             {
               "$type": "Bookmark",
