@@ -31,6 +31,10 @@
             this.bjouer = new System.Windows.Forms.Button();
             this.bquitter = new System.Windows.Forms.Button();
             this.bregle = new System.Windows.Forms.Button();
+            this.FicDemarageTitle = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.FicDemarageTitle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // bjouer
@@ -73,20 +77,46 @@
             this.bregle.UseVisualStyleBackColor = false;
             this.bregle.Click += new System.EventHandler(this.bregle_Click);
             // 
+            // FicDemarageTitle
+            // 
+            this.FicDemarageTitle.BackColor = System.Drawing.Color.Maroon;
+            this.FicDemarageTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.FicDemarageTitle.Image = global::Stratego_Jean_Gazon.Properties.Resources.titlestratego;
+            this.FicDemarageTitle.Location = new System.Drawing.Point(52, 12);
+            this.FicDemarageTitle.Name = "FicDemarageTitle";
+            this.FicDemarageTitle.Size = new System.Drawing.Size(581, 149);
+            this.FicDemarageTitle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.FicDemarageTitle.TabIndex = 3;
+            this.FicDemarageTitle.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::Stratego_Jean_Gazon.Properties.Resources.image__1_;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(-60, -56);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(792, 831);
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
             // FMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::Stratego_Jean_Gazon.Properties.Resources.image__1_;
+            this.BackColor = System.Drawing.Color.IndianRed;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(668, 667);
             this.Controls.Add(this.bregle);
             this.Controls.Add(this.bquitter);
             this.Controls.Add(this.bjouer);
+            this.Controls.Add(this.FicDemarageTitle);
+            this.Controls.Add(this.pictureBox1);
             this.MaximumSize = new System.Drawing.Size(686, 714);
             this.MinimumSize = new System.Drawing.Size(686, 714);
             this.Name = "FMenu";
             this.Text = "Menu";
+            ((System.ComponentModel.ISupportInitialize)(this.FicDemarageTitle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -96,6 +126,8 @@
         private System.Windows.Forms.Button bjouer;
         private System.Windows.Forms.Button bquitter;
         private System.Windows.Forms.Button bregle;
+        private System.Windows.Forms.PictureBox FicDemarageTitle;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

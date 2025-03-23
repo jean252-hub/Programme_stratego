@@ -15,6 +15,7 @@ namespace Stratego_Jean_Gazon
 {
     public partial class FicJeu : Form
     {
+        private MenuESC menuEsc;
         int[] PositionPnlClicG = new int[2];
         int[] positioncase = new int[2];
         private void Debug_config()
@@ -40,7 +41,9 @@ namespace Stratego_Jean_Gazon
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
-
+            menuEsc = new MenuESC(this, pnlMenuPause, PnlGrilleGame, btnReprendre, btnJeuQuitter,pnlPausebtnrecommencer);
+            pnlMenuPause.Parent = this;
+            CenterPanel();
         }
 
         private void PnlGrilleGame_Paint(object sender, PaintEventArgs e)
@@ -64,6 +67,11 @@ namespace Stratego_Jean_Gazon
 
         }
 
+        private void CenterPanel()
+        {
+            pnlMenuPause.Left = (this.ClientSize.Width - pnlMenuPause.Width) / 2;
+            pnlMenuPause.Top = (this.ClientSize.Height - pnlMenuPause.Height) / 2;
+        }
 
 
 
@@ -81,6 +89,7 @@ namespace Stratego_Jean_Gazon
         {
             this.UpdateStyles();
             Variable_Resize();
+            CenterPanel();
 
             
 
@@ -146,9 +155,6 @@ namespace Stratego_Jean_Gazon
                 }
             }
         }
-
-
-
         private void FicJeu_Load(object sender, EventArgs e)
         {
             Debug_config();
@@ -200,12 +206,11 @@ namespace Stratego_Jean_Gazon
 
             foreach (Control PictureBox_piece in PnlGrilleGame.Controls)
             {
-                Debug.WriteLine("foreach");
                 if (PictureBox_piece is PictureBox pb && pb.Tag is bool pieceBlue && pieceBlue == isBlueTeam) // Filtrer selon la couleur
                 {
                     compteur++;
-                    Debug.WriteLine("boll" + isBlueTeam);
-                    Debug.WriteLine($"Piece {compteur} - Position ({PositionX}, {PositionY})");
+                    ;
+                    
 
 
                     // Définir la taille correcte
@@ -229,10 +234,6 @@ namespace Stratego_Jean_Gazon
                 }
             }
         }
-
-
-
-
-
+        // Gestionnaire d'événements pour le bouton "Reprendre"
     }
 }

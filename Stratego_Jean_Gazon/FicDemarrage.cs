@@ -23,7 +23,7 @@ namespace Stratego_Jean_Gazon
 
         private void bquitter_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private void bregle_Click(object sender, EventArgs e)
@@ -55,6 +55,7 @@ namespace Stratego_Jean_Gazon
         {
             FicJeu MainPage = new FicJeu();
             MainPage.Show();
+           
             
         }
        

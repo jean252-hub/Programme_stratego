@@ -65,6 +65,7 @@
       <DependentUpon>FicRegles.cs</DependentUpon>
     </Compile>
     <Compile Include="Grille_GameEngine.cs" />
+    <Compile Include="MenuESC.cs" />
     <Compile Include="Personnage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,6 +112,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\images %282%29.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\titlestratego.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\image_etang1Stratego.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\image_etang2Stratego.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
