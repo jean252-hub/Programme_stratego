@@ -17,10 +17,11 @@ namespace Stratego_Jean_Gazon
         private Button btnReprendre;
         private Button btnQuitter;
         private Button btnRecommencer;
+        private Button btnValider;
 
 
         // Constructeur qui prend le Form et le Panel
-        public MenuESC(Form form, Panel panel,Panel Jeu_Enable,Button Reprendre, Button Quitter, Button Recommencer)
+        public MenuESC(Form form, Panel panel,Panel Jeu_Enable,Button Reprendre, Button Quitter, Button Recommencer , Button Valider)
         {
             parentForm = form;
             pnlMenuPause = panel;
@@ -28,6 +29,7 @@ namespace Stratego_Jean_Gazon
             btnReprendre = Reprendre;
             btnQuitter = Quitter;
             btnRecommencer = Recommencer;
+            btnValider = Valider;
 
             pnlMenuPause.Visible = false; // Caché par défaut
             btnReprendre.Click += BtnReprendre_Click;
@@ -52,6 +54,7 @@ namespace Stratego_Jean_Gazon
             pnlMenuPause.BringToFront();
             
             pnlGrilleGame.Enabled= !pnlGrilleGame.Enabled;
+            btnValider.Enabled= !btnValider.Enabled;
           
         }
         private void BtnReprendre_Click(object sender, EventArgs e)
@@ -59,6 +62,7 @@ namespace Stratego_Jean_Gazon
             // Logique pour reprendre le jeu
             pnlMenuPause.Visible = false;  // Cache le menu
             pnlGrilleGame.Enabled = true;  // Active le jeu
+            btnValider.Enabled = true;
         }
 
         // Gestionnaire d'événements pour le bouton "Quitter"

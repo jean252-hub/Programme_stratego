@@ -36,6 +36,7 @@
             this.lbPause = new System.Windows.Forms.Label();
             this.ptLac1 = new System.Windows.Forms.PictureBox();
             this.ptLac2 = new System.Windows.Forms.PictureBox();
+            this.btnValider = new System.Windows.Forms.Button();
             this.PnlGrilleGame.SuspendLayout();
             this.pnlMenuPause.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptLac1)).BeginInit();
@@ -149,11 +150,27 @@
             this.ptLac2.TabIndex = 1;
             this.ptLac2.TabStop = false;
             // 
+            // btnValider
+            // 
+            this.btnValider.BackColor = System.Drawing.Color.Gold;
+            this.btnValider.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnValider.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnValider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnValider.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnValider.Location = new System.Drawing.Point(680, 439);
+            this.btnValider.Name = "btnValider";
+            this.btnValider.Size = new System.Drawing.Size(147, 34);
+            this.btnValider.TabIndex = 4;
+            this.btnValider.Text = "Valider";
+            this.btnValider.UseVisualStyleBackColor = false;
+            this.btnValider.Click += new System.EventHandler(this.btnValider_Click);
+            // 
             // FicJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(963, 489);
+            this.Controls.Add(this.btnValider);
             this.Controls.Add(this.PnlGrilleGame);
             this.Name = "FicJeu";
             this.Text = "FicJeu";
@@ -177,5 +194,6 @@
         private System.Windows.Forms.Button pnlPausebtnrecommencer;
         private System.Windows.Forms.Button btnJeuQuitter;
         private System.Windows.Forms.Button btnReprendre;
+        private System.Windows.Forms.Button btnValider;
     }
 }

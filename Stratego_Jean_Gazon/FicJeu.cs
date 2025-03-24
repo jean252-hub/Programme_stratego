@@ -15,9 +15,11 @@ namespace Stratego_Jean_Gazon
 {
     public partial class FicJeu : Form
     {
+        private Players CurrentPLayer;
         private MenuESC menuEsc;
         int[] PositionPnlClicG = new int[2];
         int[] positioncase = new int[2];
+
         private void Debug_config()
         {
             string logFilePath = "Positioncase.txt";
@@ -41,10 +43,27 @@ namespace Stratego_Jean_Gazon
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
-            menuEsc = new MenuESC(this, pnlMenuPause, PnlGrilleGame, btnReprendre, btnJeuQuitter,pnlPausebtnrecommencer);
+            menuEsc = new MenuESC(this, pnlMenuPause, PnlGrilleGame, btnReprendre, btnJeuQuitter, pnlPausebtnrecommencer ,btnValider);
             pnlMenuPause.Parent = this;
             CenterPanel();
+            CurrentPLayer = new Players();
         }
+
+        public void JouerTour()
+        {
+            // Ici, la logique du tour du joueur (mouvement, attaque, etc.)
+
+            // Après l'action, on change de joueur
+            CurrentPLayer.ChangerJoueur();
+        }
+        public Player GetJoueurActif()
+        {
+            return CurrentPLayer.CurrentPlayer; // Retourne directement le joueur actif
+        }
+
+
+
+
 
         private void PnlGrilleGame_Paint(object sender, PaintEventArgs e)
         {
@@ -233,6 +252,11 @@ namespace Stratego_Jean_Gazon
                     }
                 }
             }
+        }
+
+        private void btnValider_Click(object sender, EventArgs e)
+        {
+            CurrentPLayer.ChangerJoueur();
         }
         // Gestionnaire d'événements pour le bouton "Reprendre"
     }
