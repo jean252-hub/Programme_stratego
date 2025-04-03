@@ -17,7 +17,9 @@
 
         public void ChangerJoueur()
         {
+
             CurrentPlayer = (CurrentPlayer == Player.Player_Red) ? Player.Player_Blue : Player.Player_Red;
+
         }
     }
 }
