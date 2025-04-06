@@ -12,7 +12,7 @@
 
         public Players()
         {
-            CurrentPlayer = Player.Player_Red; // Le joueur Rouge commence
+            CurrentPlayer = Player.Player_Blue; // Le joueur Rouge commence
         }
 
         public void ChangerJoueur()

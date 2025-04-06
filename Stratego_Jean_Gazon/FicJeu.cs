@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.IO;
 using static System.Windows.Forms.AxHost;
 using System.Runtime.InteropServices;
+using Stratego_Jean_Gazon.Stratego_Jean_Gazon;
 
 namespace Stratego_Jean_Gazon
 {
@@ -19,6 +20,7 @@ namespace Stratego_Jean_Gazon
         private Players player;
         private MenuESC menuEsc;
         private Grille_Manager grille_manager;
+        private Other Other_option;
         int[] PositionPnlClicG = new int[2];
         int[] positioncase = new int[2];
 
@@ -45,11 +47,12 @@ namespace Stratego_Jean_Gazon
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
-            grille_manager = new Grille_Manager(PnlGrilleGame, pnlMenuPause, ptLac1, ptLac2);
+            grille_manager = new Grille_Manager(PnlGrilleGame, pnlMenuPause, ptLac1, ptLac2,ImgListPerso);
             menuEsc = new MenuESC(this, pnlMenuPause, PnlGrilleGame, btnReprendre, btnJeuQuitter, pnlPausebtnrecommencer ,btnValider);
             pnlMenuPause.Parent = this;
             grille_manager.CenterPanel(this.ClientSize.Width,this.ClientSize.Height);
             player = new Players();
+            Other_option = new Other(btnValider, this);
         }
         public Player GetJoueurActif()
         {
@@ -66,7 +69,7 @@ namespace Stratego_Jean_Gazon
             this.UpdateStyles();
             if (grille_manager != null)
             {
-                grille_manager.Piece_Rezise(true);
+                grille_manager.Player_Grille_Change(player.CurrentPlayer);
                 grille_manager.CenterPanel(this.ClientSize.Width, this.ClientSize.Height);
             }
             else { Debug.WriteLine("grille pas inistialsier"); }
@@ -88,6 +91,7 @@ namespace Stratego_Jean_Gazon
         {
             Debug_config();
             grille_manager.Piece_Init();
+            Other_option.bValider_position();
 
 
         }
@@ -101,9 +105,18 @@ namespace Stratego_Jean_Gazon
         
         private void Player_Game()
         {
+            player.ChangerJoueur();
             grille_manager.Player_Grille_Change(player.CurrentPlayer);
             
-            player.ChangerJoueur();
+            
+        }
+
+        private void FicJeu_SizeChanged(object sender, EventArgs e)
+        {
+            if (Other_option != null)
+            {
+                Other_option.bValider_position();
+            }
         }
     }
 }

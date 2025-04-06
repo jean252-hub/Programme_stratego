@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FicJeu));
             this.PnlGrilleGame = new System.Windows.Forms.Panel();
             this.pnlMenuPause = new System.Windows.Forms.Panel();
             this.btnReprendre = new System.Windows.Forms.Button();
@@ -37,6 +39,7 @@
             this.ptLac1 = new System.Windows.Forms.PictureBox();
             this.ptLac2 = new System.Windows.Forms.PictureBox();
             this.btnValider = new System.Windows.Forms.Button();
+            this.ImgListPerso = new System.Windows.Forms.ImageList(this.components);
             this.PnlGrilleGame.SuspendLayout();
             this.pnlMenuPause.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptLac1)).BeginInit();
@@ -159,11 +162,29 @@
             this.btnValider.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnValider.Location = new System.Drawing.Point(680, 439);
             this.btnValider.Name = "btnValider";
+            this.btnValider.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnValider.Size = new System.Drawing.Size(147, 34);
             this.btnValider.TabIndex = 4;
             this.btnValider.Text = "Valider";
             this.btnValider.UseVisualStyleBackColor = false;
             this.btnValider.Click += new System.EventHandler(this.btnValider_Click);
+            // 
+            // ImgListPerso
+            // 
+            this.ImgListPerso.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ImgListPerso.ImageStream")));
+            this.ImgListPerso.TransparentColor = System.Drawing.Color.Transparent;
+            this.ImgListPerso.Images.SetKeyName(0, "Capture d’écran 2025-04-05 145636.png");
+            this.ImgListPerso.Images.SetKeyName(1, "Capture d’écran 2025-04-05 145813.png");
+            this.ImgListPerso.Images.SetKeyName(2, "Capture d’écran 2025-04-05 151234.png");
+            this.ImgListPerso.Images.SetKeyName(3, "Capture d’écran 2025-04-05 151416.png");
+            this.ImgListPerso.Images.SetKeyName(4, "Capture d’écran 2025-04-05 151558.png");
+            this.ImgListPerso.Images.SetKeyName(5, "Capture d’écran 2025-04-05 151725.png");
+            this.ImgListPerso.Images.SetKeyName(6, "Capture d’écran 2025-04-05 152047.png");
+            this.ImgListPerso.Images.SetKeyName(7, "Capture d’écran 2025-04-05 152450.png");
+            this.ImgListPerso.Images.SetKeyName(8, "Capture d’écran 2025-04-05 152757.png");
+            this.ImgListPerso.Images.SetKeyName(9, "Capture d’écran 2025-04-05 153050.png");
+            this.ImgListPerso.Images.SetKeyName(10, "Capture d’écran 2025-04-05 153207.png");
+            this.ImgListPerso.Images.SetKeyName(11, "Capture d\'écran 2025-04-05 151013.png");
             // 
             // FicJeu
             // 
@@ -175,6 +196,7 @@
             this.Name = "FicJeu";
             this.Text = "FicJeu";
             this.Load += new System.EventHandler(this.FicJeu_Load);
+            this.SizeChanged += new System.EventHandler(this.FicJeu_SizeChanged);
             this.PnlGrilleGame.ResumeLayout(false);
             this.pnlMenuPause.ResumeLayout(false);
             this.pnlMenuPause.PerformLayout();
@@ -195,5 +217,6 @@
         private System.Windows.Forms.Button btnJeuQuitter;
         private System.Windows.Forms.Button btnReprendre;
         private System.Windows.Forms.Button btnValider;
+        private System.Windows.Forms.ImageList ImgListPerso;
     }
 }
