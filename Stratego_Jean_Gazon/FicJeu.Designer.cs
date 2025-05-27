@@ -40,6 +40,7 @@
             this.ptLac2 = new System.Windows.Forms.PictureBox();
             this.btnValider = new System.Windows.Forms.Button();
             this.ImgListPerso = new System.Windows.Forms.ImageList(this.components);
+            this.Btn_Pret = new System.Windows.Forms.Button();
             this.PnlGrilleGame.SuspendLayout();
             this.pnlMenuPause.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptLac1)).BeginInit();
@@ -186,11 +187,28 @@
             this.ImgListPerso.Images.SetKeyName(10, "Capture d’écran 2025-04-05 153207.png");
             this.ImgListPerso.Images.SetKeyName(11, "Capture d\'écran 2025-04-05 151013.png");
             // 
+            // Btn_Pret
+            // 
+            this.Btn_Pret.BackColor = System.Drawing.Color.Gold;
+            this.Btn_Pret.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Btn_Pret.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Btn_Pret.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Btn_Pret.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Btn_Pret.Location = new System.Drawing.Point(517, 439);
+            this.Btn_Pret.Name = "Btn_Pret";
+            this.Btn_Pret.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.Btn_Pret.Size = new System.Drawing.Size(147, 34);
+            this.Btn_Pret.TabIndex = 5;
+            this.Btn_Pret.Text = "Pret";
+            this.Btn_Pret.UseVisualStyleBackColor = false;
+            this.Btn_Pret.Click += new System.EventHandler(this.Btn_Pret_Click);
+            // 
             // FicJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(963, 489);
+            this.Controls.Add(this.Btn_Pret);
             this.Controls.Add(this.btnValider);
             this.Controls.Add(this.PnlGrilleGame);
             this.Name = "FicJeu";
@@ -218,5 +236,6 @@
         private System.Windows.Forms.Button btnReprendre;
         private System.Windows.Forms.Button btnValider;
         private System.Windows.Forms.ImageList ImgListPerso;
+        private System.Windows.Forms.Button Btn_Pret;
     }
 }

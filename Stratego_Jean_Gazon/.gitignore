@@ -1,0 +1,85 @@
+# Fichiers et dossiers générés par Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+*.log
+
+# Fichiers temporaires
+*.tmp
+*.temp
+*.bak
+*.old
+
+# Fichiers de déploiement
+*.publish/
+*.ClickOnce/
+
+# Fichiers de test
+TestResults/
+*.TestResults/
+
+# Paquets NuGet
+*.nupkg
+packages/
+*.snupkg
+
+# Fichiers de configuration machine locale
+*.local.json
+
+# Fichiers de base de données locaux
+*.mdf
+*.ldf
+
+# Fichiers de cache
+*.dbmdl
+*.db
+
+# Fichiers de sauvegarde Visual Studio
+*.vspscc
+*.vssscc
+
+# Fichiers de configuration utilisateur
+*.userprefs
+
+# Fichiers de crash ou de diagnostic
+*.dmp
+
+# Fichiers de solution temporaires
+*.sln.ide
+
+# Fichiers générés par Rider/JetBrains
+.idea/
+*.sln.iml
+
+# Fichiers de configuration de l’éditeur
+.vscode/
+*.code-workspace
+
+# Fichiers de configuration ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Fichiers de configuration SonarQube
+.sonar/
+
+# Fichiers de configuration Azure
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Fichiers de configuration Docker
+docker-compose.override.yml
+
+# Fichiers de configuration secrets
+secrets.json
+
+# Fichiers de contenu indexés par Visual Studio
+FileContentIndex/

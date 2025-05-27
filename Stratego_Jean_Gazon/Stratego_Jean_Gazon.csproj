@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Grille_GameEngine.cs" />
     <Compile Include="Grille_Manager.cs" />
+    <Compile Include="Initialisation_Pion.cs" />
     <Compile Include="MenuESC.cs" />
     <Compile Include="Other.cs" />
     <Compile Include="Personnage.cs" />
