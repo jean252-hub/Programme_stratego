@@ -11,7 +11,7 @@ namespace Stratego_Jean_Gazon
         Player_Blue = 1,
         Player_Red = 2,
     }
-
+    
     public class Players
     {
         public Player CurrentPlayer { get; private set; } // Joueur actuel
@@ -32,10 +32,11 @@ namespace Stratego_Jean_Gazon
             Button_Pret.Visible = true;
 
             // Attacher un gestionnaire d'événements au clic du bouton
-            Button_Pret.Click += (sender, e) =>
+            Button_Pret.Click += async (sender, e) =>
             {
                 // Terminer le placement pour le joueur actuel
                 grille.TerminerPlacement();
+                
 
                 // Passer au joueur suivant
                 ChangerJoueur();
@@ -43,20 +44,20 @@ namespace Stratego_Jean_Gazon
                 // Vérifier quel joueur est actif et activer le placement en conséquence
                 if (CurrentPlayer == Player.Player_Blue)
                 {
-                    MessageBox.Show("C'est au joueur bleu de placer ses pions !");
                     grille.Cacher_Piece(true); // Cacher les pions du joueur rouge
                     grille.ActiverPlacement(CurrentPlayer);
+                    await ((FicJeu)winjeu).transitionManager.ShowPlacement(CurrentPlayer);
+
                 }
                 else if (CurrentPlayer == Player.Player_Red)
-                {
-                    MessageBox.Show("C'est au joueur rouge de placer ses pions !");
+                { 
                     grille.Cacher_Piece(false); // Cacher les pions du joueur bleu
                     grille.ActiverPlacement(CurrentPlayer);
+                    await ((FicJeu)winjeu).transitionManager.ShowPlacement(CurrentPlayer);
+
                 }
                 else
                 {
-                    // Si aucune phase de placement n'est active, masquer le bouton
-                    MessageBox.Show("Phase de placement terminée !");
                     Button_Pret.Visible = false;
                 }
             };
@@ -64,7 +65,7 @@ namespace Stratego_Jean_Gazon
             // Activer le placement initial pour le joueur bleu
             grille.Cacher_Piece(true); // Cacher les pions du joueur rouge
             grille.ActiverPlacement(CurrentPlayer);
-            MessageBox.Show("C'est au joueur bleu de commencer à placer ses pions !");
+           
         }
 
         public void InitialisationFin(Grille_Manager grille)

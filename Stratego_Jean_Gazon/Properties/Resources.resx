@@ -139,4 +139,10 @@
   <data name="image_etang2Stratego" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\image_etang2Stratego.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Image_Transition" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Image_Transition.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="coupe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Coupe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

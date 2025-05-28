@@ -1,4 +1,8 @@
-﻿namespace Stratego_Jean_Gazon
+﻿using System.Drawing;
+using System.Windows.Forms;
+using System;
+
+namespace Stratego_Jean_Gazon
 {
     partial class FicJeu
     {
@@ -174,18 +178,18 @@
             // 
             this.ImgListPerso.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ImgListPerso.ImageStream")));
             this.ImgListPerso.TransparentColor = System.Drawing.Color.Transparent;
-            this.ImgListPerso.Images.SetKeyName(0, "Capture d’écran 2025-04-05 145636.png");
-            this.ImgListPerso.Images.SetKeyName(1, "Capture d’écran 2025-04-05 145813.png");
-            this.ImgListPerso.Images.SetKeyName(2, "Capture d’écran 2025-04-05 151234.png");
-            this.ImgListPerso.Images.SetKeyName(3, "Capture d’écran 2025-04-05 151416.png");
-            this.ImgListPerso.Images.SetKeyName(4, "Capture d’écran 2025-04-05 151558.png");
-            this.ImgListPerso.Images.SetKeyName(5, "Capture d’écran 2025-04-05 151725.png");
-            this.ImgListPerso.Images.SetKeyName(6, "Capture d’écran 2025-04-05 152047.png");
-            this.ImgListPerso.Images.SetKeyName(7, "Capture d’écran 2025-04-05 152450.png");
-            this.ImgListPerso.Images.SetKeyName(8, "Capture d’écran 2025-04-05 152757.png");
-            this.ImgListPerso.Images.SetKeyName(9, "Capture d’écran 2025-04-05 153050.png");
-            this.ImgListPerso.Images.SetKeyName(10, "Capture d’écran 2025-04-05 153207.png");
-            this.ImgListPerso.Images.SetKeyName(11, "Capture d\'écran 2025-04-05 151013.png");
+            this.ImgListPerso.Images.SetKeyName(0, "Drapeau");
+            this.ImgListPerso.Images.SetKeyName(1, "Bombe");
+            this.ImgListPerso.Images.SetKeyName(2, "Éclaireur");
+            this.ImgListPerso.Images.SetKeyName(3, "Démineur");
+            this.ImgListPerso.Images.SetKeyName(4, "Sergent");
+            this.ImgListPerso.Images.SetKeyName(5, "Lieutenant");
+            this.ImgListPerso.Images.SetKeyName(6, "Capitaine");
+            this.ImgListPerso.Images.SetKeyName(7, "Commandant");
+            this.ImgListPerso.Images.SetKeyName(8, "Colonel");
+            this.ImgListPerso.Images.SetKeyName(9, "Général");
+            this.ImgListPerso.Images.SetKeyName(10, "Maréchal");
+            this.ImgListPerso.Images.SetKeyName(11, "Espion");
             // 
             // Btn_Pret
             // 
@@ -207,6 +211,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.DarkRed;
             this.ClientSize = new System.Drawing.Size(963, 489);
             this.Controls.Add(this.Btn_Pret);
             this.Controls.Add(this.btnValider);
@@ -221,6 +226,58 @@
             ((System.ComponentModel.ISupportInitialize)(this.ptLac1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptLac2)).EndInit();
             this.ResumeLayout(false);
+            // pnlFinPartie
+            this.pnlFinPartie = new System.Windows.Forms.Panel();
+            this.lblFinPartie = new System.Windows.Forms.Label();
+            this.picCoupe = new System.Windows.Forms.PictureBox();
+            this.btnRetourMenu = new System.Windows.Forms.Button();
+
+            this.pnlFinPartie.Controls.Add(this.lblFinPartie);
+            this.pnlFinPartie.Controls.Add(this.picCoupe);
+            this.pnlFinPartie.Controls.Add(this.btnRetourMenu);
+            this.pnlFinPartie.Size = new System.Drawing.Size(400, 300);
+            // Couleur de fond dark red
+            this.pnlFinPartie.BackColor = Color.DarkRed;
+            this.pnlFinPartie.Visible = false;
+            this.pnlFinPartie.BringToFront();
+
+            // lblFinPartie
+            this.lblFinPartie.Text = "Victoire !";
+            this.lblFinPartie.Font = new Font("Arial", 20, FontStyle.Bold);
+            this.lblFinPartie.AutoSize = false;
+            this.lblFinPartie.TextAlign = ContentAlignment.MiddleCenter;
+            this.lblFinPartie.Dock = DockStyle.Top;
+            this.lblFinPartie.Height = 60;
+            this.lblFinPartie.ForeColor = Color.White;
+
+            // picCoupe
+            this.picCoupe.Image = Properties.Resources.coupe;
+            this.picCoupe.SizeMode = PictureBoxSizeMode.Zoom;
+            this.picCoupe.Size = new Size(120, 120);
+            //is.picCoupe.Location = new Point((pnlFinPartie.Width - 120) / 2, 70);
+
+            // btnRetourMenu (même style que btnValider)
+            this.btnRetourMenu.Text = "Retour au menu";
+            this.btnRetourMenu.Size = new Size(180, 40);
+            this.btnRetourMenu.Location = new Point(100, 210); 
+
+            this.btnRetourMenu.BackColor = Color.Gold;
+            this.btnRetourMenu.FlatStyle = FlatStyle.Flat;
+            this.btnRetourMenu.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            this.btnRetourMenu.Cursor = Cursors.Hand;
+            this.btnRetourMenu.UseVisualStyleBackColor = false;
+            this.btnRetourMenu.Click += new EventHandler(this.BtnRetourMenu_Click);
+
+            this.Controls.Add(this.pnlFinPartie);
+
+            // Centrage dynamique lors du redimensionnement
+            /*this.SizeChanged += (s, e) => {
+                this.pnlFinPartie.Location = new Point(
+                    (this.ClientSize.Width - this.pnlFinPartie.Width) / 2,
+                    (this.ClientSize.Height - this.pnlFinPartie.Height) / 2
+                );
+            };*/
+
 
         }
 
@@ -237,5 +294,10 @@
         private System.Windows.Forms.Button btnValider;
         private System.Windows.Forms.ImageList ImgListPerso;
         private System.Windows.Forms.Button Btn_Pret;
+        private System.Windows.Forms.Panel pnlFinPartie;
+        private System.Windows.Forms.Label lblFinPartie;
+        private System.Windows.Forms.PictureBox picCoupe;
+        private System.Windows.Forms.Button btnRetourMenu;
+
     }
 }

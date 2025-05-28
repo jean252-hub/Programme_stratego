@@ -1,5 +1,5 @@
 Nouveau log démarré...
-Timestamp: 27-05-25 13:03:12
+Timestamp: 28-05-25 18:59:01
 Player_Blueinitialisation
 dans le if
 dans le if
@@ -83,7 +83,4 @@ dans le supprim
 dans le supprim
 dans le supprim
 Cacher les pions rouges
-Cacher les pions rouges
-Cacher les pions rouges
-Cacher les pions rouges
-Attaquant gagne !
+Attaquant gagne ! (Drapeau touché)

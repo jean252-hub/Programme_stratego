@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Stratego_Jean_Gazon
@@ -26,6 +23,9 @@ namespace Stratego_Jean_Gazon
         private ImageList ImageList;
         private Initialisation_Pion initialisationPion;
 
+        public Dictionary<Point, string> PositionsPionsBleus { get; private set; } = new Dictionary<Point, string>();
+        public Dictionary<Point, string> PositionsPionsRouges { get; private set; } = new Dictionary<Point, string>();
+
         public Grille_Manager(Panel panel_Grille, Panel panel_Pause, PictureBox picture1, PictureBox picture2, ImageList Imglistperso)
         {
             PnlGrilleGame = panel_Grille;
@@ -34,6 +34,51 @@ namespace Stratego_Jean_Gazon
             ptLac2 = picture2;
             ImageList = Imglistperso;
         }
+
+        public void AjouterPion(Point position, string typePion, bool isBlue)
+        {
+            if (isBlue)
+                PositionsPionsBleus[position] = typePion;
+            else
+                PositionsPionsRouges[position] = typePion;
+        }
+
+        public void SupprimerPion(Point position, bool isBlue)
+        {
+            if (isBlue)
+                PositionsPionsBleus.Remove(position);
+            else
+                PositionsPionsRouges.Remove(position);
+        }
+
+        public void DeplacerPion(PieceInfo info, PictureBox pb, Point destination)
+        {
+            // Mise à jour des dictionnaires de positions
+            if (info.IsBlue)
+            {
+                PositionsPionsBleus.Remove(info.PositionGrille);
+                PositionsPionsBleus[destination] = info.Nom;
+            }
+            else
+            {
+                PositionsPionsRouges.Remove(info.PositionGrille);
+                PositionsPionsRouges[destination] = info.Nom;
+            }
+
+            info.PositionGrille = destination;
+
+            var (largeurCase, hauteurCase, _, _) = CalculerTaillesEtPositions();
+            int tailleX = (int)(largeurCase * 0.8);
+            int tailleY = (int)(hauteurCase * 0.8);
+            pb.Location = new Point(
+                (destination.X - 1) * largeurCase + (largeurCase - tailleX) / 2,
+                (destination.Y - 1) * hauteurCase + (hauteurCase - tailleY) / 2
+            );
+            pb.BackColor = info.IsBlue ? Color.LightBlue : Color.LightCoral;
+        }
+
+        public Dictionary<Point, string> ObtenirPositionsBleues() => PositionsPionsBleus;
+        public Dictionary<Point, string> ObtenirPositionsRouges() => PositionsPionsRouges;
 
         public void PnlGrilleGame_Dessine(object sender, PaintEventArgs e)
         {
@@ -90,9 +135,8 @@ namespace Stratego_Jean_Gazon
             int xPosition = startX;
             int yPosition = startY;
 
-            // Pour le placement logique sur la grille
             int colonne = 1;
-            int ligne = isBlue ? 7 : 1; // Les bleus en bas, les rouges en haut (adapter si besoin)
+            int ligne = isBlue ? 7 : 1;
             int pionParLigne = 10;
 
             foreach (var (nom, count, ImgIndex) in personnages)
@@ -122,7 +166,12 @@ namespace Stratego_Jean_Gazon
 
                     PnlGrilleGame.Controls.Add(pictureBox);
 
-                    // Placement logique
+                    // Ajout dans le dictionnaire
+                    if (isBlue)
+                        PositionsPionsBleus[new Point(colonne, ligne)] = nom;
+                    else
+                        PositionsPionsRouges[new Point(colonne, ligne)] = nom;
+
                     colonne++;
                     if (colonne > pionParLigne)
                     {
@@ -130,7 +179,6 @@ namespace Stratego_Jean_Gazon
                         ligne++;
                     }
 
-                    // Placement graphique
                     xPosition += largeurCase;
                     if (xPosition >= PnlGrilleGame.Width)
                     {
@@ -154,8 +202,9 @@ namespace Stratego_Jean_Gazon
 
         public void Piece_Init()
         {
+            PositionsPionsBleus.Clear();
+            PositionsPionsRouges.Clear();
             var (largeurCase, hauteurCase, basGauche, hautGauche) = CalculerTaillesEtPositions();
-
             CreateStrategoPictureBoxes(basGauche.X, basGauche.Y, true);
             CreateStrategoPictureBoxes(hautGauche.X, hautGauche.Y, false);
         }
@@ -177,7 +226,6 @@ namespace Stratego_Jean_Gazon
             {
                 if (PictureBox_piece is PictureBox pb && pb.Tag is PieceInfo info && info.IsBlue == isBlueTeam)
                 {
-                    // Utilise la position logique du pion pour le placer correctement
                     int col = info.PositionGrille.X;
                     int row = info.PositionGrille.Y;
 
@@ -189,7 +237,6 @@ namespace Stratego_Jean_Gazon
                 }
             }
         }
-
 
         public void Player_Grille_Change(Player Current_Player)
         {

@@ -64,6 +64,7 @@
     <Compile Include="FicRegles.Designer.cs">
       <DependentUpon>FicRegles.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameTransitionManager.cs" />
     <Compile Include="Grille_GameEngine.cs" />
     <Compile Include="Grille_Manager.cs" />
     <Compile Include="Initialisation_Pion.cs" />
@@ -125,6 +126,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\image_etang2Stratego.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Chevalier_Transistion.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image_Transition.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Coupe.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -42,7 +42,7 @@ namespace Stratego_Jean_Gazon
 
         public class Eclaireur : personnage_base
         {
-            public Eclaireur(bool couleur) : base("Eclaireur", 2, couleur, true) { }
+            public Eclaireur(bool couleur) : base("Éclaireur", 2, couleur, true) { }
         }
 
         public class Demineur : personnage_base
