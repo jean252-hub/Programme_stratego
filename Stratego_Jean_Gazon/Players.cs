@@ -11,50 +11,41 @@ namespace Stratego_Jean_Gazon
         Player_Blue = 1,
         Player_Red = 2,
     }
-    
+
     public class Players
     {
         public Player CurrentPlayer { get; private set; } // Joueur actuel
 
-        public Dictionary<Point, string> PositionsPionsBleus { get; private set; } // Positions des pions de l'équipe bleue
-        public Dictionary<Point, string> PositionsPionsRouges { get; private set; } // Positions des pions de l'équipe rouge
+        public Dictionary<Point, personnage_base> PositionsPionsBleus { get; private set; } // Pions bleus
+        public Dictionary<Point, personnage_base> PositionsPionsRouges { get; private set; } // Pions rouges
 
         public Players()
         {
             CurrentPlayer = Player.Player_Blue; // Le joueur bleu commence
-            PositionsPionsBleus = new Dictionary<Point, string>();
-            PositionsPionsRouges = new Dictionary<Point, string>();
+            PositionsPionsBleus = new Dictionary<Point, personnage_base>();
+            PositionsPionsRouges = new Dictionary<Point, personnage_base>();
         }
 
         public void Initialisation_Jeu(Grille_Manager grille, Button Button_Pret, FicJeu winjeu)
         {
-            // Rendre le bouton visible pour démarrer la phase de placement
             Button_Pret.Visible = true;
 
-            // Attacher un gestionnaire d'événements au clic du bouton
             Button_Pret.Click += async (sender, e) =>
             {
-                // Terminer le placement pour le joueur actuel
                 grille.TerminerPlacement();
-                
-
-                // Passer au joueur suivant
                 ChangerJoueur();
 
-                // Vérifier quel joueur est actif et activer le placement en conséquence
                 if (CurrentPlayer == Player.Player_Blue)
                 {
-                    grille.Cacher_Piece(true); // Cacher les pions du joueur rouge
+                    grille.Cacher_Piece(true);
                     grille.ActiverPlacement(CurrentPlayer);
                     await ((FicJeu)winjeu).transitionManager.ShowPlacement(CurrentPlayer);
-
                 }
                 else if (CurrentPlayer == Player.Player_Red)
-                { 
-                    grille.Cacher_Piece(false); // Cacher les pions du joueur bleu
+                {
+                    grille.Cacher_Piece(false);
                     grille.ActiverPlacement(CurrentPlayer);
                     await ((FicJeu)winjeu).transitionManager.ShowPlacement(CurrentPlayer);
-
                 }
                 else
                 {
@@ -62,10 +53,8 @@ namespace Stratego_Jean_Gazon
                 }
             };
 
-            // Activer le placement initial pour le joueur bleu
-            grille.Cacher_Piece(true); // Cacher les pions du joueur rouge
+            grille.Cacher_Piece(true);
             grille.ActiverPlacement(CurrentPlayer);
-           
         }
 
         public void InitialisationFin(Grille_Manager grille)
@@ -78,20 +67,20 @@ namespace Stratego_Jean_Gazon
             CurrentPlayer = (CurrentPlayer == Player.Player_Red) ? Player.Player_Blue : Player.Player_Red;
         }
 
-        public void AjouterPion(Point position, string typePion)
+        public void AjouterPion(Point position, personnage_base pion)
         {
             if (CurrentPlayer == Player.Player_Blue)
             {
                 if (!PositionsPionsBleus.ContainsKey(position))
                 {
-                    PositionsPionsBleus[position] = typePion;
+                    PositionsPionsBleus[position] = pion;
                 }
             }
             else if (CurrentPlayer == Player.Player_Red)
             {
                 if (!PositionsPionsRouges.ContainsKey(position))
                 {
-                    PositionsPionsRouges[position] = typePion;
+                    PositionsPionsRouges[position] = pion;
                 }
             }
         }
@@ -100,42 +89,32 @@ namespace Stratego_Jean_Gazon
         {
             if (CurrentPlayer == Player.Player_Blue)
             {
-                if (PositionsPionsBleus.ContainsKey(position))
-                {
-                    PositionsPionsBleus.Remove(position);
-                }
+                PositionsPionsBleus.Remove(position);
             }
             else if (CurrentPlayer == Player.Player_Red)
             {
-                if (PositionsPionsRouges.ContainsKey(position))
-                {
-                    PositionsPionsRouges.Remove(position);
-                }
+                PositionsPionsRouges.Remove(position);
             }
         }
 
-        public void MemoriserPositionPion(Panel panel, int caseX, int caseY, string typePion)
+        public void MemoriserPositionPion(Panel panel, int caseX, int caseY, personnage_base pion)
         {
-            // Calculer la largeur et la hauteur d'une case
-            int largeurCase = panel.Width / 10; // Supposons une grille de 10x10
+            int largeurCase = panel.Width / 10;
             int hauteurCase = panel.Height / 10;
-
-            // Calculer la position en pixels
             int positionX = caseX * largeurCase;
             int positionY = caseY * hauteurCase;
-
-            // Ajouter la position au dictionnaire
-            AjouterPion(new Point(positionX, positionY), typePion);
+            pion.PositionGrille = new Point(positionX, positionY);
+            AjouterPion(new Point(positionX, positionY), pion);
         }
 
-        public Dictionary<Point, string> ObtenirPositionsBleues()
+        public Dictionary<Point, personnage_base> ObtenirPositionsBleues()
         {
-            return new Dictionary<Point, string>(PositionsPionsBleus);
+            return new Dictionary<Point, personnage_base>(PositionsPionsBleus);
         }
 
-        public Dictionary<Point, string> ObtenirPositionsRouges()
+        public Dictionary<Point, personnage_base> ObtenirPositionsRouges()
         {
-            return new Dictionary<Point, string>(PositionsPionsRouges);
+            return new Dictionary<Point, personnage_base>(PositionsPionsRouges);
         }
     }
 }

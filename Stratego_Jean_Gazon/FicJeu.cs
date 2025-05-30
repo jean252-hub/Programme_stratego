@@ -119,11 +119,11 @@ namespace Stratego_Jean_Gazon
         {
             foreach (Control ctrl in grille_manager.PnlGrilleGame.Controls)
             {
-                if (ctrl is PictureBox pb && pb.Tag is PieceInfo info)
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
                 {
                     pb.Click -= Pion_Jeu_Click;
-                    if ((joueur == Player.Player_Blue && info.IsBlue) ||
-                        (joueur == Player.Player_Red && !info.IsBlue))
+                    if ((joueur == Player.Player_Blue && pion.Couleur) ||
+                        (joueur == Player.Player_Red && !pion.Couleur))
                     {
                         pb.Click += Pion_Jeu_Click;
                     }
@@ -138,7 +138,7 @@ namespace Stratego_Jean_Gazon
             var clickedPiece = sender as PictureBox;
             if (clickedPiece == null) return;
 
-            var clickedInfo = clickedPiece.Tag as PieceInfo;
+            var clickedInfo = clickedPiece.Tag as personnage_base;
             if (clickedInfo == null) return;
 
             if (pionSelectionne == null)
@@ -148,14 +148,14 @@ namespace Stratego_Jean_Gazon
             }
             else
             {
-                var selectedInfo = pionSelectionne.Tag as PieceInfo;
+                var selectedInfo = pionSelectionne.Tag as personnage_base;
                 if (pionSelectionne == clickedPiece)
                 {
-                    pionSelectionne.BackColor = clickedInfo.IsBlue ? Color.LightBlue : Color.LightCoral;
+                    pionSelectionne.BackColor = clickedInfo.Couleur ? Color.LightBlue : Color.LightCoral;
                     pionSelectionne = null;
                     return;
                 }
-                pionSelectionne.BackColor = selectedInfo.IsBlue ? Color.LightBlue : Color.LightCoral;
+                pionSelectionne.BackColor = selectedInfo.Couleur ? Color.LightBlue : Color.LightCoral;
                 pionSelectionne = null;
             }
         }
@@ -164,7 +164,7 @@ namespace Stratego_Jean_Gazon
         {
             if (action_joue) return;
             if (pionSelectionne == null) return;
-            var info = pionSelectionne.Tag as PieceInfo;
+            var info = pionSelectionne.Tag as personnage_base;
             if (info == null) return;
 
             grille_manager.RecalculerTaillesEtPositions();
@@ -175,17 +175,17 @@ namespace Stratego_Jean_Gazon
 
             if (info.PositionGrille.Equals(destination))
             {
-                pionSelectionne.BackColor = info.IsBlue ? Color.LightBlue : Color.LightCoral;
+                pionSelectionne.BackColor = info.Couleur ? Color.LightBlue : Color.LightCoral;
                 pionSelectionne = null;
                 return;
             }
 
-            if (info.Nom == "Bombe" || info.Nom == "Drapeau")
+            if (info.Grade == "Bombe" || info.Grade == "Drapeau")
                 return;
 
             bool deplacementValide = false;
 
-            if (info.Nom == "Éclaireur")
+            if (info.Grade == "Éclaireur")
             {
                 if (info.PositionGrille.X == destination.X && info.PositionGrille.Y != destination.Y)
                 {
@@ -227,10 +227,10 @@ namespace Stratego_Jean_Gazon
                 return;
 
             PictureBox pbCible = null;
-            PieceInfo cibleInfo = null;
+            personnage_base cibleInfo = null;
             foreach (Control ctrl in grille_manager.PnlGrilleGame.Controls)
             {
-                if (ctrl is PictureBox pb && pb.Tag is PieceInfo ci)
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base ci)
                 {
                     if (ci.PositionGrille.Equals(destination))
                     {
@@ -243,46 +243,47 @@ namespace Stratego_Jean_Gazon
 
             if (pbCible != null)
             {
-                if (cibleInfo.IsBlue == info.IsBlue)
+                if (cibleInfo.Couleur == info.Couleur)
                 {
                     MessageBox.Show("Case occupée par un de vos pions !");
                 }
                 else
                 {
-                    byte victoire = grilleGameEngine.ResoudreAffrontement(info.Nom, cibleInfo.Nom);
+                    byte victoire = grilleGameEngine.ResoudreAffrontement(info, cibleInfo);
+
 
                     if (victoire == 1)
                     {
                         await transitionManager.ShowCombat(
-                            GetPionImageFromImageList(info.Nom), info.IsBlue,
-                            GetPionImageFromImageList(cibleInfo.Nom), cibleInfo.IsBlue,
+                            GetPionImageFromImageList(info.Grade), info.Couleur,
+                            GetPionImageFromImageList(cibleInfo.Grade), cibleInfo.Couleur,
                             "Gagné"
                         );
                         grille_manager.PnlGrilleGame.Controls.Remove(pbCible);
-                        grille_manager.SupprimerPion(cibleInfo.PositionGrille, cibleInfo.IsBlue);
+                        grille_manager.SupprimerPion(cibleInfo.PositionGrille, cibleInfo.Couleur);
                         grille_manager.DeplacerPion(info, pionSelectionne, destination);
                     }
                     if (victoire == 2)
                     {
                         await transitionManager.ShowCombat(
-                            GetPionImageFromImageList(info.Nom), info.IsBlue,
-                            GetPionImageFromImageList(cibleInfo.Nom), cibleInfo.IsBlue,
+                            GetPionImageFromImageList(info.Grade), info.Couleur,
+                            GetPionImageFromImageList(cibleInfo.Grade), cibleInfo.Couleur,
                             "Perdu"
                         );
                         grille_manager.PnlGrilleGame.Controls.Remove(pionSelectionne);
-                        grille_manager.SupprimerPion(info.PositionGrille, info.IsBlue);
+                        grille_manager.SupprimerPion(info.PositionGrille, info.Couleur);
                     }
                     if (victoire == 3)
                     {
                         await transitionManager.ShowCombat(
-                            GetPionImageFromImageList(info.Nom), info.IsBlue,
-                            GetPionImageFromImageList(cibleInfo.Nom), cibleInfo.IsBlue,
+                            GetPionImageFromImageList(info.Grade), info.Couleur,
+                            GetPionImageFromImageList(cibleInfo.Grade), cibleInfo.Couleur,
                             "Égalité"
                         );
                         grille_manager.PnlGrilleGame.Controls.Remove(pbCible);
                         grille_manager.PnlGrilleGame.Controls.Remove(pionSelectionne);
-                        grille_manager.SupprimerPion(cibleInfo.PositionGrille, cibleInfo.IsBlue);
-                        grille_manager.SupprimerPion(info.PositionGrille, info.IsBlue);
+                        grille_manager.SupprimerPion(cibleInfo.PositionGrille, cibleInfo.Couleur);
+                        grille_manager.SupprimerPion(info.PositionGrille, info.Couleur);
                         MessageBox.Show("Égalité ! Les deux pions sont retirés.");
                     }
 
@@ -330,9 +331,9 @@ namespace Stratego_Jean_Gazon
         {
             foreach (Control ctrl in grille_manager.PnlGrilleGame.Controls)
             {
-                if (ctrl is PictureBox pb && pb.Tag is PieceInfo info)
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
                 {
-                    if (info.PositionGrille.Equals(pos))
+                    if (pion.PositionGrille.Equals(pos))
                         return true;
                 }
             }

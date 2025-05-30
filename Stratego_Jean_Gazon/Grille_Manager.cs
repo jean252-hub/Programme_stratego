@@ -5,14 +5,6 @@ using System.Windows.Forms;
 
 namespace Stratego_Jean_Gazon
 {
-    public class PieceInfo
-    {
-        public bool IsBlue { get; set; }
-        public Image OriginalImage { get; set; }
-        public string Nom { get; set; } // Type du pion (ex: "Maréchal")
-        public Point PositionGrille { get; set; } // Position logique sur la grille (colonne, ligne)
-    }
-
     public class Grille_Manager
     {
         public Panel PnlGrilleGame;
@@ -22,8 +14,8 @@ namespace Stratego_Jean_Gazon
         private ImageList ImageList;
         private Initialisation_Pion initialisationPion;
 
-        public Dictionary<Point, string> PositionsPionsBleus { get; private set; } = new Dictionary<Point, string>();
-        public Dictionary<Point, string> PositionsPionsRouges { get; private set; } = new Dictionary<Point, string>();
+        public Dictionary<Point, personnage_base> PositionsPionsBleus { get; private set; } = new Dictionary<Point, personnage_base>();
+        public Dictionary<Point, personnage_base> PositionsPionsRouges { get; private set; } = new Dictionary<Point, personnage_base>();
 
         // Propriétés centralisées pour les tailles et positions
         private int largeurCase;
@@ -58,12 +50,12 @@ namespace Stratego_Jean_Gazon
             return (largeurCase, hauteurCase, basGauche, hautGauche);
         }
 
-        public void AjouterPion(Point position, string typePion, bool isBlue)
+        public void AjouterPion(Point position, personnage_base pion, bool isBlue)
         {
             if (isBlue)
-                PositionsPionsBleus[position] = typePion;
+                PositionsPionsBleus[position] = pion;
             else
-                PositionsPionsRouges[position] = typePion;
+                PositionsPionsRouges[position] = pion;
         }
 
         public void SupprimerPion(Point position, bool isBlue)
@@ -74,28 +66,28 @@ namespace Stratego_Jean_Gazon
                 PositionsPionsRouges.Remove(position);
         }
 
-        public void DeplacerPion(PieceInfo info, PictureBox pb, Point destination)
+        public void DeplacerPion(personnage_base pion, PictureBox pb, Point destination)
         {
-            if (info.IsBlue)
+            if (pion.Couleur)
             {
-                PositionsPionsBleus.Remove(info.PositionGrille);
-                PositionsPionsBleus[destination] = info.Nom;
+                PositionsPionsBleus.Remove(pion.PositionGrille);
+                PositionsPionsBleus[destination] = pion;
             }
             else
             {
-                PositionsPionsRouges.Remove(info.PositionGrille);
-                PositionsPionsRouges[destination] = info.Nom;
+                PositionsPionsRouges.Remove(pion.PositionGrille);
+                PositionsPionsRouges[destination] = pion;
             }
 
-            info.PositionGrille = destination;
+            pion.PositionGrille = destination;
 
             pb.Size = new Size(taillePictureBoxX, taillePictureBoxY);
             pb.Location = CalculerPositionGraphique(destination.X, destination.Y);
-            pb.BackColor = info.IsBlue ? Color.LightBlue : Color.LightCoral;
+            pb.BackColor = pion.Couleur ? Color.LightBlue : Color.LightCoral;
         }
 
-        public Dictionary<Point, string> ObtenirPositionsBleues() => PositionsPionsBleus;
-        public Dictionary<Point, string> ObtenirPositionsRouges() => PositionsPionsRouges;
+        public Dictionary<Point, personnage_base> ObtenirPositionsBleues() => PositionsPionsBleus;
+        public Dictionary<Point, personnage_base> ObtenirPositionsRouges() => PositionsPionsRouges;
 
         public void PnlGrilleGame_Dessine(object sender, PaintEventArgs e)
         {
@@ -140,9 +132,6 @@ namespace Stratego_Jean_Gazon
                 ("Drapeau", 1,0)
             };
 
-            int xPosition = startX;
-            int yPosition = startY;
-
             int colonne = 1;
             int ligne = isBlue ? 7 : 1;
             int pionParLigne = 10;
@@ -151,6 +140,24 @@ namespace Stratego_Jean_Gazon
             {
                 for (int i = 0; i < count; i++)
                 {
+                    Point position = new Point(colonne, ligne);
+                    personnage_base pion = null;
+                    switch (nom)
+                    {
+                        case "Maréchal": pion = new Marechal(isBlue, position); break;
+                        case "Général": pion = new General(isBlue, position); break;
+                        case "Colonel": pion = new Colonel(isBlue, position); break;
+                        case "Commandant": pion = new Commandant(isBlue, position); break;
+                        case "Capitaine": pion = new Capitaine(isBlue, position); break;
+                        case "Lieutenant": pion = new Lieutenant(isBlue, position); break;
+                        case "Sergent": pion = new Sergent(isBlue, position); break;
+                        case "Démineur": pion = new Demineur(isBlue, position); break;
+                        case "Éclaireur": pion = new Eclaireur(isBlue, position); break;
+                        case "Espion": pion = new Espion(isBlue, position); break;
+                        case "Bombe": pion = new Bombe(isBlue, position); break;
+                        case "Drapeau": pion = new Drapeau(isBlue, position); break;
+                    }
+
                     PictureBox pictureBox = new PictureBox
                     {
                         Name = $"{nom}_{equipe}{i + 1}",
@@ -158,13 +165,7 @@ namespace Stratego_Jean_Gazon
                         BackColor = isBlue ? Color.LightBlue : Color.LightCoral,
                         SizeMode = PictureBoxSizeMode.Zoom,
                         Image = ImageList.Images[ImgIndex],
-                        Tag = new PieceInfo
-                        {
-                            IsBlue = isBlue,
-                            OriginalImage = ImageList.Images[ImgIndex],
-                            Nom = nom,
-                            PositionGrille = new Point(colonne, ligne)
-                        }
+                        Tag = pion
                     };
 
                     pictureBox.Location = CalculerPositionGraphique(colonne, ligne);
@@ -172,9 +173,9 @@ namespace Stratego_Jean_Gazon
                     PnlGrilleGame.Controls.Add(pictureBox);
 
                     if (isBlue)
-                        PositionsPionsBleus[new Point(colonne, ligne)] = nom;
+                        PositionsPionsBleus[position] = pion;
                     else
-                        PositionsPionsRouges[new Point(colonne, ligne)] = nom;
+                        PositionsPionsRouges[position] = pion;
 
                     colonne++;
                     if (colonne > pionParLigne)
@@ -210,20 +211,21 @@ namespace Stratego_Jean_Gazon
             Piece_Adaptation(!isblue);
         }
 
-       private void Piece_Adaptation(bool isBlueTeam)
+        private void Piece_Adaptation(bool isBlueTeam)
         {
             foreach (Control PictureBox_piece in PnlGrilleGame.Controls)
             {
-                if (PictureBox_piece is PictureBox pb && pb.Tag is PieceInfo info && info.IsBlue == isBlueTeam)
+                if (PictureBox_piece is PictureBox pb && pb.Tag is personnage_base pion && pion.Couleur == isBlueTeam)
                 {
-                    int col = info.PositionGrille.X;
-                    int row = info.PositionGrille.Y;
+                    int col = pion.PositionGrille.X;
+                    int row = pion.PositionGrille.Y;
 
                     pb.Size = new Size(taillePictureBoxX, taillePictureBoxY);
                     pb.Location = CalculerPositionGraphique(col, row);
                 }
             }
         }
+
         public void Player_Grille_Change(Player Current_Player)
         {
             if (Current_Player == Player.Player_Blue)
@@ -237,21 +239,44 @@ namespace Stratego_Jean_Gazon
                 Piece_Rezise(false);
             }
         }
+
         public void Cacher_Piece(bool isblue)
         {
             foreach (Control ctrl in PnlGrilleGame.Controls)
             {
-                if (ctrl is PictureBox pb && pb.Tag is PieceInfo info)
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
                 {
-                    if (info.IsBlue != isblue)
+                    if (pion.Couleur != isblue)
                     {
                         pb.Image = null;
                     }
                     else
                     {
-                        pb.Image = info.OriginalImage;
+                        int imgIndex = GetImageIndexFromGrade(pion.Grade);
+                        if (imgIndex >= 0 && imgIndex < ImageList.Images.Count)
+                            pb.Image = ImageList.Images[imgIndex];
                     }
                 }
+            }
+        }
+
+        private int GetImageIndexFromGrade(string grade)
+        {
+            switch (grade)
+            {
+                case "Drapeau": return 0;
+                case "Bombe": return 1;
+                case "Éclaireur": return 2;
+                case "Démineur": return 3;
+                case "Sergent": return 4;
+                case "Lieutenant": return 5;
+                case "Capitaine": return 6;
+                case "Commandant": return 7;
+                case "Colonel": return 8;
+                case "Général": return 9;
+                case "Maréchal": return 10;
+                case "Espion": return 11;
+                default: return -1;
             }
         }
 

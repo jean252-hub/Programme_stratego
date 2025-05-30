@@ -15,9 +15,9 @@ namespace Stratego_Jean_Gazon
         {
             panel = grillePanel;
             joueurActuel = joueur;
-            Debug.WriteLine(joueur + "initialisation");
             AjouterEventsSurPieces();
         }
+
         public static void PositionnerTousLesPions(Panel panel, int largeurCase, int hauteurCase)
         {
             int taillePictureBoxX = (int)(largeurCase * 0.8);
@@ -25,10 +25,10 @@ namespace Stratego_Jean_Gazon
 
             foreach (Control ctrl in panel.Controls)
             {
-                if (ctrl is PictureBox pb && pb.Tag is PieceInfo info)
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
                 {
-                    int col = info.PositionGrille.X;
-                    int row = info.PositionGrille.Y;
+                    int col = pion.PositionGrille.X;
+                    int row = pion.PositionGrille.Y;
 
                     pb.Size = new Size(taillePictureBoxX, taillePictureBoxY);
                     pb.Location = new Point(
@@ -39,20 +39,18 @@ namespace Stratego_Jean_Gazon
             }
         }
 
-
         private void AjouterEventsSurPieces()
         {
             foreach (Control ctrl in panel.Controls)
             {
-                if (ctrl is PictureBox pb && pb.Tag is PieceInfo info)
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
                 {
-                    bool isBluePiece = info.IsBlue;
+                    bool isBluePiece = pion.Couleur;
                     bool estJoueurBleu = joueurActuel == Player.Player_Blue;
 
                     if (isBluePiece == estJoueurBleu)
                     {
                         pb.Click += Piece_Click;
-                        Debug.WriteLine("dans le if");
                     }
                 }
             }
@@ -63,7 +61,7 @@ namespace Stratego_Jean_Gazon
             var clickedPiece = sender as PictureBox;
             if (clickedPiece == null) return;
 
-            var clickedInfo = clickedPiece.Tag as PieceInfo;
+            var clickedInfo = clickedPiece.Tag as personnage_base;
             if (clickedInfo == null) return;
 
             if (selectedPiece == null)
@@ -75,14 +73,14 @@ namespace Stratego_Jean_Gazon
             {
                 if (selectedPiece == clickedPiece)
                 {
-                    selectedPiece.BackColor = clickedInfo.IsBlue ? Color.LightBlue : Color.LightCoral;
+                    selectedPiece.BackColor = clickedInfo.Couleur ? Color.LightBlue : Color.LightCoral;
                     selectedPiece = null;
                     return;
                 }
 
-                var selectedInfo = (PieceInfo)selectedPiece.Tag;
+                var selectedInfo = (personnage_base)selectedPiece.Tag;
 
-                if (selectedInfo.IsBlue == clickedInfo.IsBlue)
+                if (selectedInfo.Couleur == clickedInfo.Couleur)
                 {
                     // Échange la position graphique
                     Point tmp = selectedPiece.Location;
@@ -95,31 +93,29 @@ namespace Stratego_Jean_Gazon
                     clickedInfo.PositionGrille = tmpPos;
 
                     // Remettre la couleur d'origine
-                    selectedPiece.BackColor = selectedInfo.IsBlue ? Color.LightBlue : Color.LightCoral;
-                    clickedPiece.BackColor = clickedInfo.IsBlue ? Color.LightBlue : Color.LightCoral;
+                    selectedPiece.BackColor = selectedInfo.Couleur ? Color.LightBlue : Color.LightCoral;
+                    clickedPiece.BackColor = clickedInfo.Couleur ? Color.LightBlue : Color.LightCoral;
                 }
                 else
                 {
-                    selectedPiece.BackColor = selectedInfo.IsBlue ? Color.LightBlue : Color.LightCoral;
+                    selectedPiece.BackColor = selectedInfo.Couleur ? Color.LightBlue : Color.LightCoral;
                 }
 
                 selectedPiece = null;
             }
         }
 
-
         public void SupprimerEvents()
         {
             foreach (Control ctrl in panel.Controls)
             {
-                if (ctrl is PictureBox pb && pb.Tag is PieceInfo info)
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
                 {
-                    bool isBluePiece = info.IsBlue;
+                    bool isBluePiece = pion.Couleur;
                     bool estJoueurBleu = joueurActuel == Player.Player_Blue;
 
                     if (isBluePiece == estJoueurBleu)
                     {
-                        Debug.WriteLine("dans le supprim");
                         pb.Click -= Piece_Click;
                     }
                 }
