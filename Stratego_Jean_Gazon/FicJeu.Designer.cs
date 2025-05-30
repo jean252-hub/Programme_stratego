@@ -35,6 +35,7 @@ namespace Stratego_Jean_Gazon
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FicJeu));
             this.PnlGrilleGame = new System.Windows.Forms.Panel();
+            this.Titre_Fenetre = new System.Windows.Forms.PictureBox();
             this.pnlMenuPause = new System.Windows.Forms.Panel();
             this.btnReprendre = new System.Windows.Forms.Button();
             this.btnJeuQuitter = new System.Windows.Forms.Button();
@@ -45,10 +46,17 @@ namespace Stratego_Jean_Gazon
             this.btnValider = new System.Windows.Forms.Button();
             this.ImgListPerso = new System.Windows.Forms.ImageList(this.components);
             this.Btn_Pret = new System.Windows.Forms.Button();
+            this.pnlFinPartie = new System.Windows.Forms.Panel();
+            this.lblFinPartie = new System.Windows.Forms.Label();
+            this.picCoupe = new System.Windows.Forms.PictureBox();
+            this.btnRetourMenu = new System.Windows.Forms.Button();
             this.PnlGrilleGame.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Titre_Fenetre)).BeginInit();
             this.pnlMenuPause.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptLac1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptLac2)).BeginInit();
+            this.pnlFinPartie.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picCoupe)).BeginInit();
             this.SuspendLayout();
             // 
             // PnlGrilleGame
@@ -67,6 +75,16 @@ namespace Stratego_Jean_Gazon
             this.PnlGrilleGame.SizeChanged += new System.EventHandler(this.PnlGrilleGame_SizeChanged);
             this.PnlGrilleGame.Paint += new System.Windows.Forms.PaintEventHandler(this.PnlGrilleGame_Paint);
             this.PnlGrilleGame.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PnlGrilleGame_MouseDown);
+            // 
+            // Titre_Fenetre
+            // 
+            this.Titre_Fenetre.Image = global::Stratego_Jean_Gazon.Properties.Resources.titlestratego;
+            this.Titre_Fenetre.Location = new System.Drawing.Point(425, 6);
+            this.Titre_Fenetre.Name = "Titre_Fenetre";
+            this.Titre_Fenetre.Size = new System.Drawing.Size(190, 54);
+            this.Titre_Fenetre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Titre_Fenetre.TabIndex = 7;
+            this.Titre_Fenetre.TabStop = false;
             // 
             // pnlMenuPause
             // 
@@ -207,77 +225,78 @@ namespace Stratego_Jean_Gazon
             this.Btn_Pret.UseVisualStyleBackColor = false;
             this.Btn_Pret.Click += new System.EventHandler(this.Btn_Pret_Click);
             // 
+            // pnlFinPartie
+            // 
+            this.pnlFinPartie.BackColor = System.Drawing.Color.DarkRed;
+            this.pnlFinPartie.Controls.Add(this.lblFinPartie);
+            this.pnlFinPartie.Controls.Add(this.picCoupe);
+            this.pnlFinPartie.Controls.Add(this.btnRetourMenu);
+            this.pnlFinPartie.Location = new System.Drawing.Point(0, 0);
+            this.pnlFinPartie.Name = "pnlFinPartie";
+            this.pnlFinPartie.Size = new System.Drawing.Size(400, 300);
+            this.pnlFinPartie.TabIndex = 6;
+            this.pnlFinPartie.Visible = false;
+            // 
+            // lblFinPartie
+            // 
+            this.lblFinPartie.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblFinPartie.Font = new System.Drawing.Font("Arial", 20F, System.Drawing.FontStyle.Bold);
+            this.lblFinPartie.ForeColor = System.Drawing.Color.White;
+            this.lblFinPartie.Location = new System.Drawing.Point(0, 0);
+            this.lblFinPartie.Name = "lblFinPartie";
+            this.lblFinPartie.Size = new System.Drawing.Size(400, 60);
+            this.lblFinPartie.TabIndex = 0;
+            this.lblFinPartie.Text = "Victoire !";
+            this.lblFinPartie.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // picCoupe
+            // 
+            this.picCoupe.Image = global::Stratego_Jean_Gazon.Properties.Resources.coupe;
+            this.picCoupe.Location = new System.Drawing.Point(0, 0);
+            this.picCoupe.Name = "picCoupe";
+            this.picCoupe.Size = new System.Drawing.Size(120, 120);
+            this.picCoupe.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picCoupe.TabIndex = 1;
+            this.picCoupe.TabStop = false;
+            // 
+            // btnRetourMenu
+            // 
+            this.btnRetourMenu.BackColor = System.Drawing.Color.Gold;
+            this.btnRetourMenu.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRetourMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRetourMenu.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRetourMenu.Location = new System.Drawing.Point(100, 210);
+            this.btnRetourMenu.Name = "btnRetourMenu";
+            this.btnRetourMenu.Size = new System.Drawing.Size(180, 40);
+            this.btnRetourMenu.TabIndex = 2;
+            this.btnRetourMenu.Text = "Retour au menu";
+            this.btnRetourMenu.UseVisualStyleBackColor = false;
+            this.btnRetourMenu.Click += new System.EventHandler(this.BtnRetourMenu_Click);
+            // 
             // FicJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkRed;
             this.ClientSize = new System.Drawing.Size(963, 489);
+            this.Controls.Add(this.Titre_Fenetre);
             this.Controls.Add(this.Btn_Pret);
             this.Controls.Add(this.btnValider);
             this.Controls.Add(this.PnlGrilleGame);
+            this.Controls.Add(this.pnlFinPartie);
             this.Name = "FicJeu";
-            this.Text = "FicJeu";
+            this.Text = "Stratego";
             this.Load += new System.EventHandler(this.FicJeu_Load);
             this.SizeChanged += new System.EventHandler(this.FicJeu_SizeChanged);
             this.PnlGrilleGame.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Titre_Fenetre)).EndInit();
             this.pnlMenuPause.ResumeLayout(false);
             this.pnlMenuPause.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptLac1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptLac2)).EndInit();
+            this.pnlFinPartie.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picCoupe)).EndInit();
             this.ResumeLayout(false);
-            // pnlFinPartie
-            this.pnlFinPartie = new System.Windows.Forms.Panel();
-            this.lblFinPartie = new System.Windows.Forms.Label();
-            this.picCoupe = new System.Windows.Forms.PictureBox();
-            this.btnRetourMenu = new System.Windows.Forms.Button();
-
-            this.pnlFinPartie.Controls.Add(this.lblFinPartie);
-            this.pnlFinPartie.Controls.Add(this.picCoupe);
-            this.pnlFinPartie.Controls.Add(this.btnRetourMenu);
-            this.pnlFinPartie.Size = new System.Drawing.Size(400, 300);
-            // Couleur de fond dark red
-            this.pnlFinPartie.BackColor = Color.DarkRed;
-            this.pnlFinPartie.Visible = false;
-            this.pnlFinPartie.BringToFront();
-
-            // lblFinPartie
-            this.lblFinPartie.Text = "Victoire !";
-            this.lblFinPartie.Font = new Font("Arial", 20, FontStyle.Bold);
-            this.lblFinPartie.AutoSize = false;
-            this.lblFinPartie.TextAlign = ContentAlignment.MiddleCenter;
-            this.lblFinPartie.Dock = DockStyle.Top;
-            this.lblFinPartie.Height = 60;
-            this.lblFinPartie.ForeColor = Color.White;
-
-            // picCoupe
-            this.picCoupe.Image = Properties.Resources.coupe;
-            this.picCoupe.SizeMode = PictureBoxSizeMode.Zoom;
-            this.picCoupe.Size = new Size(120, 120);
-            //is.picCoupe.Location = new Point((pnlFinPartie.Width - 120) / 2, 70);
-
-            // btnRetourMenu (même style que btnValider)
-            this.btnRetourMenu.Text = "Retour au menu";
-            this.btnRetourMenu.Size = new Size(180, 40);
-            this.btnRetourMenu.Location = new Point(100, 210); 
-
-            this.btnRetourMenu.BackColor = Color.Gold;
-            this.btnRetourMenu.FlatStyle = FlatStyle.Flat;
-            this.btnRetourMenu.Font = new Font("Impact", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
-            this.btnRetourMenu.Cursor = Cursors.Hand;
-            this.btnRetourMenu.UseVisualStyleBackColor = false;
-            this.btnRetourMenu.Click += new EventHandler(this.BtnRetourMenu_Click);
-
-            this.Controls.Add(this.pnlFinPartie);
-
-            // Centrage dynamique lors du redimensionnement
-            /*this.SizeChanged += (s, e) => {
-                this.pnlFinPartie.Location = new Point(
-                    (this.ClientSize.Width - this.pnlFinPartie.Width) / 2,
-                    (this.ClientSize.Height - this.pnlFinPartie.Height) / 2
-                );
-            };*/
-
 
         }
 
@@ -298,6 +317,6 @@ namespace Stratego_Jean_Gazon
         private System.Windows.Forms.Label lblFinPartie;
         private System.Windows.Forms.PictureBox picCoupe;
         private System.Windows.Forms.Button btnRetourMenu;
-
+        private PictureBox Titre_Fenetre;
     }
 }

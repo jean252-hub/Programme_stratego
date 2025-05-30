@@ -1,5 +1,5 @@
 Nouveau log démarré...
-Timestamp: 28-05-25 18:59:01
+Timestamp: 30-05-25 17:54:04
 Player_Blueinitialisation
 dans le if
 dans le if
@@ -41,46 +41,3 @@ dans le if
 dans le if
 dans le if
 dans le if
-Player_Bluegrille
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-dans le supprim
-Cacher les pions rouges
-Attaquant gagne ! (Drapeau touché)

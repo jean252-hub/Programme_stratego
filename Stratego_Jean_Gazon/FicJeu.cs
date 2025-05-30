@@ -34,8 +34,10 @@ namespace Stratego_Jean_Gazon
             pnlMenuPause.Parent = this;
             transitionManager = new GameTransitionManager(this, Properties.Resources.Image_Transition);
             grille_manager.CenterPanel(this.ClientSize.Width, this.ClientSize.Height);
+            grille_manager.RecalculerTaillesEtPositions();
             player = new Players();
             Other_option = new Other(btnValider, this, Btn_Pret);
+            PositionnerTitreFenetre();
         }
 
         private Image GetPionImageFromImageList(string nom)
@@ -78,9 +80,8 @@ namespace Stratego_Jean_Gazon
             if (grille_manager != null)
             {
                 grille_manager.CenterPanel(this.ClientSize.Width, this.ClientSize.Height);
+                grille_manager.RecalculerTaillesEtPositions();
                 grille_manager.Piece_Rezise(true);
-                var (largeurCase, hauteurCase, _, _) = grille_manager.CalculerTaillesEtPositions();
-                Initialisation_Pion.PositionnerTousLesPions(PnlGrilleGame, largeurCase, hauteurCase);
             }
         }
 
@@ -96,7 +97,8 @@ namespace Stratego_Jean_Gazon
 
         private void btnValider_Click(object sender, EventArgs e)
         {
-            var (largeurCase, hauteurCase, _, _) = grille_manager.CalculerTaillesEtPositions();
+            grille_manager.RecalculerTaillesEtPositions();
+            var (largeurCase, hauteurCase, _, _) = grille_manager.GetTaillesEtPositions();
             Initialisation_Pion.PositionnerTousLesPions(PnlGrilleGame, largeurCase, hauteurCase);
             Btn_Pret.Visible = false;
             Player_Game();
@@ -165,7 +167,8 @@ namespace Stratego_Jean_Gazon
             var info = pionSelectionne.Tag as PieceInfo;
             if (info == null) return;
 
-            var (largeurCase, hauteurCase, _, _) = grille_manager.CalculerTaillesEtPositions();
+            grille_manager.RecalculerTaillesEtPositions();
+            var (largeurCase, hauteurCase, _, _) = grille_manager.GetTaillesEtPositions();
             int col = e.X / largeurCase + 1;
             int row = e.Y / hauteurCase + 1;
             Point destination = new Point(col, row);
@@ -285,7 +288,7 @@ namespace Stratego_Jean_Gazon
 
                     if (victoire == 4)
                     {
-                    AfficherFinPartie(player.CurrentPlayer);
+                        AfficherFinPartie(player.CurrentPlayer);
                     }
                 }
                 pionSelectionne = null;
@@ -298,25 +301,30 @@ namespace Stratego_Jean_Gazon
             pionSelectionne = null;
             action_joue = true;
         }
+
         private void AfficherFinPartie(Player gagnant)
         {
             pnlFinPartie.Location = new Point(
-        (this.ClientSize.Width - pnlFinPartie.Width) / 2,
-        (this.ClientSize.Height - pnlFinPartie.Height) / 2
-         );
+                (this.ClientSize.Width - pnlFinPartie.Width) / 2,
+                (this.ClientSize.Height - pnlFinPartie.Height) / 2
+            );
             btnRetourMenu.Location = new Point((pnlFinPartie.Width - btnRetourMenu.Width) / 2, 210);
             this.picCoupe.Location = new Point(
-           (this.pnlFinPartie.Width - this.picCoupe.Width) / 2,
-           70
+                (this.pnlFinPartie.Width - this.picCoupe.Width) / 2,
+                70
             );
             pnlFinPartie.Visible = true;
             pnlFinPartie.BringToFront();
             lblFinPartie.Text = $"Victoire {(gagnant == Player.Player_Blue ? "Bleue" : "Rouge")} !";
             lblFinPartie.ForeColor = Color.Yellow;
-
-
         }
 
+        private void PositionnerTitreFenetre()
+        {
+            int titreX = this.ClientSize.Width / 2 - Titre_Fenetre.Width / 2;
+            int titreY = 3;
+            Titre_Fenetre.Location = new Point(titreX, titreY);
+        }
 
         private bool CaseOccupee(Point pos)
         {
@@ -330,12 +338,13 @@ namespace Stratego_Jean_Gazon
             }
             return false;
         }
+
         private void BtnRetourMenu_Click(object sender, EventArgs e)
         {
             FermerLog();
             this.Close();
-
         }
+
         private void FermerLog()
         {
             foreach (TraceListener listener in Debug.Listeners)
@@ -346,13 +355,19 @@ namespace Stratego_Jean_Gazon
             Debug.Listeners.Clear();
         }
 
-
         private void FicJeu_SizeChanged(object sender, EventArgs e)
         {
             if (Other_option != null)
             {
                 Other_option.bValider_position();
             }
+
+            if (grille_manager != null)
+            {
+                grille_manager.RecalculerTaillesEtPositions();
+            }
+
+            PositionnerTitreFenetre();
         }
 
         private void Btn_Pret_Click(object sender, EventArgs e)

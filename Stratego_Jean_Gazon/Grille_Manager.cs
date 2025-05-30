@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -26,6 +25,14 @@ namespace Stratego_Jean_Gazon
         public Dictionary<Point, string> PositionsPionsBleus { get; private set; } = new Dictionary<Point, string>();
         public Dictionary<Point, string> PositionsPionsRouges { get; private set; } = new Dictionary<Point, string>();
 
+        // Propriétés centralisées pour les tailles et positions
+        private int largeurCase;
+        private int hauteurCase;
+        private int taillePictureBoxX;
+        private int taillePictureBoxY;
+        private Point basGauche;
+        private Point hautGauche;
+
         public Grille_Manager(Panel panel_Grille, Panel panel_Pause, PictureBox picture1, PictureBox picture2, ImageList Imglistperso)
         {
             PnlGrilleGame = panel_Grille;
@@ -33,6 +40,22 @@ namespace Stratego_Jean_Gazon
             ptLac1 = picture1;
             ptLac2 = picture2;
             ImageList = Imglistperso;
+            RecalculerTaillesEtPositions();
+        }
+
+        public void RecalculerTaillesEtPositions()
+        {
+            largeurCase = PnlGrilleGame.Width / 10;
+            hauteurCase = PnlGrilleGame.Height / 10;
+            taillePictureBoxX = (int)(largeurCase * 0.8);
+            taillePictureBoxY = (int)(hauteurCase * 0.8);
+            basGauche = new Point((largeurCase * 0) + (largeurCase / 2), (hauteurCase * 6) + (hauteurCase / 2));
+            hautGauche = new Point((largeurCase * 0) + (largeurCase / 2), (hauteurCase * 0) + (hauteurCase / 2));
+        }
+
+        public (int largeurCase, int hauteurCase, Point basGauche, Point hautGauche) GetTaillesEtPositions()
+        {
+            return (largeurCase, hauteurCase, basGauche, hautGauche);
         }
 
         public void AjouterPion(Point position, string typePion, bool isBlue)
@@ -53,7 +76,6 @@ namespace Stratego_Jean_Gazon
 
         public void DeplacerPion(PieceInfo info, PictureBox pb, Point destination)
         {
-            // Mise à jour des dictionnaires de positions
             if (info.IsBlue)
             {
                 PositionsPionsBleus.Remove(info.PositionGrille);
@@ -67,13 +89,8 @@ namespace Stratego_Jean_Gazon
 
             info.PositionGrille = destination;
 
-            var (largeurCase, hauteurCase, _, _) = CalculerTaillesEtPositions();
-            int tailleX = (int)(largeurCase * 0.8);
-            int tailleY = (int)(hauteurCase * 0.8);
-            pb.Location = new Point(
-                (destination.X - 1) * largeurCase + (largeurCase - tailleX) / 2,
-                (destination.Y - 1) * hauteurCase + (hauteurCase - tailleY) / 2
-            );
+            pb.Size = new Size(taillePictureBoxX, taillePictureBoxY);
+            pb.Location = CalculerPositionGraphique(destination.X, destination.Y);
             pb.BackColor = info.IsBlue ? Color.LightBlue : Color.LightCoral;
         }
 
@@ -82,9 +99,6 @@ namespace Stratego_Jean_Gazon
 
         public void PnlGrilleGame_Dessine(object sender, PaintEventArgs e)
         {
-            int largeurCase = PnlGrilleGame.Width / 10;
-            int hauteurCase = PnlGrilleGame.Height / 10;
-
             for (int i = 1; i < 10; i++)
             {
                 e.Graphics.DrawLine(Pens.Black, 0, i * hauteurCase, PnlGrilleGame.Width, i * hauteurCase);
@@ -95,16 +109,16 @@ namespace Stratego_Jean_Gazon
                 e.Graphics.DrawLine(Pens.Black, j * largeurCase, 0, j * largeurCase, PnlGrilleGame.Height);
             }
 
-            Place_ptlac(2, 4, largeurCase, hauteurCase, ptLac1);
-            Place_ptlac(6, 4, largeurCase, hauteurCase, ptLac2);
+            Place_ptlac(2, 4, ptLac1);
+            Place_ptlac(6, 4, ptLac2);
         }
 
-        private void Place_ptlac(int positionx, int positiony, int largeurcase, int hauteurcase, PictureBox picturebox)
+        private void Place_ptlac(int positionx, int positiony, PictureBox picturebox)
         {
-            int x = positionx * largeurcase;
-            int y = positiony * hauteurcase;
-            int width = 2 * largeurcase;
-            int height = 2 * hauteurcase;
+            int x = positionx * largeurCase;
+            int y = positiony * hauteurCase;
+            int width = 2 * largeurCase;
+            int height = 2 * hauteurCase;
             picturebox.SetBounds(x, y, width, height);
         }
 
@@ -126,12 +140,6 @@ namespace Stratego_Jean_Gazon
                 ("Drapeau", 1,0)
             };
 
-            int largeurCase = PnlGrilleGame.Width / 10;
-            int hauteurCase = PnlGrilleGame.Height / 10;
-            int taillePictureBoxX = (int)(largeurCase * 0.8);
-            int taillePictureBoxY = (int)(hauteurCase * 0.8);
-            Color equipeColor = isBlue ? Color.LightBlue : Color.LightCoral;
-
             int xPosition = startX;
             int yPosition = startY;
 
@@ -147,7 +155,7 @@ namespace Stratego_Jean_Gazon
                     {
                         Name = $"{nom}_{equipe}{i + 1}",
                         Size = new Size(taillePictureBoxX, taillePictureBoxY),
-                        BackColor = equipeColor,
+                        BackColor = isBlue ? Color.LightBlue : Color.LightCoral,
                         SizeMode = PictureBoxSizeMode.Zoom,
                         Image = ImageList.Images[ImgIndex],
                         Tag = new PieceInfo
@@ -159,14 +167,10 @@ namespace Stratego_Jean_Gazon
                         }
                     };
 
-                    pictureBox.Location = new Point(
-                        xPosition - (taillePictureBoxX / 2),
-                        yPosition - (taillePictureBoxY / 2)
-                    );
+                    pictureBox.Location = CalculerPositionGraphique(colonne, ligne);
 
                     PnlGrilleGame.Controls.Add(pictureBox);
 
-                    // Ajout dans le dictionnaire
                     if (isBlue)
                         PositionsPionsBleus[new Point(colonne, ligne)] = nom;
                     else
@@ -178,49 +182,35 @@ namespace Stratego_Jean_Gazon
                         colonne = 1;
                         ligne++;
                     }
-
-                    xPosition += largeurCase;
-                    if (xPosition >= PnlGrilleGame.Width)
-                    {
-                        xPosition = startX;
-                        yPosition += hauteurCase;
-                    }
                 }
             }
         }
 
-        public (int largeurCase, int hauteurCase, Point basGauche, Point hautGauche) CalculerTaillesEtPositions()
+        private Point CalculerPositionGraphique(int col, int row)
         {
-            int largeurCase = PnlGrilleGame.Width / 10;
-            int hauteurCase = PnlGrilleGame.Height / 10;
-
-            Point basGauche = new Point((largeurCase * 0) + (largeurCase / 2), (hauteurCase * 6) + (hauteurCase / 2));
-            Point hautGauche = new Point((largeurCase * 0) + (largeurCase / 2), (hauteurCase * 0) + (hauteurCase / 2));
-
-            return (largeurCase, hauteurCase, basGauche, hautGauche);
+            return new Point(
+                (col - 1) * largeurCase + (largeurCase - taillePictureBoxX) / 2,
+                (row - 1) * hauteurCase + (hauteurCase - taillePictureBoxY) / 2
+            );
         }
 
         public void Piece_Init()
         {
             PositionsPionsBleus.Clear();
             PositionsPionsRouges.Clear();
-            var (largeurCase, hauteurCase, basGauche, hautGauche) = CalculerTaillesEtPositions();
+            RecalculerTaillesEtPositions();
             CreateStrategoPictureBoxes(basGauche.X, basGauche.Y, true);
             CreateStrategoPictureBoxes(hautGauche.X, hautGauche.Y, false);
         }
 
         public void Piece_Rezise(bool isblue)
         {
-            var (largeurCase, hauteurCase, basGauche, hautGauche) = CalculerTaillesEtPositions();
-
-            int taillePictureBoxX = (int)(largeurCase * 0.8);
-            int taillePictureBoxY = (int)(hauteurCase * 0.8);
-
-            Piece_Adaptation(basGauche.X, basGauche.Y, largeurCase, hauteurCase, taillePictureBoxX, taillePictureBoxY, isblue);
-            Piece_Adaptation(hautGauche.X, hautGauche.Y, largeurCase, hauteurCase, taillePictureBoxX, taillePictureBoxY, !isblue);
+            RecalculerTaillesEtPositions();
+            Piece_Adaptation(isblue);
+            Piece_Adaptation(!isblue);
         }
 
-        private void Piece_Adaptation(int LocationX, int LocationY, int largeurCase, int hauteurCase, int taillePictureBoxX, int taillePictureBoxY, bool isBlueTeam)
+       private void Piece_Adaptation(bool isBlueTeam)
         {
             foreach (Control PictureBox_piece in PnlGrilleGame.Controls)
             {
@@ -230,20 +220,15 @@ namespace Stratego_Jean_Gazon
                     int row = info.PositionGrille.Y;
 
                     pb.Size = new Size(taillePictureBoxX, taillePictureBoxY);
-                    pb.Location = new Point(
-                        (col - 1) * largeurCase + (largeurCase - taillePictureBoxX) / 2,
-                        (row - 1) * hauteurCase + (hauteurCase - taillePictureBoxY) / 2
-                    );
+                    pb.Location = CalculerPositionGraphique(col, row);
                 }
             }
         }
-
         public void Player_Grille_Change(Player Current_Player)
         {
             if (Current_Player == Player.Player_Blue)
             {
                 Cacher_Piece(true);
-                Debug.WriteLine("Cacher les pions rouges");
                 Piece_Rezise(true);
             }
             else
@@ -252,7 +237,6 @@ namespace Stratego_Jean_Gazon
                 Piece_Rezise(false);
             }
         }
-
         public void Cacher_Piece(bool isblue)
         {
             foreach (Control ctrl in PnlGrilleGame.Controls)
@@ -274,7 +258,6 @@ namespace Stratego_Jean_Gazon
         public void ActiverPlacement(Player joueur)
         {
             initialisationPion = new Initialisation_Pion(PnlGrilleGame, joueur);
-            Debug.WriteLine(joueur + "grille");
         }
 
         public void TerminerPlacement()
