@@ -20,32 +20,41 @@ namespace Stratego_Jean_Gazon
         private Other Other_option;
         private PictureBox pionSelectionne = null;
         private bool action_joue = false;
-        public ImageList ImageListPions => ImgListPerso;
-
+        public ImageList ImageListPions => ImgListPerso; // pointer vers la list d'images des pions
         public FicJeu()
         {
             this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
             this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
 
-            grille_manager = new Grille_Manager(PnlGrilleGame, pnlMenuPause, ptLac1, ptLac2, ImgListPerso);
-            grilleGameEngine = new Grille_GameEngine();
+            grille_manager = new Grille_Manager(PnlGrilleGame, pnlMenuPause, ptLac1, ptLac2, ImgListPerso); // grille manager gère tout l'aspect visuel de la grille
+            grilleGameEngine = new Grille_GameEngine(); // grilleGameEngine gère la logique du jeu
             menuEsc = new MenuESC(this, pnlMenuPause, PnlGrilleGame, btnReprendre, btnJeuQuitter, pnlPausebtnrecommencer, btnValider);
             pnlMenuPause.Parent = this;
-            transitionManager = new GameTransitionManager(this, Properties.Resources.Image_Transition);
+            transitionManager = new GameTransitionManager(this, Properties.Resources.Image_Transition); // transitionManager gère les transitions du jeu (placement, changement de joueur, combat)
+            // adaptation de la grille manager à la taille de la fenêtre
             grille_manager.CenterPanel(this.ClientSize.Width, this.ClientSize.Height);
             grille_manager.RecalculerTaillesEtPositions();
             player = new Players();
             Other_option = new Other(btnValider, this, Btn_Pret);
             PositionnerTitreFenetre();
         }
-
-        private Image GetPionImageFromImageList(string nom)
+        private async void FicJeu_Load(object sender, EventArgs e) // les méthodes async permet de ne pas bloquer l'interface pendant que les transition sont appélée pour rendre le jeu plus conviviale async est obligatoire quand on utilise await 
         {
-            if (ImgListPerso.Images.ContainsKey(nom))
+            Debug_config();
+            grille_manager.Piece_Init();
+            Other_option.bValider_position();
+            Btn_Pret.Visible = false;
+            player.Initialisation_Jeu(grille_manager, Btn_Pret, this);
+            await transitionManager.ShowPlacement(Player.Player_Blue);// await permet de ne pas bloquer l'interface pendant que la transition est en cours
+        }
+
+        private Image GetPionImageFromImageList(string nom) // sert à récupérer l'image d'un pion dans la liste d'images ImgListPerso
+        {
+            if (ImgListPerso.Images.ContainsKey(nom)) // l'image est recuperee grace a son nom les image de l'images listes et celle donnés au personnage on la même orthographes 
                 return ImgListPerso.Images[nom];
 
-            foreach (string key in ImgListPerso.Images.Keys)
+            foreach (string key in ImgListPerso.Images.Keys)// permet de retrouver les images même si il y a une erreur dans l'ortographe entre l'image et le nom du personnage
             {
                 if (string.Equals(key, nom, StringComparison.InvariantCultureIgnoreCase))
                     return ImgListPerso.Images[key];
@@ -85,15 +94,7 @@ namespace Stratego_Jean_Gazon
             }
         }
 
-        private async void FicJeu_Load(object sender, EventArgs e)
-        {
-            Debug_config();
-            grille_manager.Piece_Init();
-            Other_option.bValider_position();
-            Btn_Pret.Visible = false;
-            player.Initialisation_Jeu(grille_manager, Btn_Pret, this);
-            await transitionManager.ShowPlacement(Player.Player_Blue);
-        }
+        
 
         private void btnValider_Click(object sender, EventArgs e)
         {

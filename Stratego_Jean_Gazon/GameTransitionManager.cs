@@ -10,7 +10,8 @@ namespace Stratego_Jean_Gazon
         private readonly Form parentForm;
 
         // Transition générale (placement, changement de joueur)
-        private readonly Panel panelTransition;
+        private readonly Panel panelTransition; // Composants graphiques utilisés pour afficher les transitions (placement, changement de joueur, combat).
+        // Déclarés en readonly pour garantir qu'ils ne seront jamais réassignés après l'initialisation du constructeu
         private readonly PictureBox pictureBoxTransition;
         private readonly Label labelTransition;
 
@@ -96,7 +97,7 @@ namespace Stratego_Jean_Gazon
             parent.Controls.Add(panelCombat);
         }
 
-        // --- Centrage des éléments ---
+        
         private void CenterTransitionElements()
         {
             labelTransition.PerformLayout();

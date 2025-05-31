@@ -120,10 +120,11 @@ namespace Stratego_Jean_Gazon
             pnlMenuPause.Top = (ClientSizeH - pnlMenuPause.Height) / 2;
         }
 
-        private void CreateStrategoPictureBoxes(int startX, int startY, bool isBlue)
+        private void CreateStrategoPictureBoxes(int startX, int startY, bool isBlue) // permet de créer les pions de la grille
         {
-            string equipe = isBlue ? "bleu" : "rouge";
-            var personnages = new (string nom, int count, int ImgIndex)[]
+            string equipe = isBlue ? "bleu" : "rouge"; // 
+            var personnages = new (string nom, int count, int ImgIndex)[] // on definit les personnages que l'on veut avoir sur la grille et leur nombre dans une variable personnage 
+            // celle ci sert juste a créer le bon nombre de maéchale génral... 
             {
                 ("Maréchal", 1,10), ("Général", 1,9), ("Colonel", 2,8),
                 ("Commandant", 3,7), ("Capitaine", 4,6), ("Lieutenant", 4,5),
@@ -132,15 +133,15 @@ namespace Stratego_Jean_Gazon
                 ("Drapeau", 1,0)
             };
 
-            int colonne = 1;
-            int ligne = isBlue ? 7 : 1;
+            int colonne = 1; 
+            int ligne = isBlue ? 7 : 1; // permet de savoir ou la boucle pour créer les pictures boxes va commencer, si c'est l'équipe bleu on commence en bas sinon on commence en haut
             int pionParLigne = 10;
 
-            foreach (var (nom, count, ImgIndex) in personnages)
+            foreach (var (nom, count, ImgIndex) in personnages)// création des personnage  à l'aide d'une boucle pour parcourir les personnages
             {
-                for (int i = 0; i < count; i++)
+                for (int i = 0; i < count; i++) // permet de créer le nombre de personnage voulu en fonction du type (exemple 1 maréchal, 2 colonel...)
                 {
-                    Point position = new Point(colonne, ligne);
+                    Point position = new Point(colonne, ligne);// on donne tout les caractéristique de l'objet personnage 
                     personnage_base pion = null;
                     switch (nom)
                     {
@@ -158,14 +159,14 @@ namespace Stratego_Jean_Gazon
                         case "Drapeau": pion = new Drapeau(isBlue, position); break;
                     }
 
-                    PictureBox pictureBox = new PictureBox
+                    PictureBox pictureBox = new PictureBox // on crée un picturebox pour chaque personnage
                     {
                         Name = $"{nom}_{equipe}{i + 1}",
                         Size = new Size(taillePictureBoxX, taillePictureBoxY),
                         BackColor = isBlue ? Color.LightBlue : Color.LightCoral,
                         SizeMode = PictureBoxSizeMode.Zoom,
                         Image = ImageList.Images[ImgIndex],
-                        Tag = pion
+                        Tag = pion // on associe chaque personnage à sa picturebox
                     };
 
                     pictureBox.Location = CalculerPositionGraphique(colonne, ligne);
@@ -260,7 +261,7 @@ namespace Stratego_Jean_Gazon
             }
         }
 
-        private int GetImageIndexFromGrade(string grade)
+        private int GetImageIndexFromGrade(string grade) // donne l'index de l'image en fonction du grade du personnage
         {
             switch (grade)
             {
@@ -282,7 +283,7 @@ namespace Stratego_Jean_Gazon
 
         public void ActiverPlacement(Player joueur)
         {
-            initialisationPion = new Initialisation_Pion(PnlGrilleGame, joueur);
+            initialisationPion = new Initialisation_Pion(PnlGrilleGame, joueur);  // appelle de la classe initialisation pion pour pouvoir positionner ses pions en début de partie 
         }
 
         public void TerminerPlacement()

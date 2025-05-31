@@ -39,14 +39,14 @@ namespace Stratego_Jean_Gazon
             }
         }
 
-        private void AjouterEventsSurPieces()
+        private void AjouterEventsSurPieces() // fonction permetant de lier les événements de clic sur les pièces
         {
             foreach (Control ctrl in panel.Controls)
             {
                 if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
                 {
-                    bool isBluePiece = pion.Couleur;
-                    bool estJoueurBleu = joueurActuel == Player.Player_Blue;
+                    bool isBluePiece = pion.Couleur;  
+                    bool estJoueurBleu = joueurActuel == Player.Player_Blue;// associe le joueur actuel à la couleur des pièces pour ne pas que le joueur d'enface puisse modifier les pièce de son adversaire 
 
                     if (isBluePiece == estJoueurBleu)
                     {
@@ -56,12 +56,12 @@ namespace Stratego_Jean_Gazon
             }
         }
 
-        private void Piece_Click(object sender, EventArgs e)
+        private void Piece_Click(object sender, EventArgs e) 
         {
-            var clickedPiece = sender as PictureBox;
+            var clickedPiece = sender as PictureBox; // la pb est selectionnée 
             if (clickedPiece == null) return;
 
-            var clickedInfo = clickedPiece.Tag as personnage_base;
+            var clickedInfo = clickedPiece.Tag as personnage_base; // on récupère les informations de la piece selectionnée
             if (clickedInfo == null) return;
 
             if (selectedPiece == null)
@@ -80,7 +80,7 @@ namespace Stratego_Jean_Gazon
 
                 var selectedInfo = (personnage_base)selectedPiece.Tag;
 
-                if (selectedInfo.Couleur == clickedInfo.Couleur)
+                if (selectedInfo.Couleur == clickedInfo.Couleur)// on effectue le changerment de position 
                 {
                     // Échange la position graphique
                     Point tmp = selectedPiece.Location;
