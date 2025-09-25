@@ -21,20 +21,20 @@ namespace Stratego_Jean_Gazon
 
 
         // Constructeur qui prend le Form et le Panel
-        public MenuESC(Form form, Panel panel,Panel Jeu_Enable,Button Reprendre, Button Quitter, Button Recommencer , Button Valider)
+        public MenuESC(Form form, Panel panel,Panel Jeu_Enable,Button Reprendre, Button Quitter , Button Valider)
         {
             parentForm = form;
             pnlMenuPause = panel;
             pnlGrilleGame = Jeu_Enable;
             btnReprendre = Reprendre;
             btnQuitter = Quitter;
-            btnRecommencer = Recommencer;
+            
             btnValider = Valider;
 
             pnlMenuPause.Visible = false; // Caché par défaut
             btnReprendre.Click += BtnReprendre_Click;
             btnQuitter.Click += BtnQuitter_Click;
-            btnRecommencer.Click += BtnRecommencer_Click;
+            
 
             parentForm.KeyDown += ParentForm_KeyDown;
             parentForm.KeyPreview = true;
@@ -78,7 +78,8 @@ namespace Stratego_Jean_Gazon
         {
             // Logique pour recommencer le jeu
             MessageBox.Show("Le jeu recommence !");
-            // Par exemple, réinitialiser le jeu ici
+            
+            
         }
 
 

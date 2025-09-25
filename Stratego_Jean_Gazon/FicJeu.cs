@@ -29,7 +29,7 @@ namespace Stratego_Jean_Gazon
 
             grille_manager = new Grille_Manager(PnlGrilleGame, pnlMenuPause, ptLac1, ptLac2, ImgListPerso); // grille manager gère tout l'aspect visuel de la grille
             grilleGameEngine = new Grille_GameEngine(); // grilleGameEngine gère la logique du jeu
-            menuEsc = new MenuESC(this, pnlMenuPause, PnlGrilleGame, btnReprendre, btnJeuQuitter, pnlPausebtnrecommencer, btnValider);
+            menuEsc = new MenuESC(this, pnlMenuPause, PnlGrilleGame, btnReprendre, btnJeuQuitter, btnValider);
             pnlMenuPause.Parent = this;
             transitionManager = new GameTransitionManager(this, Properties.Resources.Image_Transition); // transitionManager gère les transitions du jeu (placement, changement de joueur, combat)
             // adaptation de la grille manager à la taille de la fenêtre
@@ -94,7 +94,17 @@ namespace Stratego_Jean_Gazon
             }
         }
 
-        
+        private void deplacerouattaquer()
+        {
+
+
+            grille_manager.RecalculerTaillesEtPositions();
+            var (largeurCase, hauteurCase, _, _) = grille_manager.GetTaillesEtPositions();
+            Initialisation_Pion.PositionnerTousLesPions(PnlGrilleGame, largeurCase, hauteurCase);
+            Btn_Pret.Visible = false;
+            Player_Game();
+
+        }
 
         private void btnValider_Click(object sender, EventArgs e)
         {
@@ -114,6 +124,11 @@ namespace Stratego_Jean_Gazon
             player.ChangerJoueur();
             grille_manager.Player_Grille_Change(player.CurrentPlayer);
             ActiverModeJeuPourJoueur(player.CurrentPlayer);
+            Task.Delay(1000).Wait(); // Pause pour laisser le temps à la transition de se terminer
+            if (action_joue)
+            {
+                deplacerouattaquer();
+            }
         }
 
         private void ActiverModeJeuPourJoueur(Player joueur)
@@ -295,6 +310,7 @@ namespace Stratego_Jean_Gazon
                 }
                 pionSelectionne = null;
                 action_joue = true;
+                deplacerouattaquer();
                 return;
             }
 
@@ -302,6 +318,8 @@ namespace Stratego_Jean_Gazon
 
             pionSelectionne = null;
             action_joue = true;
+            Task.Delay(1000).Wait(); // Pause pour laisser le temps à la transition de se terminer
+            deplacerouattaquer();
         }
 
         private void AfficherFinPartie(Player gagnant)
@@ -375,5 +393,59 @@ namespace Stratego_Jean_Gazon
         private void Btn_Pret_Click(object sender, EventArgs e)
         {
         }
+        private void FicJeu_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.Space && player.CurrentPlayer == Player.Player_Blue)
+
+            {
+                Debug.WriteLine(player.CurrentPlayer);
+                Debug.WriteLine(Player.Player_Blue);
+                // Récupère la position de la souris relative à la grille
+                Point mousePos = PnlGrilleGame.PointToClient(Cursor.Position);
+
+                // Calcule la colonne et la ligne
+                grille_manager.RecalculerTaillesEtPositions();
+                var (largeurCase, hauteurCase, _, _) = grille_manager.GetTaillesEtPositions();
+                int col = mousePos.X / largeurCase + 1;
+                int row = mousePos.Y / hauteurCase + 1;
+                Point pos = new Point(col, row);
+
+                // Cherche la pièce à cette position
+                PictureBox pbASupprimer = null;
+                foreach (Control ctrl in grille_manager.PnlGrilleGame.Controls)
+                {
+                    if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
+                    {
+                        if (pion.PositionGrille.Equals(pos))
+                        {
+                            pbASupprimer = pb;
+                            break;
+                        }
+                    }
+                }
+                if (pbASupprimer != null)
+                {
+                    var pion = pbASupprimer.Tag as personnage_base;
+                    if (pion != null && pion.Grade == "Drapeau")
+                    {
+                        AfficherFinPartie(player.CurrentPlayer);
+                        
+                    }
+                    else
+                    {
+                        grille_manager.PnlGrilleGame.Controls.Remove(pbASupprimer);
+                        grille_manager.SupprimerPion(pion.PositionGrille, pion.Couleur);
+                        Task.Delay(1000).Wait(); // Pause pour laisser le temps à l'utilisateur de voir la suppression
+                        return;
+                    }
+                }
+
+                
+                return; // Empêche toute suite d'exécution qui pourrait changer de joueur
+
+            }
+        }
+
     }
 }

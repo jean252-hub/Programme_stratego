@@ -239,6 +239,7 @@ namespace Stratego_Jean_Gazon
                 Cacher_Piece(false);
                 Piece_Rezise(false);
             }
+            
         }
 
         public void Cacher_Piece(bool isblue)
