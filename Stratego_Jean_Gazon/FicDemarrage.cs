@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stratego_Jean_Gazon.Reseau;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,7 @@ namespace Stratego_Jean_Gazon
     {
         private Timer timerClignotement;
         private bool couleurAlternee = true;
-        
+
         public FMenu()
         {
             InitializeComponent();
@@ -42,10 +43,12 @@ namespace Stratego_Jean_Gazon
 
         private void ChangerCouleurBouton(object sender, EventArgs e)
         {
-            if (couleurAlternee == true) { 
+            if (couleurAlternee == true)
+            {
                 bjouer.BackColor = Color.Gold; // Couleur normale
-                }
-            else {
+            }
+            else
+            {
                 bjouer.BackColor = Color.LightSalmon; // Couleur légèrement plus vive
             }
             couleurAlternee = !couleurAlternee; // Alterner la couleur à chaque tick
@@ -55,11 +58,14 @@ namespace Stratego_Jean_Gazon
         {
             FicJeu MainPage = new FicJeu();
             MainPage.Show();
-           
-            
         }
-       
-    }
 
+        
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            FicSettings settingsForm = new FicSettings();
+            settingsForm.ShowDialog(this);
+        }
+    }
 }
 

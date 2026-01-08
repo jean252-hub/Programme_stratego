@@ -64,16 +64,27 @@
     <Compile Include="FicRegles.Designer.cs">
       <DependentUpon>FicRegles.cs</DependentUpon>
     </Compile>
+    <Compile Include="FicSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FicSettings.Designer.cs">
+      <DependentUpon>FicSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameTransitionManager.cs" />
     <Compile Include="Grille_GameEngine.cs" />
     <Compile Include="Grille_Manager.cs" />
     <Compile Include="Initialisation_Pion.cs" />
+    <Compile Include="LogiqueJeu\IGameLogic.cs" />
+    <Compile Include="LogiqueJeu\LogiqueClient.cs" />
+    <Compile Include="LogiqueJeu\LogiqueServeur.cs" />
     <Compile Include="MenuESC.cs" />
     <Compile Include="Other.cs" />
     <Compile Include="Personnage.cs" />
     <Compile Include="Players.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reseau\ReseauClient.cs" />
+    <Compile Include="Reseau\ReseauServeur.cs" />
     <EmbeddedResource Include="FicDemarrage.resx">
       <DependentUpon>FicDemarrage.cs</DependentUpon>
     </EmbeddedResource>
@@ -82,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FicRegles.resx">
       <DependentUpon>FicRegles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FicSettings.resx">
+      <DependentUpon>FicSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -136,5 +150,9 @@
   <ItemGroup>
     <None Include="Resources\Coupe.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\parametres.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

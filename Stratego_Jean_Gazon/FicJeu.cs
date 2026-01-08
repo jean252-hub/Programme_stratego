@@ -11,6 +11,7 @@ namespace Stratego_Jean_Gazon
 {
     public partial class FicJeu : Form
     {
+        public static bool IsServeur { get; set; }
         public GameTransitionManager transitionManager;
 
         private Players player;

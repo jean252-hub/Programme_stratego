@@ -33,6 +33,7 @@
             this.bregle = new System.Windows.Forms.Button();
             this.FicDemarageTitle = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnSettings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.FicDemarageTitle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -93,11 +94,24 @@
             // 
             this.pictureBox1.BackgroundImage = global::Stratego_Jean_Gazon.Properties.Resources.image__1_;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(-60, -56);
+            this.pictureBox1.Location = new System.Drawing.Point(-26, -91);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(792, 831);
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.BackColor = System.Drawing.Color.LightSalmon;
+            this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSettings.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSettings.Location = new System.Drawing.Point(493, 193);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(140, 47);
+            this.btnSettings.TabIndex = 7;
+            this.btnSettings.Text = "Paramètre";
+            this.btnSettings.UseVisualStyleBackColor = false;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // FMenu
             // 
@@ -106,6 +120,7 @@
             this.BackColor = System.Drawing.Color.IndianRed;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(668, 667);
+            this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.bregle);
             this.Controls.Add(this.bquitter);
             this.Controls.Add(this.bjouer);
@@ -128,6 +143,7 @@
         private System.Windows.Forms.Button bregle;
         private System.Windows.Forms.PictureBox FicDemarageTitle;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnSettings;
     }
 }
 

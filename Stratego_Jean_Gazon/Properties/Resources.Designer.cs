@@ -144,6 +144,16 @@ namespace Stratego_Jean_Gazon.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap parametres {
+            get {
+                object obj = ResourceManager.GetObject("parametres", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap titlestratego {
             get {
                 object obj = ResourceManager.GetObject("titlestratego", resourceCulture);
