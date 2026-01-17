@@ -120,6 +120,7 @@ namespace Stratego_Jean_Gazon
             {
                 if (IsServeur)
                 {
+                    
                     await grille_manager.ReceptionPositionPions();
                     await transitionManager.ShowPlacement(
                         IsServeur ? Player.Player_Red : Player.Player_Blue);
@@ -128,6 +129,7 @@ namespace Stratego_Jean_Gazon
                 }
                 else
                 {
+                    
                     await grille_manager.EnvoyerPositionsPions();
                     await grille_manager.ReceptionPositionPionsBleu();
                     grille_manager.afficher_dictionnaire();

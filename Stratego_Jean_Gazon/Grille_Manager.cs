@@ -330,7 +330,7 @@ namespace Stratego_Jean_Gazon
         //envoi des positions des pions rouges au serveur
         public async Task EnvoyerPositionsPions()
         {
-            
+            RebuildDictionnairesDepuisUI();
             await client.Envoyer_Initialisation_Pions(PositionsPionsRouges);
 
         }
@@ -338,7 +338,9 @@ namespace Stratego_Jean_Gazon
         //reception des positions des pions rouges du serveur
         public async Task ReceptionPositionPions()
         {
+            
             PositionsPionsRouges =  await serveur.ReceptionInitialisationRouge();
+            AppliquerInitialisationAdverseSansId(PositionsPionsRouges, false);
             Debug.WriteLine("Positions des pions rouges reçues du serveur.");
             DebugAfficherDictionnaire("PositionsPionsRouges", PositionsPionsRouges);
         }
@@ -347,6 +349,7 @@ namespace Stratego_Jean_Gazon
         public async Task ReceptionPositionPionsBleu()
         {
             PositionsPionsBleus = await client.ReceptionInitialisationBleu();
+            AppliquerInitialisationAdverseSansId(PositionsPionsBleus, true);
             Debug.WriteLine("Positions des pions bleus reçues du client.");
             DebugAfficherDictionnaire("PositionsPionsBleus", PositionsPionsBleus);
         }
@@ -354,7 +357,8 @@ namespace Stratego_Jean_Gazon
         //envoi des positions des pions bleus au serveur
         public async Task EnvoyerPositionPionsBleu()
         {
-           await serveur.EnvoyerPositionBleu(PositionsPionsBleus);
+            RebuildDictionnairesDepuisUI();
+            await serveur.EnvoyerPositionBleu(PositionsPionsBleus);
 
         }
        public async void démarrer_connection(bool IsServeur)
@@ -452,6 +456,69 @@ namespace Stratego_Jean_Gazon
 
                 return (pionUi, pb, positionDepart, positionArrivee);
             }
+        }
+        public void AppliquerInitialisationAdverseSansId(Dictionary<Point, personnage_base> positionsRecues, bool couleurEquipeRecue)
+        {
+            if (positionsRecues == null) throw new ArgumentNullException(nameof(positionsRecues));
+            // Liste des PictureBox adverses disponibles, groupées par grade
+            var disponiblesParGrade = new Dictionary<string, List<PictureBox>>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (Control ctrl in PnlGrilleGame.Controls)
+            {
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base pion && pion.Couleur == couleurEquipeRecue)
+                {
+                    if (!disponiblesParGrade.TryGetValue(pion.Grade, out var list))
+                    {
+                        list = new List<PictureBox>();
+                        disponiblesParGrade.Add(pion.Grade, list);
+                    }
+
+                    list.Add(pb);
+                }
+            }
+
+            // Affecter les positions reçues aux Tag des PB correspondantes (par grade)
+            foreach (var kvp in positionsRecues)
+            {
+                var destination = kvp.Key;
+                var pionRecu = kvp.Value;
+                if (pionRecu == null)
+                    continue;
+
+                if (!disponiblesParGrade.TryGetValue(pionRecu.Grade, out var list) || list.Count == 0)
+                    continue;
+
+                var pb = list[0];
+                list.RemoveAt(0);
+
+                var pionUi = (personnage_base)pb.Tag;
+                pionUi.PositionGrille = destination;
+
+                pb.Location = CalculerPositionGraphique(destination.X, destination.Y);
+            }
+
+            // Rebuild pour cohérence interne
+            RebuildDictionnairesDepuisUI();
+        }
+
+        public void RebuildDictionnairesDepuisUI()
+        {
+            var bleus = new Dictionary<Point, personnage_base>();
+            var rouges = new Dictionary<Point, personnage_base>();
+
+            foreach (Control ctrl in PnlGrilleGame.Controls)
+            {
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
+                {
+                    if (pion.Couleur)
+                        bleus[pion.PositionGrille] = pion;
+                    else
+                        rouges[pion.PositionGrille] = pion;
+                }
+            }
+
+            PositionsPionsBleus = bleus;
+            PositionsPionsRouges = rouges;
         }
     }
 }
