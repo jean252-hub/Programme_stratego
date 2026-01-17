@@ -19,4 +19,6 @@ namespace Stratego_Jean_Gazon
             Application.Run(new FMenu());
         }
     }
+
+    
 }

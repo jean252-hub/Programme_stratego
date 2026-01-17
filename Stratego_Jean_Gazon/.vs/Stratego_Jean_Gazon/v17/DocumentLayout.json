@@ -7,32 +7,44 @@
       "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:ficjeu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\players.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:players.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|c:\\users\\jeang\\documents\\bac3\\stratego\\programme_stratego\\stratego_jean_gazon\\grille_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:grille_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\initialisation_pion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:initialisation_pion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|c:\\users\\jeang\\documents\\bac3\\stratego\\programme_stratego\\stratego_jean_gazon\\ficjeu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:ficjeu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|c:\\users\\jeang\\documents\\bac3\\stratego\\programme_stratego\\stratego_jean_gazon\\reseau\\reseauserveur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:reseau\\reseauserveur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\logiquejeu\\logiqueserveur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:logiquejeu\\logiqueserveur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|c:\\users\\jeang\\documents\\bac3\\stratego\\programme_stratego\\stratego_jean_gazon\\reseau\\reseauclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:reseau\\reseauclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\reseau\\reseauclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:reseau\\reseauclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\ficsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:ficsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|c:\\users\\jeang\\documents\\bac3\\stratego\\programme_stratego\\stratego_jean_gazon\\reseau\\reseauserveur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:reseau\\reseauserveur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\initialisation_pion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:initialisation_pion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\ficjeu.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:ficjeu.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\grille_gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:grille_gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\players.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:players.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\logiquejeu\\logiqueclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -41,26 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\reseau\\netmessages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:reseau\\netmessages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|c:\\users\\jeang\\documents\\bac3\\stratego\\programme_stratego\\stratego_jean_gazon\\ficjeu.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:ficjeu.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\ficsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:ficsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\ficdemarrage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:ficdemarrage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\ficsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:ficsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\grille_gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|solutionrelative:grille_gameengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{75D2DC1A-A83F-4BE2-99B6-12A8C1FFE8DF}|Stratego_Jean_Gazon.csproj|C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\ficdemarrage.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -74,17 +66,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 15,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 5,
               "Title": "FicSettings.cs",
               "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicSettings.cs",
               "RelativeDocumentMoniker": "FicSettings.cs",
               "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicSettings.cs",
               "RelativeToolTip": "FicSettings.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAYwDQAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAYwDQAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-07T22:20:08.371Z",
               "IsPinned": true,
@@ -107,34 +99,50 @@
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "FicJeu.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.Designer.cs",
-              "RelativeDocumentMoniker": "FicJeu.Designer.cs",
-              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.Designer.cs",
-              "RelativeToolTip": "FicJeu.Designer.cs",
-              "ViewState": "AgIAAMIAAAAAAAAAAAAawMAAAABXAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Grille_Manager.cs",
+              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Grille_Manager.cs",
+              "RelativeDocumentMoniker": "Grille_Manager.cs",
+              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Grille_Manager.cs",
+              "RelativeToolTip": "Grille_Manager.cs",
+              "ViewState": "AgIAAGkBAAAAAAAAAAAuwHkBAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-17T09:14:29.109Z",
+              "WhenOpened": "2026-01-17T21:29:53.011Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ReseauServeur.cs",
-              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Reseau\\ReseauServeur.cs",
-              "RelativeDocumentMoniker": "Reseau\\ReseauServeur.cs",
-              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Reseau\\ReseauServeur.cs",
-              "RelativeToolTip": "Reseau\\ReseauServeur.cs",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAmwHoAAAA4AAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "FicJeu.cs",
+              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.cs",
+              "RelativeDocumentMoniker": "FicJeu.cs",
+              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.cs*",
+              "RelativeToolTip": "FicJeu.cs*",
+              "ViewState": "AgIAAKoAAAAAAAAAAAAswMIAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-08T18:55:41.246Z",
+              "WhenOpened": "2026-01-17T21:29:01.705Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 2,
+              "Title": "FicJeu.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.cs",
+              "RelativeDocumentMoniker": "FicJeu.cs",
+              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.cs [Design]*",
+              "RelativeToolTip": "FicJeu.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-17T21:28:58.743Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "NetMessages.cs",
               "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Reseau\\NetMessages.cs",
               "RelativeDocumentMoniker": "Reseau\\NetMessages.cs",
@@ -142,37 +150,11 @@
               "RelativeToolTip": "Reseau\\NetMessages.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-08T18:55:08.104Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LogiqueServeur.cs",
-              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\LogiqueJeu\\LogiqueServeur.cs",
-              "RelativeDocumentMoniker": "LogiqueJeu\\LogiqueServeur.cs",
-              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\LogiqueJeu\\LogiqueServeur.cs",
-              "RelativeToolTip": "LogiqueJeu\\LogiqueServeur.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T22:37:24.383Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-08T18:55:08.104Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
-              "Title": "FicSettings.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicSettings.cs",
-              "RelativeDocumentMoniker": "FicSettings.cs",
-              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicSettings.cs [Design]",
-              "RelativeToolTip": "FicSettings.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T22:15:37.122Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
               "Title": "FicDemarrage.Designer.cs",
               "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicDemarrage.Designer.cs",
               "RelativeDocumentMoniker": "FicDemarrage.Designer.cs",
@@ -184,80 +166,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "Initialisation_Pion.cs",
               "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Initialisation_Pion.cs",
               "RelativeDocumentMoniker": "Initialisation_Pion.cs",
               "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Initialisation_Pion.cs",
               "RelativeToolTip": "Initialisation_Pion.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAwAcAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBAAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-09T12:41:21.965Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "LogiqueClient.cs",
               "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\LogiqueJeu\\LogiqueClient.cs",
               "RelativeDocumentMoniker": "LogiqueJeu\\LogiqueClient.cs",
               "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\LogiqueJeu\\LogiqueClient.cs",
               "RelativeToolTip": "LogiqueJeu\\LogiqueClient.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T22:37:44.53Z",
+              "WhenOpened": "2026-01-07T22:37:44.53Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Grille_GameEngine.cs",
+              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Grille_GameEngine.cs",
+              "RelativeDocumentMoniker": "Grille_GameEngine.cs",
+              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Grille_GameEngine.cs",
+              "RelativeToolTip": "Grille_GameEngine.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T20:58:07.191Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "FicDemarrage.cs",
-              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicDemarrage.cs",
-              "RelativeDocumentMoniker": "FicDemarrage.cs",
-              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicDemarrage.cs",
-              "RelativeToolTip": "FicDemarrage.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAVAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "FicJeu.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.Designer.cs",
+              "RelativeDocumentMoniker": "FicJeu.Designer.cs",
+              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.Designer.cs",
+              "RelativeToolTip": "FicJeu.Designer.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAnwEcAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T21:45:11.721Z",
+              "WhenOpened": "2026-01-17T09:14:29.109Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 10,
               "Title": "Players.cs",
               "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Players.cs",
               "RelativeDocumentMoniker": "Players.cs",
               "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Players.cs",
               "RelativeToolTip": "Players.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAIwB0AAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAGQAAAAAAAAAAADwvx0AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-06T21:15:09.242Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-23T22:09:43.848Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Grille_GameEngine.cs",
-              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Grille_GameEngine.cs",
-              "RelativeDocumentMoniker": "Grille_GameEngine.cs",
-              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Grille_GameEngine.cs",
-              "RelativeToolTip": "Grille_GameEngine.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-23T20:58:07.191Z"
             }
           ]
         },
@@ -313,85 +295,47 @@
       "FloatingWindowState": {
         "Id": "82dca880-8bf5-4c48-b006-f83063c0e4b9",
         "Display": 1,
-        "X": 299,
-        "Y": 295,
+        "X": 368,
+        "Y": 285,
         "Width": 1178,
         "Height": 501,
         "WindowState": 2
       },
       "DocumentGroups": [
         {
-          "DockedWidth": 217,
-          "SelectedChildIndex": 1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FicJeu.cs",
-              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.cs",
-              "RelativeDocumentMoniker": "FicJeu.cs",
-              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\FicJeu.cs",
-              "RelativeToolTip": "FicJeu.cs",
-              "ViewState": "AgIAAFkAAAAAAAAAAAAswHwAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T22:46:15.683Z",
-              "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 224,
+          "DockedWidth": 636,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Grille_Manager.cs",
-              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Grille_Manager.cs",
-              "RelativeDocumentMoniker": "Grille_Manager.cs",
-              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Grille_Manager.cs",
-              "RelativeToolTip": "Grille_Manager.cs",
-              "ViewState": "AgIAADMBAAAAAAAAAAAkwFABAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T14:05:41.124Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "e2ea577b-eb49-4e1d-9fe9-524ddb5404ba",
-        "Display": 1,
-        "X": 551,
-        "Y": 354,
-        "Width": 1178,
-        "Height": 521,
-        "WindowState": 2
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "ReseauClient.cs",
               "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Reseau\\ReseauClient.cs",
               "RelativeDocumentMoniker": "Reseau\\ReseauClient.cs",
               "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Reseau\\ReseauClient.cs",
               "RelativeToolTip": "Reseau\\ReseauClient.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAADEAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAALMAAAAAAAAAAAAUwBEBAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T21:33:46.855Z",
+              "WhenOpened": "2026-01-17T17:03:57.403Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 688,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ReseauServeur.cs",
+              "DocumentMoniker": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Reseau\\ReseauServeur.cs",
+              "RelativeDocumentMoniker": "Reseau\\ReseauServeur.cs",
+              "ToolTip": "C:\\Users\\jeang\\Documents\\Bac3\\Stratego\\Programme_stratego\\Stratego_Jean_Gazon\\Reseau\\ReseauServeur.cs",
+              "RelativeToolTip": "Reseau\\ReseauServeur.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAADwv3IAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-17T20:01:06.449Z",
               "EditorCaption": ""
             }
           ]

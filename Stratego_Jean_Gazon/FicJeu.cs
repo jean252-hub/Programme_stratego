@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Stratego_Jean_Gazon.LogiqueJeu;
+using Stratego_Jean_Gazon.Reseau;
+using Stratego_Jean_Gazon.Stratego_Jean_Gazon;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Windows.Forms;
-using Stratego_Jean_Gazon.Stratego_Jean_Gazon;
 using System.Threading.Tasks;
-using Stratego_Jean_Gazon.LogiqueJeu;
-using Stratego_Jean_Gazon.Reseau;
+using System.Windows.Forms;
+
 namespace Stratego_Jean_Gazon
 {
     public partial class FicJeu : Form
@@ -17,122 +18,181 @@ namespace Stratego_Jean_Gazon
 
         private Players player;
         private MenuESC menuEsc;
+
+        // ✅ Champs correctement utilisés
+        public static LogiqueServeur Logique_Serveur;
+        public static LogiqueClient Logique_Client;
+
         private Grille_Manager grille_manager;
         private Grille_GameEngine grilleGameEngine;
         private Other Other_option;
+
         private PictureBox pionSelectionne = null;
         private bool action_joue = false;
         private bool initialisation_terminee = false;
-        public ImageList ImageListPions => ImgListPerso; // pointer vers la list d'images des pions
-       
+        int premier_tour = 0;
+
+
+        public ImageList ImageListPions => ImgListPerso;
 
         public FicJeu()
         {
-            this.WindowState = FormWindowState.Maximized;
+            WindowState = FormWindowState.Maximized;
             InitializeComponent();
-            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
 
-            grille_manager = new Grille_Manager(PnlGrilleGame, pnlMenuPause, ptLac1, ptLac2, ImgListPerso); // grille manager gère tout l'aspect visuel de la grille
-            grilleGameEngine = new Grille_GameEngine(); // grilleGameEngine gère la logique du jeu
-            menuEsc = new MenuESC(this, pnlMenuPause, PnlGrilleGame, btnReprendre, btnJeuQuitter, pnlPausebtnrecommencer, btnValider);
+            SetStyle(
+                ControlStyles.DoubleBuffer |
+                ControlStyles.UserPaint |
+                ControlStyles.AllPaintingInWmPaint,
+                true);
+
+            // ✅ CORRECTION CRITIQUE
+            Logique_Serveur = new LogiqueServeur();
+            Logique_Client = new LogiqueClient();
+
+            grille_manager = new Grille_Manager(
+                PnlGrilleGame,
+                pnlMenuPause,
+                ptLac1,
+                ptLac2,
+                ImgListPerso);
+
+            grilleGameEngine = new Grille_GameEngine();
+
+            menuEsc = new MenuESC(
+                this,
+                pnlMenuPause,
+                PnlGrilleGame,
+                btnReprendre,
+                btnJeuQuitter,
+                pnlPausebtnrecommencer,
+                btnValider);
+
             pnlMenuPause.Parent = this;
-            transitionManager = new GameTransitionManager(this, Properties.Resources.Image_Transition); // transitionManager gère les transitions du jeu (placement, changement de joueur, combat)
-            // adaptation de la grille manager à la taille de la fenêtre
-            grille_manager.CenterPanel(this.ClientSize.Width, this.ClientSize.Height);
+
+            transitionManager = new GameTransitionManager(
+                this,
+                Properties.Resources.Image_Transition);
+
+            grille_manager.CenterPanel(ClientSize.Width, ClientSize.Height);
             grille_manager.RecalculerTaillesEtPositions();
+
             player = new Players();
             Other_option = new Other(btnValider, this, Btn_Pret);
+
             PositionnerTitreFenetre();
         }
-        
-        private async void FicJeu_Load(object sender, EventArgs e) // les méthodes async permet de ne pas bloquer l'interface pendant que les transition sont appélée pour rendre le jeu plus conviviale async est obligatoire quand on utilise await 
-        {
 
+        private async void FicJeu_Load(object sender, EventArgs e)
+        {
             Debug_config();
-            grille_manager.démarrer_connection(FicJeu.IsServeur);
-            grille_manager.Piece_Init();// initaliser les pièce sur la frille 
-            Other_option.bValider_position();// placer le boutons valider 
+
+            grille_manager.démarrer_connection(IsServeur);
+            grille_manager.Piece_Init();
+            Other_option.bValider_position();
+
             Btn_Pret.Visible = false;
-            player.Initialisation_Jeu(grille_manager, Btn_Pret, this);// initialiser les joueurs et les pions
-            if (FicJeu.IsServeur == true) { 
-                     await transitionManager.ShowPlacement(Player.Player_Blue);// await permet de ne pas bloquer l'interface pendant que la transition est en cours
-            }
+
+            player.Initialisation_Jeu(grille_manager, Btn_Pret, this);
+
+            if (IsServeur)
+                await transitionManager.ShowPlacement(Player.Player_Blue);
             else
-            {
                 await transitionManager.ShowPlacement(Player.Player_Red);
-            }
-
-        }
-
-        private Image GetPionImageFromImageList(string nom) // sert à récupérer l'image d'un pion dans la liste d'images ImgListPerso
-        {
-            if (ImgListPerso.Images.ContainsKey(nom)) // l'image est recuperee grace a son nom les image de l'images listes et celle donnés au personnage on la même orthographes 
-                return ImgListPerso.Images[nom];
-
-            foreach (string key in ImgListPerso.Images.Keys)// permet de retrouver les images même si il y a une erreur dans l'ortographe entre l'image et le nom du personnage
-            {
-                if (string.Equals(key, nom, StringComparison.InvariantCultureIgnoreCase))
-                    return ImgListPerso.Images[key];
-            }
-            return null;
         }
 
         private void Debug_config()
         {
-            
-                string logFilePath = "log.txt";
-                File.WriteAllText(logFilePath, string.Empty);
-                Debug.Listeners.Clear();
-                Debug.Listeners.Add(new TextWriterTraceListener(logFilePath));
-                Debug.AutoFlush = true;
-                Debug.WriteLine("Nouveau log démarré...");
-                Debug.WriteLine($"Timestamp: {DateTime.Now}");
-            
-        }
+            string logFilePath = "log.txt";
+            File.WriteAllText(logFilePath, string.Empty);
 
-        public Player GetJoueurActif()
-        {
-            return player.CurrentPlayer;
-        }
+            Debug.Listeners.Clear();
+            Debug.Listeners.Add(new TextWriterTraceListener(logFilePath));
+            Debug.AutoFlush = true;
 
-        public void PnlGrilleGame_Paint(object sender, PaintEventArgs e)
-        {
-            grille_manager.PnlGrilleGame_Dessine(sender, e);
-        }
-
-        private void PnlGrilleGame_SizeChanged(object sender, EventArgs e)
-        {
-            this.UpdateStyles();
-            if (grille_manager != null)
-            {
-                grille_manager.CenterPanel(this.ClientSize.Width, this.ClientSize.Height);
-                grille_manager.RecalculerTaillesEtPositions();
-                grille_manager.Piece_Rezise(true);
-            }
-        }
-
-        private void btnValider_Click_Sync(object sender, EventArgs e)
-        {
-            // Appeler la méthode asynchrone et ignorer l'avertissement d'attente
-            _ = btnValider_Click(sender, e);
+            Debug.WriteLine("Nouveau log démarré...");
+            Debug.WriteLine($"Timestamp: {DateTime.Now}");
         }
 
         private async Task btnValider_Click(object sender, EventArgs e)
         {
-            if(IsServeur == true && initialisation_terminee == false)
+            if (!initialisation_terminee)
             {
-                await grille_manager.ReceptionPositionPions();
+                if (IsServeur)
+                {
+                    await grille_manager.ReceptionPositionPions();
+                    await transitionManager.ShowPlacement(
+                        IsServeur ? Player.Player_Red : Player.Player_Blue);
+                    await grille_manager.EnvoyerPositionPionsBleu();
+                    grille_manager.afficher_dictionnaire();
+                }
+                else
+                {
+                    await grille_manager.EnvoyerPositionsPions();
+                    await grille_manager.ReceptionPositionPionsBleu();
+                    grille_manager.afficher_dictionnaire();
+                }
+
                 initialisation_terminee = true;
             }
-            if( IsServeur == false && initialisation_terminee == false)
+
+            if (IsServeur)
             {
-                await grille_manager.EnvoyerPositionsPions();
-                initialisation_terminee = true;
+                var (pion, pb, depart, destination) = await grille_manager.Recevoir_DeplacementAsync(IsServeur);
+                MessageBox.Show($"Déplacement reçu du client : {depart} -> {destination} {pion} {pb}");
+
+                if (pion != null && pb != null)
+                {
+                    if (PnlGrilleGame.InvokeRequired)
+                    {
+                        PnlGrilleGame.Invoke((Action)(() =>
+                        {
+                            grille_manager.DeplacerPion(pion, pb, destination);
+                            PnlGrilleGame.Refresh();
+                            MessageBox.Show("Déplacement appliqué sur le serveur.");
+                        }));
+                    }
+                    else
+                    {
+                        grille_manager.DeplacerPion(pion, pb, destination);
+                        PnlGrilleGame.Refresh();
+                    }
+                }
             }
-          
+            else
+            {
+                if (premier_tour >= 2)
+                {
+                    //MessageBox.Show("dans le deplcement");
+                    var (pion, pb, depart, destination) = await grille_manager.Recevoir_DeplacementAsync(IsServeur);
+                    MessageBox.Show($"Déplacement reçu du serveur : {depart} -> {destination} {pion} {pb}");
+
+                    if (pion != null && pb != null)
+                    {
+                        if (PnlGrilleGame.InvokeRequired)
+                        {
+                            PnlGrilleGame.Invoke((Action)(() =>
+                            {
+                                grille_manager.DeplacerPion(pion, pb, destination);
+                                PnlGrilleGame.Refresh();
+                                MessageBox.Show("Déplacement appliqué sur le client.");
+                            }));
+                        }
+                        else
+                        {
+                            grille_manager.DeplacerPion(pion, pb, destination);
+                            PnlGrilleGame.Refresh();
+                        }
+                    }
+                    
+                }
+
+            }
+            premier_tour++;
             grille_manager.RecalculerTaillesEtPositions();
             var (largeurCase, hauteurCase, _, _) = grille_manager.GetTaillesEtPositions();
             Initialisation_Pion.PositionnerTousLesPions(PnlGrilleGame, largeurCase, hauteurCase);
+            grille_manager.afficher_dictionnaire();
             Btn_Pret.Visible = false;
             Player_Game();
         }
@@ -140,12 +200,19 @@ namespace Stratego_Jean_Gazon
         private async void Player_Game()
         {
             action_joue = false;
+
             await transitionManager.ShowChangeTurn(player.CurrentPlayer);
 
+            // ✅ Logique serveur protégée
+            /*if (IsServeur && Logique_Serveur != null)
+            {
+                Logique_Serveur.Gestion_Operation(grille_manager);
+            }*/
+
             grille_manager.TerminerPlacement();
-            //player.ChangerJoueur();
             grille_manager.Player_Grille_Change(player.CurrentPlayer);
             ActiverModeJeuPourJoueur(player.CurrentPlayer);
+           // grille_manager.afficher_dictionnaire();
         }
 
         private void ActiverModeJeuPourJoueur(Player joueur)
@@ -155,6 +222,7 @@ namespace Stratego_Jean_Gazon
                 if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
                 {
                     pb.Click -= Pion_Jeu_Click;
+
                     if ((joueur == Player.Player_Blue && pion.Couleur) ||
                         (joueur == Player.Player_Red && !pion.Couleur))
                     {
@@ -168,10 +236,10 @@ namespace Stratego_Jean_Gazon
         {
             if (action_joue) return;
 
-            var clickedPiece = sender as PictureBox;
+            PictureBox clickedPiece = sender as PictureBox;
             if (clickedPiece == null) return;
 
-            var clickedInfo = clickedPiece.Tag as personnage_base;
+            personnage_base clickedInfo = clickedPiece.Tag as personnage_base;
             if (clickedInfo == null) return;
 
             if (pionSelectionne == null)
@@ -181,16 +249,61 @@ namespace Stratego_Jean_Gazon
             }
             else
             {
-                var selectedInfo = pionSelectionne.Tag as personnage_base;
-                if (pionSelectionne == clickedPiece)
-                {
-                    pionSelectionne.BackColor = clickedInfo.Couleur ? Color.LightBlue : Color.LightCoral;
-                    pionSelectionne = null;
-                    return;
-                }
-                pionSelectionne.BackColor = selectedInfo.Couleur ? Color.LightBlue : Color.LightCoral;
+                personnage_base selectedInfo = pionSelectionne.Tag as personnage_base;
+
+                pionSelectionne.BackColor =
+                    selectedInfo.Couleur ? Color.LightBlue : Color.LightCoral;
+
                 pionSelectionne = null;
             }
+        }
+
+        private void PositionnerTitreFenetre()
+        {
+            Titre_Fenetre.Location = new Point(
+                ClientSize.Width / 2 - Titre_Fenetre.Width / 2,
+                3);
+        }
+
+        private void BtnRetourMenu_Click(object sender, EventArgs e)
+        {
+            FermerLog();
+            Close();
+        }
+
+        private void FermerLog()
+        {
+            foreach (TraceListener listener in Debug.Listeners)
+            {
+                listener.Flush();
+                listener.Close();
+            }
+            Debug.Listeners.Clear();
+        }
+
+        private void btnValider_Click_Sync(object sender, EventArgs e)
+        {
+            _ = btnValider_Click(sender, e);
+        }
+
+        private void PnlGrilleGame_Paint(object sender, PaintEventArgs e)
+        {
+            if (grille_manager == null)
+                return;
+
+            grille_manager.PnlGrilleGame_Dessine(sender, e);
+        }
+
+        private void PnlGrilleGame_SizeChanged(object sender, EventArgs e)
+        {
+            UpdateStyles();
+
+            if (grille_manager == null)
+                return;
+
+            grille_manager.CenterPanel(ClientSize.Width, ClientSize.Height);
+            grille_manager.RecalculerTaillesEtPositions();
+            grille_manager.Piece_Rezise(true);
         }
 
         private async void PnlGrilleGame_MouseDown(object sender, MouseEventArgs e)
@@ -329,13 +442,13 @@ namespace Stratego_Jean_Gazon
                 action_joue = true;
                 return;
             }
-
+            await grille_manager.Envoyer_DeplacementAsync(info, destination, pionSelectionne, IsServeur);
+            
             grille_manager.DeplacerPion(info, pionSelectionne, destination);
 
             pionSelectionne = null;
             action_joue = true;
         }
-
         private void AfficherFinPartie(Player gagnant)
         {
             pnlFinPartie.Location = new Point(
@@ -353,15 +466,42 @@ namespace Stratego_Jean_Gazon
             lblFinPartie.ForeColor = Color.Yellow;
         }
 
-        private void PositionnerTitreFenetre()
+
+        private void FicJeu_SizeChanged(object sender, EventArgs e)
         {
-            int titreX = this.ClientSize.Width / 2 - Titre_Fenetre.Width / 2;
-            int titreY = 3;
-            Titre_Fenetre.Location = new Point(titreX, titreY);
+            if (Other_option != null)
+                Other_option.bValider_position();
+
+            if (grille_manager != null)
+                grille_manager.RecalculerTaillesEtPositions();
+
+            PositionnerTitreFenetre();
+        }
+
+        private void Btn_Pret_Click(object sender, EventArgs e)
+        {
+            // Stub: logique à réimplémenter si nécessaire.
+        }
+
+        private Image GetPionImageFromImageList(string nom)
+        {
+            if (ImgListPerso.Images.ContainsKey(nom))
+                return ImgListPerso.Images[nom];
+
+            foreach (string key in ImgListPerso.Images.Keys)
+            {
+                if (string.Equals(key, nom, StringComparison.InvariantCultureIgnoreCase))
+                    return ImgListPerso.Images[key];
+            }
+
+            return null;
         }
 
         private bool CaseOccupee(Point pos)
         {
+            if (grille_manager == null)
+                return false;
+
             foreach (Control ctrl in grille_manager.PnlGrilleGame.Controls)
             {
                 if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
@@ -370,42 +510,8 @@ namespace Stratego_Jean_Gazon
                         return true;
                 }
             }
+
             return false;
-        }
-
-        private void BtnRetourMenu_Click(object sender, EventArgs e)
-        {
-            FermerLog();
-            this.Close();
-        }
-
-        private void FermerLog()
-        {
-            foreach (TraceListener listener in Debug.Listeners)
-            {
-                listener.Flush();
-                listener.Close();
-            }
-            Debug.Listeners.Clear();
-        }
-
-        private void FicJeu_SizeChanged(object sender, EventArgs e)
-        {
-            if (Other_option != null)
-            {
-                Other_option.bValider_position();
-            }
-
-            if (grille_manager != null)
-            {
-                grille_manager.RecalculerTaillesEtPositions();
-            }
-
-            PositionnerTitreFenetre();
-        }
-
-        private void Btn_Pret_Click(object sender, EventArgs e)
-        {
         }
     }
 }

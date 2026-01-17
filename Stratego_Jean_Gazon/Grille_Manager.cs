@@ -327,18 +327,35 @@ namespace Stratego_Jean_Gazon
                 Debug.WriteLine($"Pos=({position.X},{position.Y}) -> {descriptionPion}");
             }
         }
-
+        //envoi des positions des pions rouges au serveur
         public async Task EnvoyerPositionsPions()
         {
             
             await client.Envoyer_Initialisation_Pions(PositionsPionsRouges);
 
         }
+
+        //reception des positions des pions rouges du serveur
         public async Task ReceptionPositionPions()
         {
             PositionsPionsRouges =  await serveur.ReceptionInitialisationRouge();
             Debug.WriteLine("Positions des pions rouges reçues du serveur.");
             DebugAfficherDictionnaire("PositionsPionsRouges", PositionsPionsRouges);
+        }
+
+        //reception des positions des pions bleus du client
+        public async Task ReceptionPositionPionsBleu()
+        {
+            PositionsPionsBleus = await client.ReceptionInitialisationBleu();
+            Debug.WriteLine("Positions des pions bleus reçues du client.");
+            DebugAfficherDictionnaire("PositionsPionsBleus", PositionsPionsBleus);
+        }
+
+        //envoi des positions des pions bleus au serveur
+        public async Task EnvoyerPositionPionsBleu()
+        {
+           await serveur.EnvoyerPositionBleu(PositionsPionsBleus);
+
         }
        public async void démarrer_connection(bool IsServeur)
         {
@@ -351,6 +368,89 @@ namespace Stratego_Jean_Gazon
             {
                 
                 await client.DemarrerClientAsync();
+            }
+        }
+        public void afficher_dictionnaire()
+        {
+            Debug.WriteLine("------------- teste pour le client regarder les rouge");
+                       
+            DebugAfficherDictionnaire("PositionsPionsRouges", PositionsPionsRouges);
+            DebugAfficherDictionnaire("PositionsPionsBleus", PositionsPionsBleus);
+        }
+        public async Task Envoyer_DeplacementAsync(personnage_base info, Point nouvellePosition, PictureBox pionSelectionne, bool isServeur)
+        {
+            if (info == null)
+                throw new ArgumentNullException(nameof(info));
+
+            if (pionSelectionne == null)
+                throw new ArgumentNullException(nameof(pionSelectionne));
+
+            if (isServeur)
+                await serveur.Envoyer_Deplacement(info, pionSelectionne, nouvellePosition);
+            else
+                await client.Envoyer_Deplacement(info, pionSelectionne, nouvellePosition);
+        }
+        public async Task<(personnage_base pion, PictureBox pb, Point depart, Point destination)> Recevoir_DeplacementAsync(bool isServeur)
+        {
+            if (isServeur)
+            {
+                var (positionDepart, positionArrivee) = await serveur.Reception_Deplacement();
+
+                var dico = PositionsPionsRouges;
+
+                PictureBox pb = null;
+                personnage_base pionUi = null;
+
+                foreach (Control ctrl in PnlGrilleGame.Controls)
+                {
+                    if (ctrl is PictureBox pic && pic.Tag is personnage_base tagPion)
+                    {
+                        if (tagPion.PositionGrille.Equals(positionDepart))
+                        {
+                            pb = pic;
+                            pionUi = tagPion;
+                            break;
+                        }
+                    }
+                }
+
+                if (pionUi != null)
+                {
+                    dico.Remove(positionDepart);
+                    dico[positionArrivee] = pionUi;
+                }
+
+                return (pionUi, pb, positionDepart, positionArrivee);
+            }
+            else
+            {
+                var (positionDepart, positionArrivee) = await client.Recevoir_Deplacement();
+
+                var dico = PositionsPionsBleus;
+
+                PictureBox pb = null;
+                personnage_base pionUi = null;
+
+                foreach (Control ctrl in PnlGrilleGame.Controls)
+                {
+                    if (ctrl is PictureBox pic && pic.Tag is personnage_base tagPion)
+                    {
+                        if (tagPion.PositionGrille.Equals(positionDepart))
+                        {
+                            pb = pic;
+                            pionUi = tagPion;
+                            break;
+                        }
+                    }
+                }
+
+                if (pionUi != null)
+                {
+                    dico.Remove(positionDepart);
+                    dico[positionArrivee] = pionUi;
+                }
+
+                return (pionUi, pb, positionDepart, positionArrivee);
             }
         }
     }

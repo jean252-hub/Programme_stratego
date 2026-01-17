@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Stratego_Jean_Gazon.Reseau
 {
@@ -38,6 +39,105 @@ namespace Stratego_Jean_Gazon.Reseau
             _clientHandler = await listener.AcceptAsync();
             Console.WriteLine("Client connecté");
         }
+        public async Task EnvoyerPositionBleu(
+       Dictionary<Point, personnage_base> pionsBleus)
+        {
+            if (_clientHandler == null || !_clientHandler.Connected)
+                throw new InvalidOperationException("Client non connecté");
+
+            StringBuilder messageBuilder = new StringBuilder();
+            messageBuilder.Append("INIT_PIONS|");
+
+            foreach (var kvp in pionsBleus)
+            {
+                Point position = kvp.Key;
+                personnage_base perso = kvp.Value;
+
+                
+                messageBuilder.Append(
+                    $"{position.X};{position.Y};{perso.GetType().Name}|");
+            }
+
+            messageBuilder.Append("<|EOM|>");
+
+            byte[] messageBytes =
+                Encoding.UTF8.GetBytes(messageBuilder.ToString());
+
+            await _clientHandler.SendAsync(
+                new ArraySegment<byte>(messageBytes),
+                SocketFlags.None);
+
+            Console.WriteLine("Initialisation des pions bleus envoyée");
+        }
+        public async Task<(Point positionDepart, Point positionArrivee)> Reception_Deplacement()
+        {
+            Debug.WriteLine("Réception d'un déplacement démarrée...");
+            byte[] buffer = new byte[1024];
+            StringBuilder messageComplet = new StringBuilder();
+
+            while (true)
+            {
+                int received = await _clientHandler.ReceiveAsync(
+                    new ArraySegment<byte>(buffer),
+                    SocketFlags.None);
+
+                messageComplet.Append(Encoding.UTF8.GetString(buffer, 0, received));
+
+                if (messageComplet.ToString().Contains("<|EOM|>"))
+                    break;
+            }
+
+            string message = messageComplet.ToString().Replace("<|EOM|>", "");
+            Debug.WriteLine("Message complet reçu : " + message);
+
+            if (!message.StartsWith("DEPLACEMENT|"))
+            {
+                Debug.WriteLine("Message invalide reçu : " + message);
+                throw new Exception("DEPLACEMENT attendu");
+            }
+
+            string data = message.Replace("DEPLACEMENT|", "");
+            string[] positions = data.Split(
+                new char[] { '|' },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            if (positions.Length != 2)
+                throw new Exception("Format du déplacement invalide");
+
+            string[] depart = positions[0].Split(';');
+            string[] arrivee = positions[1].Split(';');
+
+            Point positionDepart = new Point(int.Parse(depart[0]), int.Parse(depart[1]));
+            Point positionArrivee = new Point(int.Parse(arrivee[0]), int.Parse(arrivee[1]));
+
+            // Envoyer un ACK au client
+            //byte[] ack = Encoding.UTF8.GetBytes("<|ACK|>");
+            //await _clientHandler.SendAsync(new ArraySegment<byte>(ack), SocketFlags.None);
+
+            Debug.WriteLine($"Déplacement reçu : ({positionDepart.X},{positionDepart.Y}) -> ({positionArrivee.X},{positionArrivee.Y})");
+            return (positionDepart, positionArrivee);
+        }
+
+        public async Task Envoyer_Deplacement(
+    personnage_base info,
+    PictureBox pionSelectionne,
+    Point nouvellePosition)
+        {
+            if (_clientHandler == null)
+                throw new InvalidOperationException("Aucun client connecté");
+
+            Point positionDepart = info.PositionGrille;
+
+            string message = $"DEPLACEMENT|{positionDepart.X};{positionDepart.Y}|{nouvellePosition.X};{nouvellePosition.Y}|<|EOM|>";
+
+            byte[] buffer = Encoding.UTF8.GetBytes(message);
+            await _clientHandler.SendAsync(new ArraySegment<byte>(buffer), SocketFlags.None);
+
+            Console.WriteLine($"Déplacement envoyé au client : ({positionDepart.X},{positionDepart.Y}) -> ({nouvellePosition.X},{nouvellePosition.Y})");
+           // Log($"Déplacement envoyé au client : ({positionDepart.X},{positionDepart.Y}) -> ({nouvellePosition.X},{nouvellePosition.Y})");
+        }
+
+
 
         public async Task<Dictionary<Point, personnage_base>> ReceptionInitialisationRouge()
         {
@@ -97,6 +197,7 @@ namespace Stratego_Jean_Gazon.Reseau
             return pionsRouges;
         
         }
+
 
         private personnage_base CreerPersonnageRouge(string grade, Point position)
         {
