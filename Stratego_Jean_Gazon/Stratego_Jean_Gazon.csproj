@@ -74,7 +74,6 @@
     <Compile Include="Grille_GameEngine.cs" />
     <Compile Include="Grille_Manager.cs" />
     <Compile Include="Initialisation_Pion.cs" />
-    <Compile Include="LogiqueJeu\IGameLogic.cs" />
     <Compile Include="LogiqueJeu\LogiqueClient.cs" />
     <Compile Include="LogiqueJeu\LogiqueServeur.cs" />
     <Compile Include="MenuESC.cs" />
@@ -116,6 +115,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Stratego_Jean_Gazon\packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

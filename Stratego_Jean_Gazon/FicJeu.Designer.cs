@@ -190,7 +190,7 @@ namespace Stratego_Jean_Gazon
             this.btnValider.TabIndex = 4;
             this.btnValider.Text = "Valider";
             this.btnValider.UseVisualStyleBackColor = false;
-            this.btnValider.Click += new System.EventHandler(this.btnValider_Click);
+            this.btnValider.Click += new System.EventHandler(this.btnValider_Click_Sync);
             // 
             // ImgListPerso
             // 

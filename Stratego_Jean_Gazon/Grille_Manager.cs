@@ -1,6 +1,11 @@
-﻿using System;
+﻿using Stratego_Jean_Gazon.LogiqueJeu;
+using Stratego_Jean_Gazon.Reseau;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Stratego_Jean_Gazon
@@ -13,6 +18,8 @@ namespace Stratego_Jean_Gazon
         private PictureBox ptLac2;
         private ImageList ImageList;
         private Initialisation_Pion initialisationPion;
+        ReseauClient client = new ReseauClient();
+        ReseauServeur serveur = new ReseauServeur();
 
         public Dictionary<Point, personnage_base> PositionsPionsBleus { get; private set; } = new Dictionary<Point, personnage_base>();
         public Dictionary<Point, personnage_base> PositionsPionsRouges { get; private set; } = new Dictionary<Point, personnage_base>();
@@ -201,8 +208,16 @@ namespace Stratego_Jean_Gazon
             PositionsPionsBleus.Clear();
             PositionsPionsRouges.Clear();
             RecalculerTaillesEtPositions();
-            CreateStrategoPictureBoxes(basGauche.X, basGauche.Y, true);
-            CreateStrategoPictureBoxes(hautGauche.X, hautGauche.Y, false);
+            if (FicJeu.IsServeur == true)
+            {
+                CreateStrategoPictureBoxes(basGauche.X, basGauche.Y, true);
+                CreateStrategoPictureBoxes(hautGauche.X, hautGauche.Y, false);
+            }
+            else
+            {
+                CreateStrategoPictureBoxes(hautGauche.X, hautGauche.Y, true);
+                CreateStrategoPictureBoxes(basGauche.X, basGauche.Y, false);
+            }
         }
 
         public void Piece_Rezise(bool isblue)
@@ -283,13 +298,60 @@ namespace Stratego_Jean_Gazon
 
         public void ActiverPlacement(Player joueur)
         {
+
             initialisationPion = new Initialisation_Pion(PnlGrilleGame, joueur);  // appelle de la classe initialisation pion pour pouvoir positionner ses pions en début de partie 
+            
         }
 
         public void TerminerPlacement()
         {
             initialisationPion?.SupprimerEvents();
             initialisationPion = null;
+            DebugAfficherDictionnaire("PositionsPionsBleus", PositionsPionsBleus);
+            //DebugAfficherDictionnaire("PositionsPionsRouges", PositionsPionsRouges);
+        }
+
+        private static void DebugAfficherDictionnaire(string nom, Dictionary<Point, personnage_base> dictionnaire)
+        {
+            Debug.WriteLine($"--- {nom} (Count={dictionnaire.Count}) ---");
+
+            foreach (KeyValuePair<Point, personnage_base> kvp in dictionnaire)
+            {
+                Point position = kvp.Key;
+                personnage_base pion = kvp.Value;
+
+                string descriptionPion = pion == null
+                    ? "null"
+                    : $"Grade={pion.Grade}, Couleur={(pion.Couleur ? "Bleu" : "Rouge")}";
+ 
+                Debug.WriteLine($"Pos=({position.X},{position.Y}) -> {descriptionPion}");
+            }
+        }
+
+        public async Task EnvoyerPositionsPions()
+        {
+            
+            await client.Envoyer_Initialisation_Pions(PositionsPionsRouges);
+
+        }
+        public async Task ReceptionPositionPions()
+        {
+            PositionsPionsRouges =  await serveur.ReceptionInitialisationRouge();
+            Debug.WriteLine("Positions des pions rouges reçues du serveur.");
+            DebugAfficherDictionnaire("PositionsPionsRouges", PositionsPionsRouges);
+        }
+       public async void démarrer_connection(bool IsServeur)
+        {
+            if (IsServeur == true)
+            {
+               
+                await serveur.DemarrerServeurAsync();
+            }
+            else
+            {
+                
+                await client.DemarrerClientAsync();
+            }
         }
     }
 }

@@ -35,6 +35,7 @@ namespace Stratego_Jean_Gazon
             ReseauClient.DefaultPort = port;
             
             MessageBox.Show("Paramètres enregistrés avec succès.", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
             this.Close();
         }
 
@@ -49,7 +50,7 @@ namespace Stratego_Jean_Gazon
                 // Affiche dans les textboxes et désactive la modification
                 tbAddressIP.Text = localIp;
                 tbPortServeur.Text = port.ToString();
-                tbAddressIP.Enabled = false;
+                tbAddressIP.Enabled = true;
                 tbPortServeur.Enabled = false;
 
                 // Met à jour les valeurs par défaut utilisées par le réseau

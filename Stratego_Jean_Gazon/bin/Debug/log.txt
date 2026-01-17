@@ -1,4 +1,171 @@
 Nouveau log démarré...
-Timestamp: 06-01-26 21:58:55
-Défenseur gagne !
-Défenseur gagne !
+Timestamp: 17-01-26 12:37:21
+Serveur en attente...
+Réception de l'initialisation des pions rouges demarrage
+Réception de l'initialisation des pions rouges fin de la boucle
+Message complet reçu : INIT_PIONS|1;1;Marechal|2;1;General|3;1;Colonel|4;1;Colonel|5;1;Commandant|6;1;Commandant|7;1;Commandant|8;1;Capitaine|9;1;Capitaine|10;1;Capitaine|1;2;Capitaine|2;2;Lieutenant|3;2;Lieutenant|4;2;Lieutenant|5;2;Lieutenant|6;2;Sergent|7;2;Sergent|8;2;Sergent|9;2;Sergent|10;2;Demineur|1;3;Demineur|2;3;Demineur|3;3;Demineur|4;3;Demineur|5;3;Eclaireur|6;3;Eclaireur|7;3;Eclaireur|8;3;Eclaireur|9;3;Eclaireur|10;3;Eclaireur|1;4;Eclaireur|2;4;Eclaireur|3;4;Espion|4;4;Bombe|5;4;Bombe|6;4;Bombe|7;4;Bombe|8;4;Bombe|9;4;Bombe|10;4;Drapeau|<|EOM|>
+Pion rouge ajouté : Marechal en (1,1)
+Pion rouge ajouté : General en (2,1)
+Pion rouge ajouté : Colonel en (3,1)
+Pion rouge ajouté : Colonel en (4,1)
+Pion rouge ajouté : Commandant en (5,1)
+Pion rouge ajouté : Commandant en (6,1)
+Pion rouge ajouté : Commandant en (7,1)
+Pion rouge ajouté : Capitaine en (8,1)
+Pion rouge ajouté : Capitaine en (9,1)
+Pion rouge ajouté : Capitaine en (10,1)
+Pion rouge ajouté : Capitaine en (1,2)
+Pion rouge ajouté : Lieutenant en (2,2)
+Pion rouge ajouté : Lieutenant en (3,2)
+Pion rouge ajouté : Lieutenant en (4,2)
+Pion rouge ajouté : Lieutenant en (5,2)
+Pion rouge ajouté : Sergent en (6,2)
+Pion rouge ajouté : Sergent en (7,2)
+Pion rouge ajouté : Sergent en (8,2)
+Pion rouge ajouté : Sergent en (9,2)
+Pion rouge ajouté : Demineur en (10,2)
+Pion rouge ajouté : Demineur en (1,3)
+Pion rouge ajouté : Demineur en (2,3)
+Pion rouge ajouté : Demineur en (3,3)
+Pion rouge ajouté : Demineur en (4,3)
+Pion rouge ajouté : Eclaireur en (5,3)
+Pion rouge ajouté : Eclaireur en (6,3)
+Pion rouge ajouté : Eclaireur en (7,3)
+Pion rouge ajouté : Eclaireur en (8,3)
+Pion rouge ajouté : Eclaireur en (9,3)
+Pion rouge ajouté : Eclaireur en (10,3)
+Pion rouge ajouté : Eclaireur en (1,4)
+Pion rouge ajouté : Eclaireur en (2,4)
+Pion rouge ajouté : Espion en (3,4)
+Pion rouge ajouté : Bombe en (4,4)
+Pion rouge ajouté : Bombe en (5,4)
+Pion rouge ajouté : Bombe en (6,4)
+Pion rouge ajouté : Bombe en (7,4)
+Pion rouge ajouté : Bombe en (8,4)
+Pion rouge ajouté : Bombe en (9,4)
+Pion rouge ajouté : Drapeau en (10,4)
+Réception de l'initialisation des pions rouges fin
+Positions des pions rouges reçues du serveur.
+--- PositionsPionsRouges (Count=40) ---
+Pos=(1,1) -> Grade=Maréchal, Couleur=Rouge
+Pos=(2,1) -> Grade=Général, Couleur=Rouge
+Pos=(3,1) -> Grade=Colonel, Couleur=Rouge
+Pos=(4,1) -> Grade=Colonel, Couleur=Rouge
+Pos=(5,1) -> Grade=Commandant, Couleur=Rouge
+Pos=(6,1) -> Grade=Commandant, Couleur=Rouge
+Pos=(7,1) -> Grade=Commandant, Couleur=Rouge
+Pos=(8,1) -> Grade=Capitaine, Couleur=Rouge
+Pos=(9,1) -> Grade=Capitaine, Couleur=Rouge
+Pos=(10,1) -> Grade=Capitaine, Couleur=Rouge
+Pos=(1,2) -> Grade=Capitaine, Couleur=Rouge
+Pos=(2,2) -> Grade=Lieutenant, Couleur=Rouge
+Pos=(3,2) -> Grade=Lieutenant, Couleur=Rouge
+Pos=(4,2) -> Grade=Lieutenant, Couleur=Rouge
+Pos=(5,2) -> Grade=Lieutenant, Couleur=Rouge
+Pos=(6,2) -> Grade=Sergent, Couleur=Rouge
+Pos=(7,2) -> Grade=Sergent, Couleur=Rouge
+Pos=(8,2) -> Grade=Sergent, Couleur=Rouge
+Pos=(9,2) -> Grade=Sergent, Couleur=Rouge
+Pos=(10,2) -> Grade=Démineur, Couleur=Rouge
+Pos=(1,3) -> Grade=Démineur, Couleur=Rouge
+Pos=(2,3) -> Grade=Démineur, Couleur=Rouge
+Pos=(3,3) -> Grade=Démineur, Couleur=Rouge
+Pos=(4,3) -> Grade=Démineur, Couleur=Rouge
+Pos=(5,3) -> Grade=Éclaireur, Couleur=Rouge
+Pos=(6,3) -> Grade=Éclaireur, Couleur=Rouge
+Pos=(7,3) -> Grade=Éclaireur, Couleur=Rouge
+Pos=(8,3) -> Grade=Éclaireur, Couleur=Rouge
+Pos=(9,3) -> Grade=Éclaireur, Couleur=Rouge
+Pos=(10,3) -> Grade=Éclaireur, Couleur=Rouge
+Pos=(1,4) -> Grade=Éclaireur, Couleur=Rouge
+Pos=(2,4) -> Grade=Éclaireur, Couleur=Rouge
+Pos=(3,4) -> Grade=Espion, Couleur=Rouge
+Pos=(4,4) -> Grade=Bombe, Couleur=Rouge
+Pos=(5,4) -> Grade=Bombe, Couleur=Rouge
+Pos=(6,4) -> Grade=Bombe, Couleur=Rouge
+Pos=(7,4) -> Grade=Bombe, Couleur=Rouge
+Pos=(8,4) -> Grade=Bombe, Couleur=Rouge
+Pos=(9,4) -> Grade=Bombe, Couleur=Rouge
+Pos=(10,4) -> Grade=Drapeau, Couleur=Rouge
+--- PositionsPionsBleus (Count=40) ---
+Pos=(1,7) -> Grade=Maréchal, Couleur=Bleu
+Pos=(2,7) -> Grade=Général, Couleur=Bleu
+Pos=(3,7) -> Grade=Colonel, Couleur=Bleu
+Pos=(4,7) -> Grade=Colonel, Couleur=Bleu
+Pos=(5,7) -> Grade=Commandant, Couleur=Bleu
+Pos=(6,7) -> Grade=Commandant, Couleur=Bleu
+Pos=(7,7) -> Grade=Commandant, Couleur=Bleu
+Pos=(8,7) -> Grade=Capitaine, Couleur=Bleu
+Pos=(9,7) -> Grade=Capitaine, Couleur=Bleu
+Pos=(10,7) -> Grade=Capitaine, Couleur=Bleu
+Pos=(1,8) -> Grade=Capitaine, Couleur=Bleu
+Pos=(2,8) -> Grade=Lieutenant, Couleur=Bleu
+Pos=(3,8) -> Grade=Lieutenant, Couleur=Bleu
+Pos=(4,8) -> Grade=Lieutenant, Couleur=Bleu
+Pos=(5,8) -> Grade=Lieutenant, Couleur=Bleu
+Pos=(6,8) -> Grade=Sergent, Couleur=Bleu
+Pos=(7,8) -> Grade=Sergent, Couleur=Bleu
+Pos=(8,8) -> Grade=Sergent, Couleur=Bleu
+Pos=(9,8) -> Grade=Sergent, Couleur=Bleu
+Pos=(10,8) -> Grade=Démineur, Couleur=Bleu
+Pos=(1,9) -> Grade=Démineur, Couleur=Bleu
+Pos=(2,9) -> Grade=Démineur, Couleur=Bleu
+Pos=(3,9) -> Grade=Démineur, Couleur=Bleu
+Pos=(4,9) -> Grade=Démineur, Couleur=Bleu
+Pos=(5,9) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(6,9) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(7,9) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(8,9) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(9,9) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(10,9) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(1,10) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(2,10) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(3,10) -> Grade=Espion, Couleur=Bleu
+Pos=(4,10) -> Grade=Bombe, Couleur=Bleu
+Pos=(5,10) -> Grade=Bombe, Couleur=Bleu
+Pos=(6,10) -> Grade=Bombe, Couleur=Bleu
+Pos=(7,10) -> Grade=Bombe, Couleur=Bleu
+Pos=(8,10) -> Grade=Bombe, Couleur=Bleu
+Pos=(9,10) -> Grade=Bombe, Couleur=Bleu
+Pos=(10,10) -> Grade=Drapeau, Couleur=Bleu
+--- PositionsPionsBleus (Count=40) ---
+Pos=(1,7) -> Grade=Maréchal, Couleur=Bleu
+Pos=(2,7) -> Grade=Général, Couleur=Bleu
+Pos=(3,7) -> Grade=Colonel, Couleur=Bleu
+Pos=(4,7) -> Grade=Colonel, Couleur=Bleu
+Pos=(5,7) -> Grade=Commandant, Couleur=Bleu
+Pos=(6,7) -> Grade=Commandant, Couleur=Bleu
+Pos=(7,7) -> Grade=Commandant, Couleur=Bleu
+Pos=(8,7) -> Grade=Capitaine, Couleur=Bleu
+Pos=(9,6) -> Grade=Capitaine, Couleur=Bleu
+Pos=(10,7) -> Grade=Capitaine, Couleur=Bleu
+Pos=(1,8) -> Grade=Capitaine, Couleur=Bleu
+Pos=(2,8) -> Grade=Lieutenant, Couleur=Bleu
+Pos=(3,8) -> Grade=Lieutenant, Couleur=Bleu
+Pos=(4,8) -> Grade=Lieutenant, Couleur=Bleu
+Pos=(5,8) -> Grade=Lieutenant, Couleur=Bleu
+Pos=(6,8) -> Grade=Sergent, Couleur=Bleu
+Pos=(7,8) -> Grade=Sergent, Couleur=Bleu
+Pos=(8,8) -> Grade=Sergent, Couleur=Bleu
+Pos=(9,8) -> Grade=Sergent, Couleur=Bleu
+Pos=(10,8) -> Grade=Démineur, Couleur=Bleu
+Pos=(1,9) -> Grade=Démineur, Couleur=Bleu
+Pos=(2,9) -> Grade=Démineur, Couleur=Bleu
+Pos=(3,9) -> Grade=Démineur, Couleur=Bleu
+Pos=(4,9) -> Grade=Démineur, Couleur=Bleu
+Pos=(5,9) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(6,9) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(7,9) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(8,9) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(9,9) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(10,9) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(1,10) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(2,10) -> Grade=Éclaireur, Couleur=Bleu
+Pos=(3,10) -> Grade=Espion, Couleur=Bleu
+Pos=(4,10) -> Grade=Bombe, Couleur=Bleu
+Pos=(5,10) -> Grade=Bombe, Couleur=Bleu
+Pos=(6,10) -> Grade=Bombe, Couleur=Bleu
+Pos=(7,10) -> Grade=Bombe, Couleur=Bleu
+Pos=(8,10) -> Grade=Bombe, Couleur=Bleu
+Pos=(9,10) -> Grade=Bombe, Couleur=Bleu
+Pos=(10,10) -> Grade=Drapeau, Couleur=Bleu

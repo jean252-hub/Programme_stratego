@@ -6,7 +6,8 @@ using System.IO;
 using System.Windows.Forms;
 using Stratego_Jean_Gazon.Stratego_Jean_Gazon;
 using System.Threading.Tasks;
-
+using Stratego_Jean_Gazon.LogiqueJeu;
+using Stratego_Jean_Gazon.Reseau;
 namespace Stratego_Jean_Gazon
 {
     public partial class FicJeu : Form
@@ -21,7 +22,10 @@ namespace Stratego_Jean_Gazon
         private Other Other_option;
         private PictureBox pionSelectionne = null;
         private bool action_joue = false;
+        private bool initialisation_terminee = false;
         public ImageList ImageListPions => ImgListPerso; // pointer vers la list d'images des pions
+       
+
         public FicJeu()
         {
             this.WindowState = FormWindowState.Maximized;
@@ -40,14 +44,24 @@ namespace Stratego_Jean_Gazon
             Other_option = new Other(btnValider, this, Btn_Pret);
             PositionnerTitreFenetre();
         }
+        
         private async void FicJeu_Load(object sender, EventArgs e) // les méthodes async permet de ne pas bloquer l'interface pendant que les transition sont appélée pour rendre le jeu plus conviviale async est obligatoire quand on utilise await 
         {
+
             Debug_config();
-            grille_manager.Piece_Init();
-            Other_option.bValider_position();
+            grille_manager.démarrer_connection(FicJeu.IsServeur);
+            grille_manager.Piece_Init();// initaliser les pièce sur la frille 
+            Other_option.bValider_position();// placer le boutons valider 
             Btn_Pret.Visible = false;
-            player.Initialisation_Jeu(grille_manager, Btn_Pret, this);
-            await transitionManager.ShowPlacement(Player.Player_Blue);// await permet de ne pas bloquer l'interface pendant que la transition est en cours
+            player.Initialisation_Jeu(grille_manager, Btn_Pret, this);// initialiser les joueurs et les pions
+            if (FicJeu.IsServeur == true) { 
+                     await transitionManager.ShowPlacement(Player.Player_Blue);// await permet de ne pas bloquer l'interface pendant que la transition est en cours
+            }
+            else
+            {
+                await transitionManager.ShowPlacement(Player.Player_Red);
+            }
+
         }
 
         private Image GetPionImageFromImageList(string nom) // sert à récupérer l'image d'un pion dans la liste d'images ImgListPerso
@@ -65,13 +79,15 @@ namespace Stratego_Jean_Gazon
 
         private void Debug_config()
         {
-            string logFilePath = "log.txt";
-            File.WriteAllText(logFilePath, string.Empty);
-            Debug.Listeners.Clear();
-            Debug.Listeners.Add(new TextWriterTraceListener(logFilePath));
-            Debug.AutoFlush = true;
-            Debug.WriteLine("Nouveau log démarré...");
-            Debug.WriteLine($"Timestamp: {DateTime.Now}");
+            
+                string logFilePath = "log.txt";
+                File.WriteAllText(logFilePath, string.Empty);
+                Debug.Listeners.Clear();
+                Debug.Listeners.Add(new TextWriterTraceListener(logFilePath));
+                Debug.AutoFlush = true;
+                Debug.WriteLine("Nouveau log démarré...");
+                Debug.WriteLine($"Timestamp: {DateTime.Now}");
+            
         }
 
         public Player GetJoueurActif()
@@ -95,10 +111,25 @@ namespace Stratego_Jean_Gazon
             }
         }
 
-        
-
-        private void btnValider_Click(object sender, EventArgs e)
+        private void btnValider_Click_Sync(object sender, EventArgs e)
         {
+            // Appeler la méthode asynchrone et ignorer l'avertissement d'attente
+            _ = btnValider_Click(sender, e);
+        }
+
+        private async Task btnValider_Click(object sender, EventArgs e)
+        {
+            if(IsServeur == true && initialisation_terminee == false)
+            {
+                await grille_manager.ReceptionPositionPions();
+                initialisation_terminee = true;
+            }
+            if( IsServeur == false && initialisation_terminee == false)
+            {
+                await grille_manager.EnvoyerPositionsPions();
+                initialisation_terminee = true;
+            }
+          
             grille_manager.RecalculerTaillesEtPositions();
             var (largeurCase, hauteurCase, _, _) = grille_manager.GetTaillesEtPositions();
             Initialisation_Pion.PositionnerTousLesPions(PnlGrilleGame, largeurCase, hauteurCase);
@@ -112,7 +143,7 @@ namespace Stratego_Jean_Gazon
             await transitionManager.ShowChangeTurn(player.CurrentPlayer);
 
             grille_manager.TerminerPlacement();
-            player.ChangerJoueur();
+            //player.ChangerJoueur();
             grille_manager.Player_Grille_Change(player.CurrentPlayer);
             ActiverModeJeuPourJoueur(player.CurrentPlayer);
         }

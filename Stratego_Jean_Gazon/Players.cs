@@ -21,12 +21,46 @@ namespace Stratego_Jean_Gazon
 
         public Players()
         {
-            CurrentPlayer = Player.Player_Blue; // Le joueur bleu commence
+            if(FicJeu.IsServeur == true ) CurrentPlayer = Player.Player_Blue;
+            else CurrentPlayer = Player.Player_Red;
+            //CurrentPlayer = Player.Player_Blue; // Le joueur bleu commence
             PositionsPionsBleus = new Dictionary<Point, personnage_base>();
             PositionsPionsRouges = new Dictionary<Point, personnage_base>();
         }
-
         public void Initialisation_Jeu(Grille_Manager grille, Button Button_Pret, FicJeu winjeu)
+        {
+            Button_Pret.Visible = true;
+            MessageBox.Show(CurrentPlayer.ToString());
+
+            Button_Pret.Click += async (sender, e) =>
+            {
+                grille.TerminerPlacement();
+                //ChangerJoueur(); // remplacer par le joueur si il est serveur il est bleu si il est cient il est rouge
+                if (CurrentPlayer == Player.Player_Blue)
+                {
+                    grille.Cacher_Piece(true);
+                    grille.ActiverPlacement(CurrentPlayer);
+                    await ((FicJeu)winjeu).transitionManager.ShowPlacement(CurrentPlayer);
+                }
+                else if (CurrentPlayer == Player.Player_Red)
+                {
+                    grille.Cacher_Piece(false);
+                    grille.ActiverPlacement(CurrentPlayer);
+                    await ((FicJeu)winjeu).transitionManager.ShowPlacement(CurrentPlayer);
+                }
+                else
+                {
+                    Button_Pret.Visible = false;
+                }
+            };
+
+            if(CurrentPlayer == Player.Player_Blue)grille.Cacher_Piece(true);
+            else grille.Cacher_Piece(false);
+            grille.ActiverPlacement(CurrentPlayer);
+        }
+
+
+       /* public void Initialisation_Jeu(Grille_Manager grille, Button Button_Pret, FicJeu winjeu)
         {
             Button_Pret.Visible = true;
 
@@ -55,7 +89,7 @@ namespace Stratego_Jean_Gazon
 
             grille.Cacher_Piece(true);
             grille.ActiverPlacement(CurrentPlayer);
-        }
+        }*/
 
         public void InitialisationFin(Grille_Manager grille)
         {
