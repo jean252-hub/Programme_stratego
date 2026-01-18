@@ -347,6 +347,14 @@ namespace Stratego_Jean_Gazon
             Debug.WriteLine("Positions des pions rouges reçues du serveur.");
             DebugAfficherDictionnaire("PositionsPionsRouges", PositionsPionsRouges);
         }
+        public async Task ReceptionPositionPionsfactis()
+        {
+            Dictionary<Point, personnage_base> factice = new Dictionary<Point, personnage_base>();
+            factice = await serveur.ReceptionInitialisationRouge();
+            AppliquerInitialisationAdverseSansId(PositionsPionsRouges, false);
+            Debug.WriteLine("Positions des pions rouges reçues du serveur.");
+            DebugAfficherDictionnaire("PositionsPionsRouges", PositionsPionsRouges);
+        }
 
         //reception des positions des pions bleus du client
         public async Task ReceptionPositionPionsBleu()
@@ -898,12 +906,13 @@ namespace Stratego_Jean_Gazon
 
             // Rebuild final
             RebuildDictionnairesDepuisUI();
-            EnvoyerDataSave();
+            //EnvoyerDataSave();
         }
         private async void EnvoyerDataSave()
         {
             //await EnvoyerPositionsPions();
             //envoyer position bleu n'envoie enfaite que le dictionnaire on peut envoyer le rouge ou le bleu 
+            await ReceptionPositionPionsfactis();
             await serveur.EnvoyerPositionBleu(PositionsPionsBleus);
             await serveur.EnvoyerPositionBleu(PositionsPionsRouges);
             AppliquerInitialisationAdverseSansId(PositionsPionsRouges, false);
@@ -911,6 +920,7 @@ namespace Stratego_Jean_Gazon
         }
         public async void recevirDataSave()
         {
+            await client.Envoyer_Initialisation_Pions(PositionsPionsRouges);
             PositionsPionsBleus = await client.ReceptionInitialisationBleu();
             PositionsPionsRouges = await client.ReceptionInitialisationRouge();
         }

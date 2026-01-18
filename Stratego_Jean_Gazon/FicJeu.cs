@@ -580,8 +580,8 @@ namespace Stratego_Jean_Gazon
 
         private void btn_Charger_Click(object sender, EventArgs e)
         {
-            if (IsServeur)
-            {
+            
+            
                 using (var dialog = new OpenFileDialog())
                 {
                     dialog.Title = "Charger une sauvegarde";
@@ -599,17 +599,13 @@ namespace Stratego_Jean_Gazon
                     var (largeurCase, hauteurCase, _, _) = grille_manager.GetTaillesEtPositions();
                     Initialisation_Pion.PositionnerTousLesPions(PnlGrilleGame, largeurCase, hauteurCase);
                     PnlGrilleGame.Refresh();
+                    initialisation_terminee =true;
+                    premier_tour = 2;
 
-                    // Si vous avez un moyen de setter le tour dans Players, faites-le ici.
-                    // Exemple (si propriété settable) : player.CurrentPlayer = joueurCourant;
-                }
+                // Si vous avez un moyen de setter le tour dans Players, faites-le ici.
+                // Exemple (si propriété settable) : player.CurrentPlayer = joueurCourant;
             }
-            else { grille_manager.recevirDataSave(); 
-                grille_manager.RecalculerTaillesEtPositions();
-                var (largeurCase, hauteurCase, _, _) = grille_manager.GetTaillesEtPositions();
-                Initialisation_Pion.PositionnerTousLesPions(PnlGrilleGame, largeurCase, hauteurCase);
-                PnlGrilleGame.Refresh();
-            }
+            
         }
     }
 }
