@@ -193,6 +193,7 @@ namespace Stratego_Jean_Gazon
                      }*/
                 }
 
+
             }
             premier_tour++;
             grille_manager.RecalculerTaillesEtPositions();
@@ -534,6 +535,42 @@ namespace Stratego_Jean_Gazon
             return false;
         }
 
+        private PictureBox TrouverPictureBoxParPosition(Point position, out personnage_base pion)
+        {
+            pion = null;
+
+            foreach (Control ctrl in grille_manager.PnlGrilleGame.Controls)
+            {
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base p)
+                {
+                    if (p.PositionGrille.Equals(position))
+                    {
+                        pion = p;
+                        return pb;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private static string ConstruireTexteResultatCombatPourLocal(char resultat, bool localEstAttaquant)
+        {
+            switch (resultat)
+            {
+                case 'A': // Attaquant gagne
+                    return localEstAttaquant ? "Gagné" : "Perdu";
+                case 'D': // Défenseur gagne
+                    return localEstAttaquant ? "Perdu" : "Gagné";
+                case 'E':
+                    return "Égalité";
+                case 'F':
+                    return "Victoire";
+                default:
+                    return "Combat";
+            }
+        }
+
         private async void RecevoirMessagesAsync()
         {
             while (true)
@@ -552,20 +589,65 @@ namespace Stratego_Jean_Gazon
 
                     if (PnlGrilleGame.InvokeRequired)
                     {
-                        PnlGrilleGame.Invoke((Action)(() =>
+                        PnlGrilleGame.Invoke((Action)(async () =>
                         {
+                            // 1) Récupérer les pions avant d'appliquer le combat (sinon ils peuvent être supprimés)
+                            var pbA = TrouverPictureBoxParPosition(a, out var pionA);
+                            var pbD = TrouverPictureBoxParPosition(d, out var pionD);
+
+                            // Par défaut: si on ne trouve pas, on applique quand même le combat
+                            if (pionA != null && pionD != null)
+                            {
+                                // 2) Texte du point de vue du joueur local (le défenseur local voit aussi la transition)
+                                // Le défenseur local est celui dont le pion est sur la case d
+                                bool localEstDefenseur = true;
+                                bool localEstAttaquant = !localEstDefenseur;
+
+                                string resultatTexte = ConstruireTexteResultatCombatPourLocal(r, localEstAttaquant);
+
+                                await transitionManager.ShowCombat(
+                                    GetPionImageFromImageList(pionA.Grade), pionA.Couleur,
+                                    GetPionImageFromImageList(pionD.Grade), pionD.Couleur,
+                                    resultatTexte
+                                );
+                            }
+
+                            // 3) Appliquer le résultat sur la grille
                             grille_manager.AppliquerCombat(a, d, r);
                             PnlGrilleGame.Refresh();
+
+                            if (r == 'F')
+                            {
+                                // gagnant = attaquant
+                                AfficherFinPartie(pionA != null && pionA.Couleur ? Player.Player_Blue : Player.Player_Red);
+                            }
                         }));
                     }
                     else
                     {
+                        var pbA = TrouverPictureBoxParPosition(a, out var pionA);
+                        var pbD = TrouverPictureBoxParPosition(d, out var pionD);
+
+                        if (pionA != null && pionD != null)
+                        {
+                            bool localEstAttaquant = false; // ici on est chez le défenseur (score local)
+                            string resultatTexte = ConstruireTexteResultatCombatPourLocal(r, localEstAttaquant);
+
+                            await transitionManager.ShowCombat(
+                                GetPionImageFromImageList(pionA.Grade), pionA.Couleur,
+                                GetPionImageFromImageList(pionD.Grade), pionD.Couleur,
+                                resultatTexte
+                            );
+                        }
+
                         grille_manager.AppliquerCombat(a, d, r);
                         PnlGrilleGame.Refresh();
-                    }
 
-                    if (r == 'F')
-                        AfficherFinPartie(Player.Player_Blue); // gagnant = adversaire (à ajuster selon votre logique)
+                        if (r == 'F')
+                        {
+                            AfficherFinPartie(pionA != null && pionA.Couleur ? Player.Player_Blue : Player.Player_Red);
+                        }
+                    }
                 }
             }
         }
@@ -599,8 +681,8 @@ namespace Stratego_Jean_Gazon
                     var (largeurCase, hauteurCase, _, _) = grille_manager.GetTaillesEtPositions();
                     Initialisation_Pion.PositionnerTousLesPions(PnlGrilleGame, largeurCase, hauteurCase);
                     PnlGrilleGame.Refresh();
-                    initialisation_terminee =true;
-                    premier_tour = 2;
+                   // initialisation_terminee =true;
+                    //premier_tour = 2;
 
                 // Si vous avez un moyen de setter le tour dans Players, faites-le ici.
                 // Exemple (si propriété settable) : player.CurrentPlayer = joueurCourant;

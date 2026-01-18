@@ -906,6 +906,7 @@ namespace Stratego_Jean_Gazon
 
             // Rebuild final
             RebuildDictionnairesDepuisUI();
+            TerminerPlacement();
             //EnvoyerDataSave();
         }
         private async void EnvoyerDataSave()
