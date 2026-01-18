@@ -116,11 +116,12 @@ namespace Stratego_Jean_Gazon
 
         private async Task btnValider_Click(object sender, EventArgs e)
         {
+           
             if (!initialisation_terminee)
             {
                 if (IsServeur)
                 {
-                    
+                    grille_manager.RebuildDictionnairesDepuisUI();
                     await grille_manager.ReceptionPositionPions();
                     await transitionManager.ShowPlacement(
                         IsServeur ? Player.Player_Red : Player.Player_Blue);
@@ -129,9 +130,10 @@ namespace Stratego_Jean_Gazon
                 }
                 else
                 {
-                    
+                    grille_manager.RebuildDictionnairesDepuisUI();
                     await grille_manager.EnvoyerPositionsPions();
                     await grille_manager.ReceptionPositionPionsBleu();
+  
                     grille_manager.afficher_dictionnaire();
                 }
 
@@ -140,7 +142,9 @@ namespace Stratego_Jean_Gazon
 
             if (IsServeur)
             {
-                var (pion, pb, depart, destination) = await grille_manager.Recevoir_DeplacementAsync(IsServeur);
+                RecevoirMessagesAsync();
+                /* //MessageBox.Show("dans le deplcement");
+               /* var (pion, pb, depart, destination) = await grille_manager.Re(IsServeur);
                 MessageBox.Show($"Déplacement reçu du client : {depart} -> {destination} {pion} {pb}");
 
                 if (pion != null && pb != null)
@@ -159,34 +163,34 @@ namespace Stratego_Jean_Gazon
                         grille_manager.DeplacerPion(pion, pb, destination);
                         PnlGrilleGame.Refresh();
                     }
-                }
+                }*/
             }
             else
             {
                 if (premier_tour >= 2)
                 {
-                    //MessageBox.Show("dans le deplcement");
-                    var (pion, pb, depart, destination) = await grille_manager.Recevoir_DeplacementAsync(IsServeur);
-                    MessageBox.Show($"Déplacement reçu du serveur : {depart} -> {destination} {pion} {pb}");
+                    RecevoirMessagesAsync();
+                    /* //MessageBox.Show("dans le deplcement");
+                     var (pion, pb, depart, destination) = await grille_manager.Recevoir_DeplacementAsync(IsServeur);
+                     MessageBox.Show($"Déplacement reçu du serveur : {depart} -> {destination} {pion} {pb}");
 
-                    if (pion != null && pb != null)
-                    {
-                        if (PnlGrilleGame.InvokeRequired)
-                        {
-                            PnlGrilleGame.Invoke((Action)(() =>
-                            {
-                                grille_manager.DeplacerPion(pion, pb, destination);
-                                PnlGrilleGame.Refresh();
-                                MessageBox.Show("Déplacement appliqué sur le client.");
-                            }));
-                        }
-                        else
-                        {
-                            grille_manager.DeplacerPion(pion, pb, destination);
-                            PnlGrilleGame.Refresh();
-                        }
-                    }
-                    
+                     if (pion != null && pb != null)
+                     {
+                         if (PnlGrilleGame.InvokeRequired)
+                         {
+                             PnlGrilleGame.Invoke((Action)(() =>
+                             {
+                                 grille_manager.DeplacerPion(pion, pb, destination);
+                                 PnlGrilleGame.Refresh();
+                                 MessageBox.Show("Déplacement appliqué sur le client.");
+                             }));
+                         }
+                         else
+                         {
+                             grille_manager.DeplacerPion(pion, pb, destination);
+                             PnlGrilleGame.Refresh();
+                         }
+                     }*/
                 }
 
             }
@@ -399,7 +403,20 @@ namespace Stratego_Jean_Gazon
                 {
                     byte victoire = grilleGameEngine.ResoudreAffrontement(info, cibleInfo);
 
+                    char resultatCombat = 'E';
+                    if (victoire == 1) resultatCombat = 'A';
+                    else if (victoire == 2) resultatCombat = 'D';
+                    else if (victoire == 3) resultatCombat = 'E';
+                    else if (victoire == 4) resultatCombat = 'F';
 
+                    // IMPORTANT: envoyer l'événement de combat à l'autre joueur
+                    // attaquant = position avant déplacement, défenseur = case cible
+                    Point positionAttaquant = info.PositionGrille;
+                    Point positionDefenseur = destination;
+
+                    await grille_manager.Envoyer_CombatAsync(positionAttaquant, positionDefenseur, resultatCombat, IsServeur);
+
+                    // Puis votre logique locale existante (animations + suppression/déplacement)
                     if (victoire == 1)
                     {
                         await transitionManager.ShowCombat(
@@ -440,6 +457,7 @@ namespace Stratego_Jean_Gazon
                         AfficherFinPartie(player.CurrentPlayer);
                     }
                 }
+
                 pionSelectionne = null;
                 action_joue = true;
                 return;
@@ -514,6 +532,42 @@ namespace Stratego_Jean_Gazon
             }
 
             return false;
+        }
+
+        private async void RecevoirMessagesAsync()
+        {
+            while (true)
+            {
+                string message = await grille_manager.RecevoirMessageAsync(IsServeur);
+
+                if (message.StartsWith("DEPLACEMENT|", StringComparison.Ordinal))
+                {
+                    var (depart, destination) = Grille_Manager.ParserDeplacement(message);
+                    grille_manager.AppliquerDeplacement(depart, destination);
+                    PnlGrilleGame.Refresh();
+                }
+                else if (message.StartsWith("COMBAT|", StringComparison.Ordinal))
+                {
+                    var (a, d, r) = Grille_Manager.ParserCombat(message);
+
+                    if (PnlGrilleGame.InvokeRequired)
+                    {
+                        PnlGrilleGame.Invoke((Action)(() =>
+                        {
+                            grille_manager.AppliquerCombat(a, d, r);
+                            PnlGrilleGame.Refresh();
+                        }));
+                    }
+                    else
+                    {
+                        grille_manager.AppliquerCombat(a, d, r);
+                        PnlGrilleGame.Refresh();
+                    }
+
+                    if (r == 'F')
+                        AfficherFinPartie(Player.Player_Blue); // gagnant = adversaire (à ajuster selon votre logique)
+                }
+            }
         }
     }
 }

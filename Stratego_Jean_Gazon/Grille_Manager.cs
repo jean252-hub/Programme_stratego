@@ -140,7 +140,7 @@ namespace Stratego_Jean_Gazon
                 ("Drapeau", 1,0)
             };
 
-            int colonne = 1; 
+            int colonne = 1;
             int ligne = isBlue ? 7 : 1; // permet de savoir ou la boucle pour créer les pictures boxes va commencer, si c'est l'équipe bleu on commence en bas sinon on commence en haut
             int pionParLigne = 10;
 
@@ -300,7 +300,7 @@ namespace Stratego_Jean_Gazon
         {
 
             initialisationPion = new Initialisation_Pion(PnlGrilleGame, joueur);  // appelle de la classe initialisation pion pour pouvoir positionner ses pions en début de partie 
-            
+
         }
 
         public void TerminerPlacement()
@@ -323,7 +323,7 @@ namespace Stratego_Jean_Gazon
                 string descriptionPion = pion == null
                     ? "null"
                     : $"Grade={pion.Grade}, Couleur={(pion.Couleur ? "Bleu" : "Rouge")}";
- 
+
                 Debug.WriteLine($"Pos=({position.X},{position.Y}) -> {descriptionPion}");
             }
         }
@@ -338,8 +338,8 @@ namespace Stratego_Jean_Gazon
         //reception des positions des pions rouges du serveur
         public async Task ReceptionPositionPions()
         {
-            
-            PositionsPionsRouges =  await serveur.ReceptionInitialisationRouge();
+
+            PositionsPionsRouges = await serveur.ReceptionInitialisationRouge();
             AppliquerInitialisationAdverseSansId(PositionsPionsRouges, false);
             Debug.WriteLine("Positions des pions rouges reçues du serveur.");
             DebugAfficherDictionnaire("PositionsPionsRouges", PositionsPionsRouges);
@@ -361,23 +361,23 @@ namespace Stratego_Jean_Gazon
             await serveur.EnvoyerPositionBleu(PositionsPionsBleus);
 
         }
-       public async void démarrer_connection(bool IsServeur)
+        public async void démarrer_connection(bool IsServeur)
         {
             if (IsServeur == true)
             {
-               
+
                 await serveur.DemarrerServeurAsync();
             }
             else
             {
-                
+
                 await client.DemarrerClientAsync();
             }
         }
         public void afficher_dictionnaire()
         {
             Debug.WriteLine("------------- teste pour le client regarder les rouge");
-                       
+
             DebugAfficherDictionnaire("PositionsPionsRouges", PositionsPionsRouges);
             DebugAfficherDictionnaire("PositionsPionsBleus", PositionsPionsBleus);
         }
@@ -520,5 +520,279 @@ namespace Stratego_Jean_Gazon
             PositionsPionsBleus = bleus;
             PositionsPionsRouges = rouges;
         }
-    }
-}
+
+        public void AppliquerCombat(Point positionAttaquant, Point positionDefenseur, char resultat)
+        {
+            PictureBox pbA = null;
+            personnage_base pionA = null;
+
+            PictureBox pbD = null;
+            personnage_base pionD = null;
+
+            foreach (Control ctrl in PnlGrilleGame.Controls)
+            {
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
+                {
+                    if (pion.PositionGrille.Equals(positionAttaquant))
+                    {
+                        pbA = pb;
+                        pionA = pion;
+                    }
+                    else if (pion.PositionGrille.Equals(positionDefenseur))
+                    {
+                        pbD = pb;
+                        pionD = pion;
+                    }
+                }
+            }
+
+            if (resultat == 'A')
+            {
+                if (pbD != null && pionD != null)
+                {
+                    PnlGrilleGame.Controls.Remove(pbD);
+                    SupprimerPion(pionD.PositionGrille, pionD.Couleur);
+                }
+
+                if (pbA != null && pionA != null)
+                    DeplacerPion(pionA, pbA, positionDefenseur);
+
+                return;
+            }
+
+            if (resultat == 'D')
+            {
+                if (pbA != null && pionA != null)
+                {
+                    PnlGrilleGame.Controls.Remove(pbA);
+                    SupprimerPion(pionA.PositionGrille, pionA.Couleur);
+                }
+
+                return;
+            }
+
+            if (resultat == 'E')
+            {
+                if (pbD != null && pionD != null)
+                {
+                    PnlGrilleGame.Controls.Remove(pbD);
+                    SupprimerPion(pionD.PositionGrille, pionD.Couleur);
+                }
+
+                if (pbA != null && pionA != null)
+                {
+                    PnlGrilleGame.Controls.Remove(pbA);
+                    SupprimerPion(pionA.PositionGrille, pionA.Couleur);
+                }
+
+                return;
+            }
+
+            if (resultat == 'F')
+            {
+                // À minima : supprimer le défenseur (drapeau) et déplacer l'attaquant
+                if (pbD != null && pionD != null)
+                {
+                    PnlGrilleGame.Controls.Remove(pbD);
+                    SupprimerPion(pionD.PositionGrille, pionD.Couleur);
+                }
+
+                if (pbA != null && pionA != null)
+                    DeplacerPion(pionA, pbA, positionDefenseur);
+
+                // l'écran de fin de partie est géré par FicJeu
+                return;
+            }
+
+            throw new InvalidOperationException("Résultat de combat inconnu : " + resultat);
+        }
+        public async Task Envoyer_CombatAsync(Point positionAttaquant, Point positionDefenseur, char resultatCombat, bool isServeur)
+        {
+            // Exemple d'implémentation basique, à adapter selon votre logique réseau
+            if (isServeur && serveur != null)
+            {
+                await serveur.Envoyer_Combat(positionAttaquant, positionDefenseur, resultatCombat);
+            }
+            else if (!isServeur && client != null)
+            {
+                await client.Envoyer_Combat(positionAttaquant, positionDefenseur, resultatCombat);
+            }
+        }
+        public async Task<(Point positionAttaquant, Point positionDefenseur, char resultatCombat)> Recevoir_CombatAsync(bool isServeur)
+        {
+            if (isServeur)
+            {
+                var (positionDepart, positionArrivee, resultatCombat) = await serveur.Reception_Combat();
+
+                var dico = PositionsPionsRouges;
+
+                PictureBox pb = null;
+                personnage_base pionUi = null;
+
+                foreach (Control ctrl in PnlGrilleGame.Controls)
+                {
+                    if (ctrl is PictureBox pic && pic.Tag is personnage_base tagPion)
+                    {
+                        if (tagPion.PositionGrille.Equals(positionDepart))
+                        {
+                            pb = pic;
+                            pionUi = tagPion;
+                            break;
+                        }
+                    }
+                }
+
+                if (pionUi != null)
+                {
+                    dico.Remove(positionDepart);
+                    dico[positionArrivee] = pionUi;
+                }
+
+                return (positionDepart, positionArrivee, resultatCombat);
+            }
+            else
+            {
+                var (positionDepart, positionArrivee, resultatCombat) = await client.Recevoir_Combat();
+
+                var dico = PositionsPionsBleus;
+
+                PictureBox pb = null;
+                personnage_base pionUi = null;
+
+                foreach (Control ctrl in PnlGrilleGame.Controls)
+                {
+                    if (ctrl is PictureBox pic && pic.Tag is personnage_base tagPion)
+                    {
+                        if (tagPion.PositionGrille.Equals(positionDepart))
+                        {
+                            pb = pic;
+                            pionUi = tagPion;
+                            break;
+                        }
+                    }
+                }
+
+                if (pionUi != null)
+                {
+                    dico.Remove(positionDepart);
+                    dico[positionArrivee] = pionUi;
+                }
+
+                return (positionDepart, positionArrivee, resultatCombat);
+            }
+        }
+        public async Task<string> RecevoirMessageAsync(bool isServeur)
+        {
+            if (isServeur)
+                return await serveur.RecevoirMessageAsync();
+
+            return await client.RecevoirMessageAsync();
+        }
+
+        public static (Point depart, Point destination) ParserDeplacement(string message)
+        {
+            if (!message.StartsWith("DEPLACEMENT|", StringComparison.Ordinal))
+                throw new Exception("DEPLACEMENT attendu");
+
+            string data = message.Replace("DEPLACEMENT|", "");
+            string[] positions = data.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+            if (positions.Length != 2)
+                throw new Exception("Format du déplacement invalide");
+
+            string[] depart = positions[0].Split(';');
+            string[] arrivee = positions[1].Split(';');
+
+            return (
+                new Point(int.Parse(depart[0]), int.Parse(depart[1])),
+                new Point(int.Parse(arrivee[0]), int.Parse(arrivee[1]))
+            );
+        }
+
+        public static (Point attaquant, Point defenseur, char resultat) ParserCombat(string message)
+        {
+            if (!message.StartsWith("COMBAT|", StringComparison.Ordinal))
+                throw new Exception("COMBAT attendu");
+
+            string data = message.Replace("COMBAT|", "");
+            string[] parts = data.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length != 3)
+                throw new Exception("Format COMBAT invalide");
+
+            string[] a = parts[0].Split(';');
+            string[] d = parts[1].Split(';');
+
+            return (
+                new Point(int.Parse(a[0]), int.Parse(a[1])),
+                new Point(int.Parse(d[0]), int.Parse(d[1])),
+                parts[2][0]
+            );
+        }
+
+        public static bool TryParserDeplacement(string message, out Point depart, out Point destination)
+        {
+            depart = default(Point);
+            destination = default(Point);
+
+            if (!message.StartsWith("DEPLACEMENT|", StringComparison.Ordinal))
+                return false;
+
+            string data = message.Replace("DEPLACEMENT|", "");
+            string[] positions = data.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+            if (positions.Length != 2)
+                return false;
+
+            string[] d = positions[0].Split(';');
+            string[] a = positions[1].Split(';');
+            if (d.Length < 2 || a.Length < 2)
+                return false;
+
+            depart = new Point(int.Parse(d[0]), int.Parse(d[1]));
+            destination = new Point(int.Parse(a[0]), int.Parse(a[1]));
+            return true;
+        }
+
+        public static bool TryParserCombat(string message, out Point attaquant, out Point defenseur, out char resultat)
+        {
+            attaquant = default(Point);
+            defenseur = default(Point);
+            resultat = '\0';
+
+            if (!message.StartsWith("COMBAT|", StringComparison.Ordinal))
+                return false;
+
+            string data = message.Replace("COMBAT|", "");
+            string[] parts = data.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length != 3)
+                return false;
+
+            string[] a = parts[0].Split(';');
+            string[] d = parts[1].Split(';');
+
+            attaquant = new Point(int.Parse(a[0]), int.Parse(a[1]));
+            defenseur = new Point(int.Parse(d[0]), int.Parse(d[1]));
+            resultat = parts[2][0];
+            return true;
+        }
+
+        public void AppliquerDeplacement(Point depart, Point destination)
+        {
+            PictureBox pb = null;
+            personnage_base pion = null;
+
+            foreach (Control ctrl in PnlGrilleGame.Controls)
+            {
+                if (ctrl is PictureBox pic && pic.Tag is personnage_base tagPion)
+                {
+                    if (tagPion.PositionGrille.Equals(depart))
+                    {
+                        pb = pic;
+                        pion = tagPion;
+                        break;
+                    }
+                }
+            }
+
+            if (pb != null && pion != null)
+                DeplacerPion(pion, pb, destination);
+        }
+    } }

@@ -249,6 +249,82 @@ namespace Stratego_Jean_Gazon.Reseau
         }
 
 
+        public async Task Envoyer_Combat(Point attaquant, Point defenseur, char resultat)
+        {
+            if (_clientHandler == null || !_clientHandler.Connected)
+                throw new InvalidOperationException("Aucun client connecté");
+
+            string message = $"COMBAT|{attaquant.X};{attaquant.Y}|{defenseur.X};{defenseur.Y}|{resultat}|<|EOM|>";
+            byte[] buffer = Encoding.UTF8.GetBytes(message);
+            Debug.WriteLine("Envoi du message de combat : " + message);
+
+            await _clientHandler.SendAsync(new ArraySegment<byte>(buffer), SocketFlags.None);
+        }
+
+        public async Task<(Point attaquant, Point defenseur, char resultat)> Reception_Combat()
+        {
+            if (_clientHandler == null || !_clientHandler.Connected)
+                throw new InvalidOperationException("Aucun client connecté");
+
+            byte[] buffer = new byte[1024];
+            StringBuilder messageComplet = new StringBuilder();
+
+            while (true)
+            {
+                int received = await _clientHandler.ReceiveAsync(
+                    new ArraySegment<byte>(buffer),
+                    SocketFlags.None);
+
+                messageComplet.Append(Encoding.UTF8.GetString(buffer, 0, received));
+                Debug.WriteLine("Message partiel reçu : " + messageComplet.ToString());
+
+                if (messageComplet.ToString().Contains("<|EOM|>"))
+                    break;
+            }
+
+            string message = messageComplet.ToString().Replace("<|EOM|>", "");
+
+            if (!message.StartsWith("COMBAT|", StringComparison.Ordinal))
+                throw new Exception("COMBAT attendu");
+
+            string data = message.Replace("COMBAT|", "");
+            string[] parts = data.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (parts.Length != 3)
+                throw new Exception("Format COMBAT invalide");
+
+            string[] a = parts[0].Split(';');
+            string[] d = parts[1].Split(';');
+
+            Point attaquant = new Point(int.Parse(a[0]), int.Parse(a[1]));
+            Point defenseur = new Point(int.Parse(d[0]), int.Parse(d[1]));
+            char resultat = parts[2][0];
+
+            return (attaquant, defenseur, resultat);
+        }
+
+        public async Task<string> RecevoirMessageAsync()
+        {
+            if (_clientHandler == null || !_clientHandler.Connected)
+                throw new InvalidOperationException("Client non connecté");
+
+            byte[] buffer = new byte[1024];
+            StringBuilder messageComplet = new StringBuilder();
+
+            while (true)
+            {
+                int received = await _clientHandler.ReceiveAsync(
+                    new ArraySegment<byte>(buffer),
+                    SocketFlags.None);
+
+                messageComplet.Append(Encoding.UTF8.GetString(buffer, 0, received));
+
+                int eomIndex = messageComplet.ToString().IndexOf("<|EOM|>", StringComparison.Ordinal);
+                if (eomIndex >= 0)
+                    return messageComplet.ToString().Substring(0, eomIndex);
+            }
+        }
+
         [DllImport("kernel32.dll")]
         private static extern bool AllocConsole();
     }
