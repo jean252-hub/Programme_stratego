@@ -569,5 +569,47 @@ namespace Stratego_Jean_Gazon
                 }
             }
         }
+
+        private void btnsave_Click(object sender, EventArgs e)
+        {
+            string path = $"sauvegarde_partie_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
+            Player currentPlayer = IsServeur ? Player.Player_Blue : Player.Player_Red;
+
+            grille_manager.SauvegarderPartie(path, currentPlayer);
+        }
+
+        private void btn_Charger_Click(object sender, EventArgs e)
+        {
+            if (IsServeur)
+            {
+                using (var dialog = new OpenFileDialog())
+                {
+                    dialog.Title = "Charger une sauvegarde";
+                    dialog.Filter = "Sauvegardes (*.txt)|*.txt|Tous les fichiers (*.*)|*.*";
+                    dialog.InitialDirectory = Environment.CurrentDirectory;
+                    dialog.RestoreDirectory = true;
+                    dialog.Multiselect = false;
+
+                    if (dialog.ShowDialog(this) != DialogResult.OK)
+                        return;
+
+                    grille_manager.ChargerPartie(dialog.FileName, out var joueurCourant);
+
+                    grille_manager.RecalculerTaillesEtPositions();
+                    var (largeurCase, hauteurCase, _, _) = grille_manager.GetTaillesEtPositions();
+                    Initialisation_Pion.PositionnerTousLesPions(PnlGrilleGame, largeurCase, hauteurCase);
+                    PnlGrilleGame.Refresh();
+
+                    // Si vous avez un moyen de setter le tour dans Players, faites-le ici.
+                    // Exemple (si propriété settable) : player.CurrentPlayer = joueurCourant;
+                }
+            }
+            else { grille_manager.recevirDataSave(); 
+                grille_manager.RecalculerTaillesEtPositions();
+                var (largeurCase, hauteurCase, _, _) = grille_manager.GetTaillesEtPositions();
+                Initialisation_Pion.PositionnerTousLesPions(PnlGrilleGame, largeurCase, hauteurCase);
+                PnlGrilleGame.Refresh();
+            }
+        }
     }
 }

@@ -35,7 +35,6 @@ namespace Stratego_Jean_Gazon
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FicJeu));
             this.PnlGrilleGame = new System.Windows.Forms.Panel();
-            this.Titre_Fenetre = new System.Windows.Forms.PictureBox();
             this.pnlMenuPause = new System.Windows.Forms.Panel();
             this.btnReprendre = new System.Windows.Forms.Button();
             this.btnJeuQuitter = new System.Windows.Forms.Button();
@@ -43,6 +42,7 @@ namespace Stratego_Jean_Gazon
             this.lbPause = new System.Windows.Forms.Label();
             this.ptLac1 = new System.Windows.Forms.PictureBox();
             this.ptLac2 = new System.Windows.Forms.PictureBox();
+            this.Titre_Fenetre = new System.Windows.Forms.PictureBox();
             this.btnValider = new System.Windows.Forms.Button();
             this.ImgListPerso = new System.Windows.Forms.ImageList(this.components);
             this.Btn_Pret = new System.Windows.Forms.Button();
@@ -50,11 +50,13 @@ namespace Stratego_Jean_Gazon
             this.lblFinPartie = new System.Windows.Forms.Label();
             this.picCoupe = new System.Windows.Forms.PictureBox();
             this.btnRetourMenu = new System.Windows.Forms.Button();
+            this.btnsave = new System.Windows.Forms.Button();
+            this.btn_Charger = new System.Windows.Forms.Button();
             this.PnlGrilleGame.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Titre_Fenetre)).BeginInit();
             this.pnlMenuPause.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptLac1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptLac2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Titre_Fenetre)).BeginInit();
             this.pnlFinPartie.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picCoupe)).BeginInit();
             this.SuspendLayout();
@@ -76,19 +78,11 @@ namespace Stratego_Jean_Gazon
             this.PnlGrilleGame.Paint += new System.Windows.Forms.PaintEventHandler(this.PnlGrilleGame_Paint);
             this.PnlGrilleGame.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PnlGrilleGame_MouseDown);
             // 
-            // Titre_Fenetre
-            // 
-            this.Titre_Fenetre.Image = global::Stratego_Jean_Gazon.Properties.Resources.titlestratego;
-            this.Titre_Fenetre.Location = new System.Drawing.Point(425, 6);
-            this.Titre_Fenetre.Name = "Titre_Fenetre";
-            this.Titre_Fenetre.Size = new System.Drawing.Size(190, 54);
-            this.Titre_Fenetre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Titre_Fenetre.TabIndex = 7;
-            this.Titre_Fenetre.TabStop = false;
-            // 
             // pnlMenuPause
             // 
             this.pnlMenuPause.BackColor = System.Drawing.Color.Brown;
+            this.pnlMenuPause.Controls.Add(this.btn_Charger);
+            this.pnlMenuPause.Controls.Add(this.btnsave);
             this.pnlMenuPause.Controls.Add(this.btnReprendre);
             this.pnlMenuPause.Controls.Add(this.btnJeuQuitter);
             this.pnlMenuPause.Controls.Add(this.pnlPausebtnrecommencer);
@@ -105,7 +99,7 @@ namespace Stratego_Jean_Gazon
             this.btnReprendre.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReprendre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReprendre.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReprendre.Location = new System.Drawing.Point(79, 70);
+            this.btnReprendre.Location = new System.Drawing.Point(78, 52);
             this.btnReprendre.Name = "btnReprendre";
             this.btnReprendre.Size = new System.Drawing.Size(147, 34);
             this.btnReprendre.TabIndex = 3;
@@ -119,7 +113,7 @@ namespace Stratego_Jean_Gazon
             this.btnJeuQuitter.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnJeuQuitter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJeuQuitter.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnJeuQuitter.Location = new System.Drawing.Point(79, 188);
+            this.btnJeuQuitter.Location = new System.Drawing.Point(78, 209);
             this.btnJeuQuitter.Name = "btnJeuQuitter";
             this.btnJeuQuitter.Size = new System.Drawing.Size(147, 34);
             this.btnJeuQuitter.TabIndex = 2;
@@ -133,7 +127,7 @@ namespace Stratego_Jean_Gazon
             this.pnlPausebtnrecommencer.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pnlPausebtnrecommencer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.pnlPausebtnrecommencer.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlPausebtnrecommencer.Location = new System.Drawing.Point(79, 130);
+            this.pnlPausebtnrecommencer.Location = new System.Drawing.Point(78, 129);
             this.pnlPausebtnrecommencer.Name = "pnlPausebtnrecommencer";
             this.pnlPausebtnrecommencer.Size = new System.Drawing.Size(147, 34);
             this.pnlPausebtnrecommencer.TabIndex = 1;
@@ -175,6 +169,16 @@ namespace Stratego_Jean_Gazon
             this.ptLac2.Size = new System.Drawing.Size(110, 72);
             this.ptLac2.TabIndex = 1;
             this.ptLac2.TabStop = false;
+            // 
+            // Titre_Fenetre
+            // 
+            this.Titre_Fenetre.Image = global::Stratego_Jean_Gazon.Properties.Resources.titlestratego;
+            this.Titre_Fenetre.Location = new System.Drawing.Point(425, 6);
+            this.Titre_Fenetre.Name = "Titre_Fenetre";
+            this.Titre_Fenetre.Size = new System.Drawing.Size(190, 54);
+            this.Titre_Fenetre.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Titre_Fenetre.TabIndex = 7;
+            this.Titre_Fenetre.TabStop = false;
             // 
             // btnValider
             // 
@@ -273,6 +277,36 @@ namespace Stratego_Jean_Gazon
             this.btnRetourMenu.UseVisualStyleBackColor = false;
             this.btnRetourMenu.Click += new System.EventHandler(this.BtnRetourMenu_Click);
             // 
+            // btnsave
+            // 
+            this.btnsave.BackColor = System.Drawing.Color.Gold;
+            this.btnsave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnsave.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnsave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnsave.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnsave.Location = new System.Drawing.Point(78, 169);
+            this.btnsave.Name = "btnsave";
+            this.btnsave.Size = new System.Drawing.Size(147, 34);
+            this.btnsave.TabIndex = 4;
+            this.btnsave.Text = "Sauvegarder";
+            this.btnsave.UseVisualStyleBackColor = false;
+            this.btnsave.Click += new System.EventHandler(this.btnsave_Click);
+            // 
+            // btn_Charger
+            // 
+            this.btn_Charger.BackColor = System.Drawing.Color.Gold;
+            this.btn_Charger.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn_Charger.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_Charger.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Charger.Font = new System.Drawing.Font("Impact", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Charger.Location = new System.Drawing.Point(78, 92);
+            this.btn_Charger.Name = "btn_Charger";
+            this.btn_Charger.Size = new System.Drawing.Size(147, 34);
+            this.btn_Charger.TabIndex = 5;
+            this.btn_Charger.Text = "Chager Partie";
+            this.btn_Charger.UseVisualStyleBackColor = false;
+            this.btn_Charger.Click += new System.EventHandler(this.btn_Charger_Click);
+            // 
             // FicJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -289,11 +323,11 @@ namespace Stratego_Jean_Gazon
             this.Load += new System.EventHandler(this.FicJeu_Load);
             this.SizeChanged += new System.EventHandler(this.FicJeu_SizeChanged);
             this.PnlGrilleGame.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Titre_Fenetre)).EndInit();
             this.pnlMenuPause.ResumeLayout(false);
             this.pnlMenuPause.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptLac1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptLac2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Titre_Fenetre)).EndInit();
             this.pnlFinPartie.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picCoupe)).EndInit();
             this.ResumeLayout(false);
@@ -318,5 +352,7 @@ namespace Stratego_Jean_Gazon
         private System.Windows.Forms.PictureBox picCoupe;
         private System.Windows.Forms.Button btnRetourMenu;
         private PictureBox Titre_Fenetre;
+        private Button btnsave;
+        private Button btn_Charger;
     }
 }

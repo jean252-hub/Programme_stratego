@@ -39,6 +39,30 @@ namespace Stratego_Jean_Gazon.Reseau
             _clientHandler = await listener.AcceptAsync();
             Console.WriteLine("Client connecté");
         }
+        public async Task EnvoyerPositionBleuCharger(Dictionary<Point, personnage_base> pionsBleus)
+        {
+            if (_clientHandler == null || !_clientHandler.Connected)
+                throw new InvalidOperationException("Client non connecté");
+
+            var messageBuilder = new StringBuilder();
+            messageBuilder.Append("INIT_PIONS|");
+
+            foreach (var kvp in pionsBleus)
+            {
+                Point position = kvp.Key;
+                personnage_base perso = kvp.Value;
+
+                // IMPORTANT: envoyer le Grade au lieu du nom de type
+                messageBuilder.Append($"{position.X};{position.Y};{perso.Grade}|");
+            }
+
+            messageBuilder.Append("<|EOM|>");
+
+            byte[] messageBytes = Encoding.UTF8.GetBytes(messageBuilder.ToString());
+
+            await _clientHandler.SendAsync(new ArraySegment<byte>(messageBytes), SocketFlags.None);
+            Console.WriteLine("Initialisation des pions bleus envoyée");
+        }
         public async Task EnvoyerPositionBleu(
        Dictionary<Point, personnage_base> pionsBleus)
         {

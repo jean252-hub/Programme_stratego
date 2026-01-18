@@ -280,31 +280,46 @@ namespace Stratego_Jean_Gazon.Reseau
         }
 
         // Factory pour créer les personnages côté client (bleu)
-        private personnage_base CreerPersonnageBleu(string classe, Point position)
-        {
-            bool couleurBleu = true;
+        private personnage_base CreerPersonnage(string grade, bool couleur, Point position)
+{
+    switch (grade)
+    {
+        case "Drapeau": return new Drapeau(couleur, position);
+        case "Bombe": return new Bombe(couleur, position);
+        case "Espion": return new Espion(couleur, position);
 
-            switch (classe)
-            {
-                case "Drapeau": return new Drapeau(couleurBleu, position);
-                case "Bombe": return new Bombe(couleurBleu, position);
-                case "Espion": return new Espion(couleurBleu, position);
-                case "Eclaireur":
-                case "Éclaireur": return new Eclaireur(couleurBleu, position);
-                case "Demineur":
-                case "Démineur": return new Demineur(couleurBleu, position);
-                case "Sergent": return new Sergent(couleurBleu, position);
-                case "Lieutenant": return new Lieutenant(couleurBleu, position);
-                case "Capitaine": return new Capitaine(couleurBleu, position);
-                case "Commandant": return new Commandant(couleurBleu, position);
-                case "Colonel": return new Colonel(couleurBleu, position);
-                case "General":
-                case "Général": return new General(couleurBleu, position);
-                case "Marechal":
-                case "Maréchal": return new Marechal(couleurBleu, position);
-                default: throw new Exception("Classe inconnue : " + classe);
-            }
-        }
+        case "Eclaireur":
+        case "Éclaireur": return new Eclaireur(couleur, position);
+
+        case "Demineur":
+        case "Démineur": return new Demineur(couleur, position);
+
+        case "Sergent": return new Sergent(couleur, position);
+        case "Lieutenant": return new Lieutenant(couleur, position);
+        case "Capitaine": return new Capitaine(couleur, position);
+        case "Commandant": return new Commandant(couleur, position);
+        case "Colonel": return new Colonel(couleur, position);
+
+        case "General":
+        case "Général": return new General(couleur, position);
+
+        case "Marechal":
+        case "Maréchal": return new Marechal(couleur, position);
+
+        default:
+            throw new Exception("Grade inconnu : " + grade);
+    }
+}
+
+private personnage_base CreerPersonnageBleu(string grade, Point position)
+{
+    return CreerPersonnage(grade, true, position);
+}
+
+private personnage_base CreerPersonnageRouge(string grade, Point position)
+{
+    return CreerPersonnage(grade, false, position);
+}
 
         public async Task Envoyer_Combat(Point attaquant, Point defenseur, char resultat)
         {
@@ -381,6 +396,47 @@ namespace Stratego_Jean_Gazon.Reseau
                     return messageComplet.ToString().Substring(0, eomIndex);
                 }
             }
+        }
+
+        public async Task<Dictionary<Point, personnage_base>> ReceptionInitialisationRouge()
+        {
+            if (_clientSocket == null || !_clientSocket.Connected)
+                throw new InvalidOperationException("Socket non connecté");
+
+            byte[] buffer = new byte[1024];
+            var messageComplet = new StringBuilder();
+
+            while (true)
+            {
+                int received = await _clientSocket.ReceiveAsync(new ArraySegment<byte>(buffer), SocketFlags.None);
+                messageComplet.Append(Encoding.UTF8.GetString(buffer, 0, received));
+                if (messageComplet.ToString().Contains("<|EOM|>"))
+                    break;
+            }
+
+            string message = messageComplet.ToString().Replace("<|EOM|>", "");
+            if (!message.StartsWith("INIT_PIONS|"))
+                throw new Exception("INIT_PIONS attendu");
+
+            var pionsRouges = new Dictionary<Point, personnage_base>();
+            string data = message.Replace("INIT_PIONS|", "");
+            string[] pions = data.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string pion in pions)
+            {
+                string[] infos = pion.Split(';');
+                if (infos.Length != 3)
+                    continue;
+
+                int x = int.Parse(infos[0]);
+                int y = int.Parse(infos[1]);
+                string grade = infos[2];
+
+                Point position = new Point(x, y);
+                pionsRouges.Add(position, CreerPersonnageRouge(grade, position));
+            }
+
+            return pionsRouges;
         }
     }
 

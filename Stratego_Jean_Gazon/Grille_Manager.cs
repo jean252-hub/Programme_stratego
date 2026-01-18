@@ -7,6 +7,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Text;
+using System.Globalization;
 
 namespace Stratego_Jean_Gazon
 {
@@ -794,5 +797,171 @@ namespace Stratego_Jean_Gazon
 
             if (pb != null && pion != null)
                 DeplacerPion(pion, pb, destination);
+        }
+        public void SauvegarderPartie(string filePath, Player joueurCourant)
+        {
+            if (filePath == null)
+                throw new ArgumentNullException(nameof(filePath));
+
+            RebuildDictionnairesDepuisUI();
+
+            var sb = new StringBuilder();
+
+            sb.AppendLine("TURN=" + (joueurCourant == Player.Player_Blue ? "Blue" : "Red"));
+
+            foreach (Control ctrl in PnlGrilleGame.Controls)
+            {
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base pion)
+                {
+                    string team = pion.Couleur ? "B" : "R";
+                    sb.AppendLine(string.Format(
+                        CultureInfo.InvariantCulture,
+                        "{0};{1};{2};{3}",
+                        team,
+                        pion.PositionGrille.X,
+                        pion.PositionGrille.Y,
+                        pion.Grade));
+                }
+            }
+
+            File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8);
+        }
+
+        public void ChargerPartie(string filePath, out Player joueurCourant)
+        {
+            if (filePath == null)
+                throw new ArgumentNullException(nameof(filePath));
+
+            // IMPORTANT: repartir d'une grille propre pour pouvoir restaurer aussi les pièces "mortes"
+            Piece_Init();
+
+            string[] lines = File.ReadAllLines(filePath, Encoding.UTF8);
+
+            joueurCourant = Player.Player_Blue;
+
+            var positionsBleues = new Dictionary<Point, personnage_base>();
+            var positionsRouges = new Dictionary<Point, personnage_base>();
+
+            var positionsBleuesSet = new HashSet<Point>();
+            var positionsRougesSet = new HashSet<Point>();
+
+            foreach (string raw in lines)
+            {
+                string line = raw.Trim();
+                if (line.Length == 0)
+                    continue;
+
+                if (line.StartsWith("TURN=", StringComparison.OrdinalIgnoreCase))
+                {
+                    string v = line.Substring("TURN=".Length).Trim();
+                    joueurCourant = string.Equals(v, "Red", StringComparison.OrdinalIgnoreCase)
+                        ? Player.Player_Red
+                        : Player.Player_Blue;
+                    continue;
+                }
+
+                string[] parts = line.Split(';');
+                if (parts.Length < 4)
+                    continue;
+
+                string team = parts[0];
+                int x = int.Parse(parts[1], CultureInfo.InvariantCulture);
+                int y = int.Parse(parts[2], CultureInfo.InvariantCulture);
+                string grade = parts[3];
+
+                var pos = new Point(x, y);
+
+                personnage_base tmp = CreerPersonnageTemporaire(
+                    team.Equals("B", StringComparison.OrdinalIgnoreCase),
+                    grade,
+                    pos);
+
+                if (team.Equals("B", StringComparison.OrdinalIgnoreCase))
+                {
+                    positionsBleues[pos] = tmp;
+                    positionsBleuesSet.Add(pos);
+                }
+                else
+                {
+                    positionsRouges[pos] = tmp;
+                    positionsRougesSet.Add(pos);
+                }
+            }
+
+            // Appliquer les positions aux Tag existants
+            AppliquerInitialisationAdverseSansId(positionsBleues, true);
+            AppliquerInitialisationAdverseSansId(positionsRouges, false);
+
+            // Supprimer les pièces absentes de la sauvegarde (mortes)
+            SupprimerPiecesAbsentes(positionsBleuesSet, true);
+            SupprimerPiecesAbsentes(positionsRougesSet, false);
+
+            // Rebuild final
+            RebuildDictionnairesDepuisUI();
+            EnvoyerDataSave();
+        }
+        private async void EnvoyerDataSave()
+        {
+            //await EnvoyerPositionsPions();
+            //envoyer position bleu n'envoie enfaite que le dictionnaire on peut envoyer le rouge ou le bleu 
+            await serveur.EnvoyerPositionBleu(PositionsPionsBleus);
+            await serveur.EnvoyerPositionBleu(PositionsPionsRouges);
+            AppliquerInitialisationAdverseSansId(PositionsPionsRouges, false);
+            AppliquerInitialisationAdverseSansId(PositionsPionsBleus, true);
+        }
+        public async void recevirDataSave()
+        {
+            PositionsPionsBleus = await client.ReceptionInitialisationBleu();
+            PositionsPionsRouges = await client.ReceptionInitialisationRouge();
+        }
+
+
+        private static personnage_base CreerPersonnageTemporaire(bool couleur, string grade, Point position)
+        {
+            // Suffit pour que .Grade et .PositionGrille soient cohérents.
+            // Le type exact n'est pas critique pour un mapping "par grade" au chargement.
+            // On réutilise votre logique de création existante : côté bleu/rouge, le grade peut varier accentué/non accentué.
+            switch (grade)
+            {
+                case "Drapeau": return new Drapeau(couleur, position);
+                case "Bombe": return new Bombe(couleur, position);
+                case "Espion": return new Espion(couleur, position);
+                case "Eclaireur":
+                case "Éclaireur": return new Eclaireur(couleur, position);
+                case "Demineur":
+                case "Démineur": return new Demineur(couleur, position);
+                case "Sergent": return new Sergent(couleur, position);
+                case "Lieutenant": return new Lieutenant(couleur, position);
+                case "Capitaine": return new Capitaine(couleur, position);
+                case "Commandant": return new Commandant(couleur, position);
+                case "Colonel": return new Colonel(couleur, position);
+                case "General":
+                case "Général": return new Marechal(couleur, position);
+                case "Marechal":
+                case "Maréchal": return new Marechal(couleur, position);
+                default: throw new Exception("Grade inconnu dans la sauvegarde : " + grade);
+            }
+        }
+
+        private void SupprimerPiecesAbsentes(HashSet<Point> positionsExistantes, bool couleurEquipe)
+        {
+            var toRemove = new List<PictureBox>();
+
+            foreach (Control ctrl in PnlGrilleGame.Controls)
+            {
+                if (ctrl is PictureBox pb && pb.Tag is personnage_base pion && pion.Couleur == couleurEquipe)
+                {
+                    if (!positionsExistantes.Contains(pion.PositionGrille))
+                        toRemove.Add(pb);
+                }
+            }
+
+            foreach (PictureBox pb in toRemove)
+            {
+                if (pb.Tag is personnage_base pion)
+                    SupprimerPion(pion.PositionGrille, pion.Couleur);
+
+                PnlGrilleGame.Controls.Remove(pb);
+            }
         }
     } }
